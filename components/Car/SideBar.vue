@@ -47,9 +47,7 @@
    }
 
    const onChangeMake = make => {
-      // My test 1 - DH
       if (!make || make === 'Any') {
-         // alert('Make:', make)
          navigateTo(`/city/${route.params.city}/car/`)
       } else {
          navigateTo(
