@@ -1,8 +1,8 @@
 <script setup>
    const props = defineProps({
       title: String,
-      name: String,
       options: Array,
+      name: String,
    })
 
    const emits = defineEmits(['changeInput'])
@@ -20,7 +20,7 @@
       <select
          name=""
          id=""
-         class="p-2 border w-100 rounded"
+         class="p-2 border w-100 rounded cursor-pointer"
          @change="onChange"
          v-model="state"
       >
