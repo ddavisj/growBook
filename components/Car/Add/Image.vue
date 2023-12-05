@@ -43,10 +43,10 @@
                   required
                   type="file"
                   accept="image/*"
-                  class="opacity-0 absolute cursor-pointer"
+                  class="h-[24px] text-[0px] opacity-0 absolute w-full cursor-pointer"
                   @change="onImageUpload"
                />
-               <p class="cursor-pointer">Upload File</p>
+               <span>Upload File</span>
             </div>
             <div
                class="border p-2 mt-3 w-56"
