@@ -25,10 +25,6 @@
 
    const errorMessage = ref('')
 
-   const onChangeInput = (data, name) => {
-      info.value[name] = data
-   }
-
    const inputs = [
       {
          id: 1,
@@ -83,6 +79,10 @@
       return false
    })
 
+   const onChangeInput = (data, name) => {
+      info.value[name] = data
+   }
+
    const handleSubmit = async () => {
       const fileName = Math.floor(
          Math.random() * 10000000000000000000
@@ -108,7 +108,7 @@
          image: data.path,
       }
 
-      delete body.seats
+      delete body.seats // Not needed as we use numberOfSeats
 
       try {
          const response = await $fetch(
@@ -118,7 +118,14 @@
                body,
             }
          )
-         navigateTo('/profile/listings')
+
+         alert(
+            `Great success. Your ${info.value.make} ${info.value.model} was listed!`
+         )
+         // navigateTo('/profile/listings')
+
+         childComponentRef.value.clearImage()
+         // Clear image in child comp ( `childComponentRef.value` accesses the comp instance)
       } catch (err) {
          errorMessage.value = err.statusMessage
          await supabase.storage
@@ -126,6 +133,8 @@
             .remove(data.path)
       }
    }
+
+   const childComponentRef = ref(null)
 </script>
 
 <template>
@@ -156,14 +165,17 @@
             placeholder=""
             @change-input="onChangeInput"
          />
-         <CarAddImage @change-input="onChangeInput" />
-         <div>
+         <CarAddImage
+            ref="childComponentRef"
+            @change-input="onChangeInput"
+         />
+         <div class="w-full text-center">
             <button
                :disabled="false"
                @click="handleSubmit"
-               class="bg-blue-400 text-white rounded py-2 px-7 mt-3"
+               class="bg-blue-400 text-white rounded py-2 px-7 mt-8"
             >
-               Submit
+               Create
             </button>
             <p
                v-if="errorMessage"

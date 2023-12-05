@@ -5,6 +5,8 @@
 
    const emits = defineEmits(['deleteClick'])
    const config = useRuntimeConfig()
+
+   const {toTitleCase} = useUtilities()
 </script>
 
 <template>
@@ -19,6 +21,9 @@
          />
          <div class="p-3">
             <h1 class="text-2xl">{{ listing.name }}</h1>
+            <h3 class="text-l">
+               {{ toTitleCase(listing.city) }}
+            </h3>
             <p class="text-blue-400">
                ${{ listing.price }}
             </p>
@@ -28,7 +33,7 @@
          <NuxtLink
             class="text-blue-400 mr-5"
             :to="`/profile/listings/view/${listing.id}`"
-            >View</NuxtLink
+            >Messages</NuxtLink
          >
          <p
             class="text-red-400 cursor-pointer"

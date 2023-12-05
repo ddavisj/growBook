@@ -10,6 +10,7 @@ export default defineEventHandler(async event => {
          listerId: userId,
       },
       select: {
+         city: true,
          image: true,
          id: true,
          name: true,

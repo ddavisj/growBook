@@ -20,6 +20,15 @@
          emits('changeInput', input.files[0], 'image')
       }
    }
+
+   const clearImage = () => {
+      console.log('Clearing image')
+      image.value.image = null
+      image.value.preview = null
+   }
+   defineExpose({
+      clearImage,
+   })
 </script>
 
 <template>
@@ -31,14 +40,13 @@
          <div class="form-group">
             <div class="relative">
                <input
+                  required
                   type="file"
                   accept="image/*"
                   class="opacity-0 absolute cursor-pointer"
                   @change="onImageUpload"
                />
-               <span class="cursor-pointer"
-                  >Upload File</span
-               >
+               <p class="cursor-pointer">Upload File</p>
             </div>
             <div
                class="border p-2 mt-3 w-56"
