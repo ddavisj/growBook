@@ -7,6 +7,9 @@
    const supabase = useSupabaseClient()
 
    const {makes} = useCars()
+   const filteredMakes = makes.filter(
+      make => !['', 'Any'].includes(make)
+   )
 
    const info = useState('adinfo', () => {
       return {
@@ -124,8 +127,16 @@
          )
          // navigateTo('/profile/listings')
 
-         childComponentRef.value.clearImage()
-         // Clear image in child comp ( `childComponentRef.value` accesses the comp instance)
+         // Clear state of child comps
+         //... `childComponentRef.value` accesses comp instance
+         childImageComponentRef.value.clearImage()
+         childSelectComponentRef.value.clearState()
+         childTAComponentRef.value.clearState()
+
+         for (let childInputComponentRef of childInputComponentsRef.value) {
+            // comp refs stored as an arr on .value
+            childInputComponentRef.clearInput()
+         }
       } catch (err) {
          errorMessage.value = err.statusMessage
          await supabase.storage
@@ -134,7 +145,10 @@
       }
    }
 
-   const childComponentRef = ref(null)
+   const childImageComponentRef = ref(null)
+   const childInputComponentsRef = ref(null)
+   const childSelectComponentRef = ref(null)
+   const childTAComponentRef = ref(null)
 </script>
 
 <template>
@@ -146,13 +160,15 @@
          class="shadow rounded p-3 mt-5 flex flex-wrap justify-between"
       >
          <CarAddSelect
+            ref="childSelectComponentRef"
             title="Make *"
-            :options="makes"
+            :options="filteredMakes"
             name="make"
             @change-input="onChangeInput"
          />
          <CarAddInput
             v-for="input in inputs"
+            ref="childInputComponentsRef"
             :key="input.id"
             :title="input.title"
             :name="input.name"
@@ -160,13 +176,14 @@
             @change-input="onChangeInput"
          />
          <CarAddTextarea
+            ref="childTAComponentRef"
             title="Description *"
             name="description"
             placeholder=""
             @change-input="onChangeInput"
          />
          <CarAddImage
-            ref="childComponentRef"
+            ref="childImageComponentRef"
             @change-input="onChangeInput"
          />
          <div class="w-full text-center">

@@ -10,6 +10,13 @@
    const onChange = () => {
       emits('changeInput', state.value, props.name)
    }
+
+   const clearState = () => {
+      state.value = null
+   }
+   defineExpose({
+      clearState,
+   })
 </script>
 
 <template>
