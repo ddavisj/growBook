@@ -1,4 +1,6 @@
 <script setup>
+   // My listings - viewable by user only
+
    definePageMeta({
       layout: 'custom',
    })
