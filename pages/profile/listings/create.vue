@@ -111,7 +111,7 @@
          image: data.path,
       }
 
-      delete body.seats // Not needed as we use numberOfSeats
+      delete body.seats // Not needed, we use numberOfSeats
 
       try {
          const response = await $fetch(
@@ -121,27 +121,29 @@
                body,
             }
          )
+         clearForm()
 
          alert(
             `Great success. Your ${info.value.make} ${info.value.model} was listed!`
          )
          // navigateTo('/profile/listings')
-
-         // Clear state of child comps
-         //... `childComponentRef.value` accesses comp instance
-         childImageComponentRef.value.clearImage()
-         childSelectComponentRef.value.clearState()
-         childTAComponentRef.value.clearState()
-
-         for (let childInputComponentRef of childInputComponentsRef.value) {
-            // comp refs stored as an arr on .value
-            childInputComponentRef.clearInput()
-         }
       } catch (err) {
          errorMessage.value = err.statusMessage
          await supabase.storage
             .from('images')
             .remove(data.path)
+      }
+   }
+
+   const clearForm = () => {
+      // Clear state of child comps - childXComp.value accesses comp instance
+      childImageComponentRef.value.clearImage()
+      childSelectComponentRef.value.clearState()
+      childTAComponentRef.value.clearState()
+
+      for (let childInputComponentRef of childInputComponentsRef.value) {
+         // refs stored as arr on .value
+         childInputComponentRef.clearInput()
       }
    }
 
