@@ -18,7 +18,7 @@
    <template>
       <div>
          <div class="shadow rounded p-3 mt-5">
-            <CarListingCard
+            <CarMyListingCard
                v-for="listing in listings"
                :key="listing.id"
                :listing="listing"

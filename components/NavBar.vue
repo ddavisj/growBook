@@ -3,6 +3,8 @@
 
    const user = useSupabaseUser()
 
+   // const regCheck =
+
    const signOut = () => {
       const {error} = supabase.auth.signOut()
 
@@ -19,8 +21,11 @@
       <NuxtLink class="text-3xl font-mono" to="/"
          >cartrader</NuxtLink
       >
-      <div v-if="user" class="flex font-mono">
-         <NuxtLink to="/profile/listings" class="mr-5"
+      <div v-if="user" class="flex items-center font-mono">
+         <NuxtLink to="/user/account">
+            <GoogleAvatar class="h-10" />
+         </NuxtLink>
+         <NuxtLink to="/profile/listings" class="ml-4 mr-5"
             >Profile</NuxtLink
          >
          <p

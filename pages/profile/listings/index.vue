@@ -31,8 +31,11 @@
             >+</NuxtLink
          >
       </div>
+      <h3 class="text-xl text-green-500 mt-5">
+         <NuxtLink to="/user/account">My account</NuxtLink>
+      </h3>
       <div class="shadow rounded p-3 mt-5">
-         <CarListingCard
+         <CarMyListingCard
             v-for="listing in listings"
             :key="listing.id"
             :listing="listing"

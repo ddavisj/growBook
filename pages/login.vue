@@ -8,6 +8,10 @@
    const login = async () => {
       const {error} = supabase.auth.signInWithOAuth({
          provider: 'google',
+         // options: {
+         //    redirectTo:
+         //       'http://localhost:3000/user/register',
+         // },
       })
 
       if (error) {
