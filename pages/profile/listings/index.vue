@@ -7,7 +7,7 @@
 
    const user = useSupabaseUser()
 
-   const {data: listings} = await useFetch(
+   const { data: listings } = await useFetch(
       `/api/car/listings/user/${user.value.id}`
    )
 
@@ -31,7 +31,7 @@
             >+</NuxtLink
          >
       </div>
-      <h3 class="text-xl text-green-500 mt-5">
+      <h3 class="text-xl text-blue-400 mt-5">
          <NuxtLink to="/user/account">My account</NuxtLink>
       </h3>
       <div class="shadow rounded p-3 mt-5">

@@ -6,16 +6,19 @@
 
    const user = useSupabaseUser()
 
-   // Check if user has regd
+   // Check if user has regd - DH to fix
    const isFirstLogin = async () => {
-      const {data} = await useFetch('/api/user/get-user', {
-         params: {
-            userId: user.value.id,
-         },
-      })
-      if (data.value) {
-         navigateTo('/')
-      }
+      const { data } = await useFetch(
+         '/api/user/get-user',
+         {
+            params: {
+               userId: user.value.id,
+            },
+         }
+      )
+      // if (data.value) {
+      //    navigateTo('/')
+      // }
    }
 
    isFirstLogin()
@@ -47,7 +50,7 @@
    const message = ref('')
 
    const handleUsernameCheck = async () => {
-      const {data} = await useFetch(
+      const { data } = await useFetch(
          `/api/user/check-username/${usernameState.value}`
       )
 
@@ -74,7 +77,7 @@
          })
          message.value = 'Registration complete'
       } catch (e) {
-         message.value = 'There was an error'
+         message.value = 'There was an error: ' + e
       }
    }
 </script>
@@ -90,7 +93,7 @@
          >
             Enter a username*
          </label>
-         <div class="flex overflow-hidden mx-auto">
+         <div class="flex mt-3 overflow-hidden mx-auto">
             <input
                type="text"
                class="p-2 border w-100 rounded"

@@ -1,41 +1,52 @@
 <script setup>
+   // import { NuxtLink } from '#build/components'
+
    // My user details: /user/account
    definePageMeta({
       layout: 'custom',
+      middleware: ['page-auth'],
    })
 
    const user = useSupabaseUser()
 
-   const state = ref(null)
+   const AuthStore = useAuthStore()
 
-   const getResponse = async () => {
-      const {data} = await useFetch('/api/user/get-user', {
-         params: {
-            userId: user.value.id,
-         },
-      })
+   //    const state = ref(null)
 
-      state.value = data.value.user_name
-   }
+   //    const getResponse = async () => {
+   //       const {data} = await useFetch('/api/user/get-user', {
+   //          params: {
+   //             userId: user.value.id,
+   //          },
+   //       })
 
-   getResponse()
+   //       state.value = data.value.user_name
+   //    }
+   // getResponse()
 </script>
 
 <template>
-   <div v-if="state">
+   <div>
       <h1 class="mt-24 text-6xl text-black-600 mb-4">
          My account
       </h1>
 
       <div class="flex items-center">
-         <NuxtImg
-            :src="user.user_metadata.picture"
-            class="rounded-full"
-         ></NuxtImg>
+         <GoogleAvatar />
 
-         <p class="text-xl ml-5 mb-3 mt-5">
-            {{ state }}
-         </p>
+         <div class="text-xl ml-5 mb-3 mt-5">
+            <p v-if="AuthStore.username">
+               {{ AuthStore.username }}
+            </p>
+            <p v-else>
+               <NuxtLink
+                  to="/user/register"
+                  class="text-blue-400"
+                  >Not yet registered.. Register
+                  now!</NuxtLink
+               >
+            </p>
+         </div>
       </div>
       <p class="text-xl mb-3 mt-5">
          Email: {{ user.email }}

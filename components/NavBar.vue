@@ -1,17 +1,7 @@
 <script setup>
-   const supabase = useSupabaseClient()
+   const AuthStore = useAuthStore()
 
-   const user = useSupabaseUser()
-
-   // const regCheck =
-
-   const signOut = () => {
-      const {error} = supabase.auth.signOut()
-
-      if (error) {
-         console.log(error)
-      }
-   }
+   AuthStore.checkLogin()
 </script>
 
 <template>
@@ -21,18 +11,22 @@
       <NuxtLink class="text-3xl font-mono" to="/"
          >cartrader</NuxtLink
       >
-      <div v-if="user" class="flex items-center font-mono">
+
+      <div
+         v-if="AuthStore.loggedIn"
+         class="flex items-center font-mono"
+      >
          <NuxtLink to="/user/account">
             <GoogleAvatar class="h-10" />
          </NuxtLink>
+
          <NuxtLink to="/profile/listings" class="ml-4 mr-5"
             >Profile</NuxtLink
          >
+
          <p
             class="font-mono cursor-pointer"
-            @click="signOut"
-            to="/"
-            v-if="user"
+            @click="AuthStore.logout"
          >
             Logout
          </p>
