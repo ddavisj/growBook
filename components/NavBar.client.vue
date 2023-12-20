@@ -1,7 +1,7 @@
 <script setup>
    const AuthStore = useAuthStore()
-
    AuthStore.checkLogin()
+   AuthStore.loadUserName()
 </script>
 
 <template>

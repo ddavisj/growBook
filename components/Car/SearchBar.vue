@@ -11,7 +11,7 @@
 
 <template>
    <div
-      class="font-serif text-2xl rounded-full bg-white flex justify-between overflow-hidden drop-shadow-2xl mx-auto"
+      class="font-serif text-2xl rounded-full flex justify-between overflow-hidden drop-shadow-2xl mx-auto"
    >
       <input
          type="text"
@@ -21,7 +21,7 @@
          v-model="city"
       />
       <button
-         class="bg-sky-500 px-10 text-white"
+         class="bg-sky-500 px-10 text-white rounded-full"
          @click="handleSearch"
       >
          Search

@@ -32,3 +32,5 @@ tailwind.config.js
 tsconfig.json
 settings.json
 schema.prisma
+
+scratch*

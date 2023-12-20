@@ -6,24 +6,34 @@ export const useAuthStore = defineStore('AuthStore', {
          username: null,
       }
    },
-
-   getters: {
-      async loadUserName() {
-         const user = useSupabaseUser()
-         const { data } = await useFetch(
-            '/api/user/get-user',
-            {
-               params: {
-                  userId: user.value.id,
-               },
-            }
-         )
-
-         this.username = data.value.user_name
-      },
-   },
-
+   getters: {},
    actions: {
+      async loadUserName() {
+         if (this.loggedIn && !this.username) {
+            await useFetch('/api/user/get-user', {
+               params: {
+                  userId: this.user.id,
+               },
+               onResponse({ response }) {
+                  const AuthStore = useAuthStore()
+
+                  if (response._data) {
+                     AuthStore.username =
+                        response._data.user_name
+                  } else {
+                     console.log('No data')
+                  }
+               },
+               onResponseError({ request, response }) {
+                  console.log(
+                     'Fetch error',
+                     request,
+                     response
+                  )
+               },
+            })
+         }
+      },
       checkLogin() {
          const user = useSupabaseUser()
          this.loggedIn = !!user.value

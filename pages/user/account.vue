@@ -1,28 +1,11 @@
 <script setup>
-   // import { NuxtLink } from '#build/components'
-
    // My user details: /user/account
    definePageMeta({
       layout: 'custom',
       middleware: ['page-auth'],
    })
 
-   const user = useSupabaseUser()
-
    const AuthStore = useAuthStore()
-
-   //    const state = ref(null)
-
-   //    const getResponse = async () => {
-   //       const {data} = await useFetch('/api/user/get-user', {
-   //          params: {
-   //             userId: user.value.id,
-   //          },
-   //       })
-
-   //       state.value = data.value.user_name
-   //    }
-   // getResponse()
 </script>
 
 <template>
@@ -49,7 +32,7 @@
          </div>
       </div>
       <p class="text-xl mb-3 mt-5">
-         Email: {{ user.email }}
+         Email: {{ AuthStore.user.email }}
       </p>
    </div>
 </template>
