@@ -31,7 +31,7 @@
             </p>
          </div>
       </div>
-      <p class="text-xl mb-3 mt-5">
+      <p v-if="AuthStore.user" class="text-xl mb-3 mt-5">
          Email: {{ AuthStore.user.email }}
       </p>
    </div>

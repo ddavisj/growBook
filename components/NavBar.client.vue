@@ -4,12 +4,12 @@
    AuthStore.loadUserName()
 </script>
 
-<template>
+<template class="">
    <header
-      class="sticky top-0 z-50 flex justify-between items-center space-x-1 border-b bg-white p-4 shadow-md"
+      class="dark:bg-black bg-white sticky top-0 z-50 flex justify-between items-center space-x-1 border-b p-4 shadow-md"
    >
       <NuxtLink class="text-3xl font-mono" to="/"
-         >cartrader</NuxtLink
+         >growBook</NuxtLink
       >
 
       <div
@@ -17,10 +17,10 @@
          class="flex items-center font-mono"
       >
          <NuxtLink to="/user/account">
-            <GoogleAvatar class="h-10" />
+            <GoogleAvatar showTitle class="h-9" />
          </NuxtLink>
 
-         <NuxtLink to="/profile/listings" class="ml-4 mr-5"
+         <NuxtLink to="/profile/plants" class="ml-4 mr-5"
             >Profile</NuxtLink
          >
 

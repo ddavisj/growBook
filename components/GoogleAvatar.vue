@@ -13,13 +13,13 @@
    // userPic.value = 'user.png'
    // userPic.value = user.value
    const googlePic = user.value.user_metadata.picture
+   console.log('googlePic', googlePic)
    userPic.value = googlePic ? googlePic : 'user.png'
    // ;('')
 </script>
 
 <template>
    <NuxtImg
-      v-if="userPic"
       :src="userPic"
       alt="User image"
       class="rounded-full"

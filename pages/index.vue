@@ -1,11 +1,11 @@
 <script setup>
    useHead({
-      title: 'Car Trader',
+      title: 'growBook',
    })
 </script>
 
 <template>
    <div>
-      <CarHero />
+      <PlantHero />
    </div>
 </template>

@@ -18,7 +18,7 @@
          console.log('Signed in!')
          message.value = 'Signing in..'
          setTimeout(() => {
-            navigateTo('/profile/listings')
+            navigateTo('/profile/plants')
             AuthStore.loggedIn = true
          }, 500)
       } catch (error) {
