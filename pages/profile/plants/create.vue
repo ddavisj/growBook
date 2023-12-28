@@ -26,11 +26,11 @@
       'months',
       'years',
    ]
-   const ageUnits = ref(ageUnitsOptions[0])
+   // const ageUnits = ref(ageUnitsOptions[0])
 
-   let ageInDays = computed(() => {
+   const ageInDays = computed(() => {
       const ageNum = parseInt(info.value.age)
-      switch (ageUnits.value) {
+      switch (info.value.ageUnits) {
          case 'days':
             return ageNum
          case 'weeks':
@@ -44,6 +44,7 @@
 
    const info = useState('adinfo', () => {
       return {
+         ageUnits: ageUnitsOptions[0],
          type: '',
          age: 0,
          commonName: '',
@@ -114,6 +115,7 @@
          ...info.value,
          type: info.value.type,
          age: Math.floor(ageInDays.value),
+         // Need to change age in days to birthday! Bc this will change as time goes on.. drrr!
          commonName: info.value.commonName,
          indoor: '', // FIX
          listerId: user.value.id,
@@ -123,6 +125,8 @@
          lengthOfCare: 0, // FIX
          availability: [], // FIX
       }
+
+      delete body.ageUnits // Not needed (used for compute)
 
       console.log({ body })
 
@@ -139,15 +143,14 @@
             `Great success. Your ${info.value.commonName} was listed!`
          )
 
-         console.log('HEYA!')
-
-         // clearForm()
+         clearForm()
 
          // navigateTo('/profile/listings')
       } catch (err) {
          errorMessage.value = err.statusMessage
 
          console.log('Removing image??')
+         // FIX~!~?
          // await supabase.storage
          //    .from('images')
          //    .remove(data.path)
@@ -167,9 +170,9 @@
    }
 
    const childImageComponentRef = ref(null)
-   const childInputComponentsRef = ref(null)
    const childSelectComponentRef = ref(null)
    const childTAComponentRef = ref(null)
+   const childInputComponentsRef = ref(null)
 </script>
 
 <template>
@@ -184,8 +187,15 @@
          <h1 class="text-6xl">Add a Plant</h1>
       </div>
 
+      <button
+         @click="
+            console.log('Refs', childInputComponentsRef1)
+         "
+      >
+         childInputs
+      </button>
       <PlantAddInput
-         ref="childInputComponentsRef"
+         ref="childInputComponentsRef1"
          title="Common name *"
          name="commonName"
          placeholder="eg. Lucky bamboo"
@@ -210,27 +220,21 @@
       <div class="flex items-center">
          <PlantAddInput
             ref="childInputComponentsRef"
-            title="Age (days) *"
+            title="Age *"
             name="age"
             placeholder="eg. 30"
             @change-input="onChangeInput"
          />
          <PlantAddSelect
-            v-model="ageUnits.value"
-            class="mt-6 w-10"
-            ref="childSelectComponentRef"
-            title=""
-            :options="ageUnitsOptions"
+            class="ml-3 mt-8"
+            thin
             name="ageUnits"
             @change-input="onChangeInput"
-         />
-         <!-- <USelect
-            class="mt-6 ml-3 min-w-24 cursor-pointer"
-            v-model="ageUnits"
+            ref="childSelectComponentRef"
             :options="ageUnitsOptions"
-         /> -->
+            :default="ageUnitsOptions[0]"
+         />
       </div>
-
       <UButton
          @click="showExtras = !showExtras"
          class="mt-10 mb-6"

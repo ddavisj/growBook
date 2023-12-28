@@ -3,10 +3,12 @@
       title: String,
       options: Array,
       name: String,
+      default: String,
+      thin: Boolean,
    })
 
    const emits = defineEmits(['changeInput'])
-   const state = ref('')
+   const state = ref(props.default)
    const onChange = () => {
       emits('changeInput', state.value, props.name)
    }
@@ -20,7 +22,10 @@
 </script>
 
 <template>
-   <div class="flex flex-col md:w-[48%] mt-2">
+   <div
+      class="flex flex-col mt-2"
+      :class="props.thin ? 'w-24' : 'md:w-[48%]'"
+   >
       <label for="" class="text-cyan-500 mb-1 text-sm">
          {{ title }}
       </label>
