@@ -44,20 +44,15 @@
 
    const info = useState('adinfo', () => {
       return {
-         plantType: '',
+         type: '',
          age: 0,
          commonName: '',
-         // image: null,
          lengthOfCare: 0,
          source: '',
-         ideallyIndoor: true,
-         currentlyIndoor: true,
-         // FIX both above!
+         indoor: '',
          scientificName: '',
          nativeTo: '',
          ecotype: '',
-         wateringFreq: '',
-         feedingFreq: '',
          availability: [],
          image: null,
       }
@@ -66,8 +61,6 @@
    const onChangeInput = (data, name) => {
       info.value[name] = data
    }
-
-   // console.log('Age2', info.value.age)
 
    const errorMessage = ref('')
 
@@ -94,7 +87,7 @@
 
    const isButtonDisabled = computed(() => {
       // for (let key in info.value) {
-      // for (let key in { plantType, age, commonName }) {
+      // for (let key in { type, age, commonName }) {
       //    if (!info.value[key]) {
       //       return true
       //    }
@@ -103,11 +96,10 @@
    })
 
    const handleSubmit = async () => {
-      console.log('Indoor', info.value.ideallyIndoor)
-
       const fileName = Math.floor(
          Math.random() * 10000000000000000000
       )
+
       const { data, error } = await supabase.storage
          .from('images')
          .upload('public/' + fileName, info.value.image)
@@ -120,11 +112,10 @@
          // FIX!!!
 
          ...info.value,
-         type: info.value.plantType,
+         type: info.value.type,
          age: Math.floor(ageInDays.value),
          commonName: info.value.commonName,
-         ideallyIndoor: true, // FIX
-         currentlyIndoor: true, // FIX
+         indoor: '', // FIX
          listerId: user.value.id,
          image: data.path,
          // lengthOfCare: parseInt(info.value.lengthOfCare), ???
@@ -134,7 +125,6 @@
       }
 
       console.log({ body })
-      delete body.plantType // Not needed ?? Delete?
 
       try {
          const response = await $fetch(
@@ -144,17 +134,23 @@
                body,
             }
          )
-         // clearForm()
 
          alert(
             `Great success. Your ${info.value.commonName} was listed!`
          )
+
+         console.log('HEYA!')
+
+         // clearForm()
+
          // navigateTo('/profile/listings')
       } catch (err) {
          errorMessage.value = err.statusMessage
-         await supabase.storage
-            .from('images')
-            .remove(data.path)
+
+         console.log('Removing image??')
+         // await supabase.storage
+         //    .from('images')
+         //    .remove(data.path)
       }
    }
 
@@ -208,21 +204,31 @@
          ref="childSelectComponentRef"
          title="Plant type *"
          :options="filteredPlantTypes"
-         name="plantType"
+         name="type"
          @change-input="onChangeInput"
       />
       <div class="flex items-center">
          <PlantAddInput
+            ref="childInputComponentsRef"
             title="Age (days) *"
             name="age"
             placeholder="eg. 30"
             @change-input="onChangeInput"
          />
-         <USelect
-            class="mt-6 ml-3 min-w-24"
+         <PlantAddSelect
+            v-model="ageUnits.value"
+            class="mt-6 w-10"
+            ref="childSelectComponentRef"
+            title=""
+            :options="ageUnitsOptions"
+            name="ageUnits"
+            @change-input="onChangeInput"
+         />
+         <!-- <USelect
+            class="mt-6 ml-3 min-w-24 cursor-pointer"
             v-model="ageUnits"
             :options="ageUnitsOptions"
-         />
+         /> -->
       </div>
 
       <UButton
@@ -252,7 +258,7 @@
             ref="childSelectComponentRef"
             title="Indoors or out?"
             :options="['Indoor', 'Outdoor', 'Both']"
-            name="ideallyIndoor"
+            name="indoor"
             @change-input="onChangeInput"
          />
 

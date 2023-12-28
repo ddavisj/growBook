@@ -30,7 +30,7 @@
       <h3 class="text-xl text-blue-400 mt-5">
          <NuxtLink to="/user/account">My account</NuxtLink>
       </h3>
-      <div class="shadow rounded p-3 mt-5">
+      <div class="shadow rounded pt-3 mt-5">
          <PlantMyListingCard
             v-for="listing in listings"
             :key="listing.id"

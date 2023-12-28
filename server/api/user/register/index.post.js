@@ -1,7 +1,7 @@
 // Register user details
 import Joi from 'joi'
 
-import {PrismaClient} from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -10,12 +10,14 @@ const schema = Joi.object({
    firstName: Joi.string().required(),
    lastName: Joi.string().required(),
    userId: Joi.string().required(),
+   city: Joi.string().required(),
+   country: Joi.string().required(),
 })
 
 export default defineEventHandler(async event => {
    const body = await readBody(event)
 
-   const {error, value} = schema.validate(body)
+   const { error, value } = schema.validate(body)
 
    if (error) {
       throw createError({
@@ -26,7 +28,14 @@ export default defineEventHandler(async event => {
 
    // const {userName} = event.context.params
 
-   const {userName, firstName, lastName, userId} = body
+   const {
+      userName,
+      firstName,
+      lastName,
+      userId,
+      city,
+      country,
+   } = body
 
    const userNameExists = await prisma.user.findUnique({
       where: {
@@ -54,6 +63,8 @@ export default defineEventHandler(async event => {
             first_name: firstName,
             last_name: lastName,
             user_name: userName,
+            city,
+            country,
          },
       })
    }

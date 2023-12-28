@@ -6,6 +6,9 @@
 
    const user = useSupabaseUser()
 
+   const { countries } = useCountries()
+   const countryNames = countries.map(a => a.name)
+
    // Check if user has regd - DH to fix
    const isFirstLogin = async () => {
       const { data } = await useFetch(
@@ -23,9 +26,25 @@
 
    isFirstLogin()
 
-   const firstNameState = ref('')
-   const lastNameState = ref('')
-   const usernameState = ref('')
+   const info = useState('userinfo', () => {
+      return {
+         username: '',
+         lastName: '',
+         firstName: '',
+         city: '',
+         country: '',
+      }
+   })
+
+   const onChangeInput = (data, name) => {
+      info.value[name] = data
+   }
+
+   // const info.firstName ref('')
+   // const lastNameState = ref('')
+   // const usernameState = ref('')
+   // const cityState = ref('')
+   // const countryState = ref('')
 
    const usernameExists = reactive({
       checkComplete: false,
@@ -34,14 +53,14 @@
    })
 
    const isCheckDisabled = computed(() => {
-      if (!usernameState.value) {
+      if (!info.value.username) {
          return true
       }
       return false
    })
 
    const isSubmitDisabled = computed(() => {
-      if (!firstNameState.value || !!usernameExists.value) {
+      if (!info.value.firstName || !!usernameExists.value) {
          return true
       }
       return false
@@ -51,7 +70,7 @@
 
    const handleUsernameCheck = async () => {
       const { data } = await useFetch(
-         `/api/user/check-username/${usernameState.value}`
+         `/api/user/check-username/${info.value.username}`
       )
 
       usernameExists.checkComplete = true
@@ -64,9 +83,11 @@
 
    const handleSubmit = async () => {
       const body = {
-         firstName: firstNameState.value,
-         lastName: lastNameState.value,
-         userName: usernameState.value,
+         firstName: info.value.firstName,
+         lastName: info.value.lastName,
+         userName: info.value.username,
+         city: info.value.city,
+         country: info.value.country,
          userId: user.value.id,
       }
 
@@ -98,7 +119,7 @@
                type="text"
                class="p-2 border w-100 rounded"
                placeholder=""
-               v-model="usernameState"
+               v-model="info.username"
             />
             <button
                class="bg-sky-500 px-10 text-white"
@@ -129,7 +150,7 @@
          type="text"
          class="p-2 border w-100 rounded w-1/2"
          placeholder=""
-         v-model="firstNameState"
+         v-model="info.firstName"
          @focus="handleUsernameCheck"
       />
 
@@ -140,8 +161,26 @@
          type="text"
          class="p-2 border w-100 rounded w-1/2"
          placeholder=""
-         v-model="lastNameState"
+         v-model="info.lastName"
       />
+
+      <PlantAddInput
+         class="mt-4"
+         ref="childInputComponentsRef"
+         title="City"
+         name="city"
+         placeholder=""
+         @change-input="onChangeInput"
+      />
+
+      <PlantAddSelect
+         title="Country"
+         class="mt-4"
+         :options="countryNames"
+         name="country"
+         @change-input="onChangeInput"
+      />
+
       <div class="w-full text-left">
          <button
             :disabled="isSubmitDisabled"

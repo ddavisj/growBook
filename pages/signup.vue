@@ -3,8 +3,6 @@
 
    const supabase = useSupabaseClient()
 
-   const AuthStore = useAuthStore()
-
    const state = reactive({})
 
    const message = ref('')
@@ -23,7 +21,12 @@
          )
 
          message.value = 'Registration complete'
+
+         if (error) {
+            console.log('E in SU try:', error)
+         }
       } catch (e) {
+         // User error
          message.value = 'There was an error: ' + e
       }
    }

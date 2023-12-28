@@ -11,16 +11,21 @@
 
    const handleSignin = async () => {
       try {
-         await supabase.auth.signInWithPassword({
-            email: state.email,
-            password: state.password,
-         })
-         console.log('Signed in!')
+         const { data, error } =
+            await supabase.auth.signInWithPassword({
+               email: state.email,
+               password: state.password,
+            })
+         // console.log('Signed in!')
+         if (error) {
+            console.log('E2:', error)
+         }
          message.value = 'Signing in..'
-         setTimeout(() => {
-            navigateTo('/profile/plants')
-            AuthStore.loggedIn = true
-         }, 500)
+         // setTimeout(() => {
+         //    // navigateTo('/profile/plants')
+         //    navigateTo('/')
+         //    AuthStore.loggedIn = true
+         // }, 500)
       } catch (error) {
          message.value = 'There was an error: ' + e
       }
