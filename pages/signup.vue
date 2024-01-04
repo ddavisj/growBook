@@ -3,33 +3,40 @@
 
    const supabase = useSupabaseClient()
 
-   const state = reactive({})
-
    const message = ref('')
+   const loadingReset = ref(false)
+
+   const state = reactive({})
 
    const handleSignup = async () => {
       try {
+         loadingReset.value = true
          const { data, error } = await supabase.auth.signUp(
             {
                email: state.email,
                password: state.password,
                options: {
-                  emailRedirectTo:
-                     'https//example.com/welcome',
+                  emailRedirectTo: '/',
                },
             }
          )
 
-         message.value = 'Registration complete'
-
          if (error) {
             console.log('E in SU try:', error)
+         } else {
+            loadingReset.value = false
+            message.value =
+               'To complete registration - please check your email and confirm'
          }
-      } catch (e) {
-         // User error
-         message.value = 'There was an error: ' + e
+      } catch (error) {
+         message.value =
+            'There was an error: ' + error.message
       }
    }
+
+   const submitDisabled = computed(() => {
+      return !state.email || !state.password
+   })
 </script>
 
 <template>
@@ -39,44 +46,56 @@
 
    <div class="flex flex-col mt-3">
       <h2 class="text-xl mt-24 mb-3 font-bold">
-         Sign up with email/password
+         Register with email and password
       </h2>
    </div>
 
    <div class="mt-3">
-      <label for="" class="text-cyan-500 mt-5 mb-3 text-xl">
+      <label class="block text-cyan-500 mt-3 mb-3 text-xl">
          Email*
       </label>
       <input
          type="text"
-         class="p-2 border w-100 rounded w-1/2"
-         placeholder=""
+         class="pl-3 block p-2 border w-100 w-1/2 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
+         name="email"
          v-model="state.email"
       />
    </div>
 
    <div class="mt-3">
-      <label for="" class="text-cyan-500 mt-5 mb-3 text-xl">
+      <label class="text-cyan-500 mt-5 mb-3 text-xl">
          Password*
       </label>
-      <input
-         type="text"
-         class="p-2 border w-100 rounded w-1/2"
-         placeholder=""
-         v-model="state.password"
-      />
+
+      <Password v-model="state.password" name="password" />
    </div>
 
    <div class="w-full text-left">
+      <UButton
+         size="lg"
+         :loading="loadingReset"
+         class="px-6 mt-3"
+         :disabled="submitDisabled"
+         @click="handleSignup"
+         >Sign up</UButton
+      >
+      <p v-if="message" class="mt-5 text-orange-400">
+         {{ message }}
+      </p>
+   </div>
+
+   <!------->
+
+   <!-- <div class="w-full text-left">
       <button
-         :disabled="!state.email && !state.password"
+         :disabled="!state.email || !state.password"
          @click="handleSignup"
          class="bg-blue-400 text-white rounded py-2 px-7 mt-3"
       >
-         Sign up
+         Sign uppp
       </button>
       <p v-if="message" class="mt-3 text-orange-400">
          {{ message }}
       </p>
-   </div>
+   </div> -->
 </template>

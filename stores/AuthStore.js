@@ -1,8 +1,8 @@
 export const useAuthStore = defineStore('AuthStore', {
    state: () => {
       return {
-         loggedIn: null,
-         user: null,
+         loggedIn: undefined,
+         user: undefined,
          username: null,
       }
    },

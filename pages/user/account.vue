@@ -6,6 +6,13 @@
    })
 
    const AuthStore = useAuthStore()
+
+   // const myUsername = ref(null)
+
+   // console.log(AuthStore)
+   // if (AuthStore.username) {
+   //    myUsername.value = AuthStore.username
+   // }
 </script>
 
 <template>
@@ -18,10 +25,22 @@
          <GoogleAvatar />
 
          <div class="text-xl ml-5 mb-3 mt-5">
-            <p v-if="AuthStore.username">
-               {{ AuthStore.username }}
-            </p>
-            <p v-else>
+            <div v-if="AuthStore.username === undefined">
+               <p>Loading..</p>
+            </div>
+            <div v-if="!!AuthStore.username">
+               <p>
+                  {{ AuthStore.username }}
+               </p>
+               <p class="mt-1">
+                  <NuxtLink
+                     class="text-blue-400"
+                     :to="`/${AuthStore.username}`"
+                     >My public profile</NuxtLink
+                  >
+               </p>
+            </div>
+            <p v-if="AuthStore.username === null">
                <NuxtLink
                   to="/user/register"
                   class="text-blue-400"

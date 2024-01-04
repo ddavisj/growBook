@@ -11,11 +11,11 @@
       emits('changeInput', state.value, props.name)
    }
 
-   const clearInput = () => {
+   const clearState = () => {
       state.value = null
    }
    defineExpose({
-      clearInput,
+      clearState,
    })
 </script>
 

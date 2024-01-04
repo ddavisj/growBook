@@ -6,7 +6,7 @@
    const emits = defineEmits(['deleteClick'])
    const config = useRuntimeConfig()
 
-   const {toTitleCase} = useUtilities()
+   // const { toTitleCase } = useUtilities()
 </script>
 
 <template>
@@ -17,16 +17,18 @@
          <img
             :src="`${config.public.supabase.url}/storage/v1/object/public/images/${listing.image}`"
             alt=""
-            class="w-80 mr-3 h-44"
+            class="mr-3 h-44 w-auto"
          />
          <div class="p-3">
-            <h1 class="text-2xl">{{ listing.name }}</h1>
-            <h3 class="text-l">
-               {{ toTitleCase(listing.city) }}
+            <h1 class="text-2xl">
+               {{ listing.commonName }}
+            </h1>
+            <h3 class="text-l mt-1">
+               {{ listing.scientificName }}
             </h3>
-            <p class="text-blue-400">
+            <!-- <p class="text-blue-400">
                ${{ listing.price }}
-            </p>
+            </p> -->
          </div>
       </div>
    </div>

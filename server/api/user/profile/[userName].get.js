@@ -1,9 +1,9 @@
-import {PrismaClient} from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
 export default defineEventHandler(async event => {
-   const {userName} = event.context.params
+   const { userName } = event.context.params
 
    const user = await prisma.user.findUnique({
       where: {
@@ -11,16 +11,17 @@ export default defineEventHandler(async event => {
       },
    })
 
-   return prisma.car.findMany({
+   return prisma.plant.findMany({
       where: {
          listerId: user.id,
       },
       select: {
-         city: true,
+         commonName: true,
          image: true,
          id: true,
-         name: true,
-         price: true,
+         scientificName: true,
+         // name: true,
+         // price: true,
       },
    })
 })

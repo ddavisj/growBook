@@ -6,6 +6,8 @@
 
    const user = useSupabaseUser()
 
+   const AuthStore = useAuthStore()
+
    const { countries } = useCountries()
    const countryNames = countries.map(a => a.name)
 
@@ -97,6 +99,7 @@
             body,
          })
          message.value = 'Registration complete'
+         AuthStore.username = info.value.username
       } catch (e) {
          message.value = 'There was an error: ' + e
       }

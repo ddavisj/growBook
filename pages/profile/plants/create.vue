@@ -1,14 +1,10 @@
 <script setup>
-   import { computed } from 'vue'
-
    definePageMeta({
       layout: 'custom',
    })
 
    // TODO:
    // Remove inputs.. Not needed, better to be able to re-sort the inputs and have different types in different order
-   // Next: useState..
-   // Update form! Test..
 
    const user = useSupabaseUser()
    const supabase = useSupabaseClient()
@@ -26,7 +22,6 @@
       'months',
       'years',
    ]
-   // const ageUnits = ref(ageUnitsOptions[0])
 
    const ageInDays = computed(() => {
       const ageNum = parseInt(info.value.age)
@@ -115,7 +110,7 @@
          ...info.value,
          type: info.value.type,
          age: Math.floor(ageInDays.value),
-         // Need to change age in days to birthday! Bc this will change as time goes on.. drrr!
+         // Need to change age in days to plant-bday! Bc this will change as time goes on.. drrr!
          commonName: info.value.commonName,
          indoor: '', // FIX
          listerId: user.value.id,
@@ -144,35 +139,53 @@
          )
 
          clearForm()
-
-         // navigateTo('/profile/listings')
       } catch (err) {
          errorMessage.value = err.statusMessage
 
          console.log('Removing image??')
          // FIX~!~?
-         // await supabase.storage
-         //    .from('images')
-         //    .remove(data.path)
+         await supabase.storage
+            .from('images')
+            .remove(data.path)
       }
    }
+
+   const commonNameInputRef = ref(null)
+   const scientificNameInputRef = ref(null)
+   const typeSelectRef = ref(null)
+   const ageInputRef = ref(null)
+   const sourceSelectRef = ref(null)
+   const indoorSelectRef = ref(null)
+   const nativeToInputRef = ref(null)
+   const ecotypeSelectRef = ref(null)
+   const availabilitySelectRef = ref(null)
+   const plantImageInputRef = ref(null)
 
    const clearForm = () => {
-      // Clear state of child comps - childXComp.value accesses comp instance
-      childImageComponentRef.value.clearImage()
-      childSelectComponentRef.value.clearState()
-      childTAComponentRef.value.clearState()
-
-      for (let childInputComponentRef of childInputComponentsRef.value) {
-         // refs stored as arr on .value
-         childInputComponentRef.clearInput()
+      const clearInputs = inputs => {
+         for (let input of inputs) {
+            input.value.clearState()
+         }
       }
-   }
+      clearInputs([
+         commonNameInputRef,
+         scientificNameInputRef,
+         typeSelectRef,
+         ageInputRef,
+      ])
 
-   const childImageComponentRef = ref(null)
-   const childSelectComponentRef = ref(null)
-   const childTAComponentRef = ref(null)
-   const childInputComponentsRef = ref(null)
+      showExtras.value
+         ? clearInputs([
+              sourceSelectRef,
+              indoorSelectRef,
+              nativeToInputRef,
+              ecotypeSelectRef,
+              availabilitySelectRef,
+           ])
+         : ''
+
+      plantImageInputRef.value.clearImage()
+   }
 </script>
 
 <template>
@@ -187,48 +200,41 @@
          <h1 class="text-6xl">Add a Plant</h1>
       </div>
 
-      <button
-         @click="
-            console.log('Refs', childInputComponentsRef1)
-         "
-      >
-         childInputs
-      </button>
       <PlantAddInput
-         ref="childInputComponentsRef1"
-         title="Common name *"
          name="commonName"
+         ref="commonNameInputRef"
+         title="Common name *"
          placeholder="eg. Lucky bamboo"
          @change-input="onChangeInput"
       />
       <PlantAddInput
-         ref="childInputComponentsRef"
-         title="Scientific name"
          name="scientificName"
+         ref="scientificNameInputRef"
+         title="Scientific name"
          placeholder="eg. Dracaena sanderiana"
          @change-input="onChangeInput"
       />
 
       <PlantAddSelect
          class="mt-5"
-         ref="childSelectComponentRef"
+         name="type"
+         ref="typeSelectRef"
          title="Plant type *"
          :options="filteredPlantTypes"
-         name="type"
          @change-input="onChangeInput"
       />
       <div class="flex items-center">
          <PlantAddInput
-            ref="childInputComponentsRef"
-            title="Age *"
             name="age"
+            ref="ageInputRef"
+            title="Age *"
             placeholder="eg. 30"
             @change-input="onChangeInput"
          />
          <PlantAddSelect
             class="ml-3 mt-8"
-            thin
             name="ageUnits"
+            thin
             @change-input="onChangeInput"
             ref="childSelectComponentRef"
             :options="ageUnitsOptions"
@@ -247,7 +253,8 @@
 
       <div v-if="showExtras">
          <PlantAddSelect
-            ref="childSelectComponentRef"
+            name="source"
+            ref="sourceSelectRef"
             title="Where did you get it?"
             :options="[
                'Grew from seed',
@@ -255,27 +262,27 @@
                'Purchased',
                'Gift',
             ]"
-            name="source"
             @change-input="onChangeInput"
          />
          <PlantAddSelect
-            ref="childSelectComponentRef"
-            title="Indoors or out?"
-            :options="['Indoor', 'Outdoor', 'Both']"
             name="indoor"
+            ref="indoorSelectRef"
+            title="Indoors or out?"
+            :options="['Indoor', 'Outdoor', 'Either']"
             @change-input="onChangeInput"
          />
 
          <PlantAddInput
-            ref="childInputComponentsRef"
-            title="Native country"
             name="nativeTo"
+            ref="nativeToInputRef"
+            title="Native country"
             placeholder="eg. South Africa"
             @change-input="onChangeInput"
          />
 
          <PlantAddSelect
-            ref="childSelectComponentRef"
+            name="ecotype"
+            ref="ecotypeSelectRef"
             title="Native habitat"
             :options="[
                'Forest',
@@ -283,25 +290,27 @@
                'Desert',
                'Rainforest',
             ]"
-            name="ecotype"
             @change-input="onChangeInput"
          />
          <PlantAddSelect
-            ref="childSelectComponentRef"
+            name="availability"
+            ref="availabilitySelectRef"
             title="Availability"
             :options="[
+               'Not available',
                'For sale',
                'Will trade',
                'Free to good home',
+               'Seeds',
+               'Cuttings',
             ]"
-            name="availability"
             @change-input="onChangeInput"
          />
       </div>
 
       <PlantAddImage
          class="mt-6"
-         ref="childImageComponentRef"
+         ref="plantImageInputRef"
          @change-input="onChangeInput"
       />
 

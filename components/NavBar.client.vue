@@ -8,7 +8,7 @@
    <header
       class="dark:bg-black bg-white sticky top-0 z-50 flex justify-between items-center space-x-1 border-b p-4 shadow-md"
    >
-      <NuxtLink class="text-3xl font-mono" to="/"
+      <NuxtLink class="text-xl md:text-3xl font-mono" to="/"
          >growBook</NuxtLink
       >
 
@@ -20,7 +20,9 @@
             <GoogleAvatar showTitle class="h-9" />
          </NuxtLink>
 
-         <NuxtLink to="/profile/plants" class="ml-4 mr-5"
+         <NuxtLink
+            to="/profile/plants"
+            class="ml-3 mr-3 md:ml-4 md:mr-5"
             >Profile</NuxtLink
          >
 
