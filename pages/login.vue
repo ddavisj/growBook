@@ -50,7 +50,7 @@
    </div>
 
    <div class="flex flex-col mt-6">
-      <h1 class="text-xl mt-24 mb-3 font-bold">
+      <h1 class="text-xl mt-16 mb-3 font-bold">
          Log in with email and password
       </h1>
    </div>
@@ -61,7 +61,7 @@
       </label>
       <input
          type="text"
-         class="pl-3 block p-2 border w-100 w-1/2 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
+         class="pl-3 block p-2 border w-100 w-4/5 md:w-1/2 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
          name="email"
          v-model="state.email"
       />
@@ -94,6 +94,6 @@
    </div>
 
    <div class="text-blue-400">
-      <NuxtLink to="/signup">New user? Sign up</NuxtLink>
+      <NuxtLink to="/signup">New user? Sign up!</NuxtLink>
    </div>
 </template>
