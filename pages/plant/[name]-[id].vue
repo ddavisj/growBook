@@ -1,4 +1,8 @@
 <script setup>
+   definePageMeta({
+      layout: 'custom',
+   })
+
    const route = useRoute()
 
    const { toTitleCase } = useUtilities()
@@ -26,10 +30,6 @@
          message: `Plant with ID of ${route.params.id} does not exist`,
       })
    }
-
-   definePageMeta({
-      layout: 'custom',
-   })
 </script>
 
 <template>
