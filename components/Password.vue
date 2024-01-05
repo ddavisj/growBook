@@ -10,7 +10,7 @@
 </script>
 
 <template>
-   <div class="w-4/5 md:w-1/2 mt-3">
+   <div class="w-4/5 md:w-1/3 mt-2">
       <UInput
          :type="!!show ? 'text' : 'password'"
          name="password"
@@ -22,7 +22,8 @@
             size: 'xl',
             color: {
                gray: {
-                  outline: 'dark:bg-black bg-black',
+                  outline:
+                     'dark:bg-black bg-black text-white',
                },
             },
          }"

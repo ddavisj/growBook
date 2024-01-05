@@ -139,6 +139,7 @@
          )
 
          clearForm()
+         showExtras.value = false
       } catch (err) {
          errorMessage.value = err.statusMessage
 
@@ -234,11 +235,11 @@
          <PlantAddSelect
             class="ml-3 mt-8"
             name="ageUnits"
-            thin
             @change-input="onChangeInput"
             ref="childSelectComponentRef"
             :options="ageUnitsOptions"
             :default="ageUnitsOptions[0]"
+            width="32"
          />
       </div>
       <UButton
@@ -263,6 +264,7 @@
                'Gift',
             ]"
             @change-input="onChangeInput"
+            thin
          />
          <PlantAddSelect
             name="indoor"
@@ -270,6 +272,7 @@
             title="Indoors or out?"
             :options="['Indoor', 'Outdoor', 'Either']"
             @change-input="onChangeInput"
+            thin
          />
 
          <PlantAddInput
@@ -291,6 +294,7 @@
                'Rainforest',
             ]"
             @change-input="onChangeInput"
+            thin
          />
          <PlantAddSelect
             name="availability"
@@ -305,6 +309,7 @@
                'Cuttings',
             ]"
             @change-input="onChangeInput"
+            thin
          />
       </div>
 

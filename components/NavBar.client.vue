@@ -22,12 +22,12 @@
 
          <NuxtLink
             to="/profile/plants"
-            class="ml-3 mr-3 md:ml-4 md:mr-5"
+            class="ml-4 text-sm md:text-base mr-4 md:ml-4 md:mr-5"
             >Profile</NuxtLink
          >
 
          <p
-            class="font-mono cursor-pointer"
+            class="font-mono cursor-pointer text-sm md:text-base"
             @click="AuthStore.logout"
          >
             Logout

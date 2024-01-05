@@ -1,7 +1,7 @@
 <script setup>
    const route = useRoute()
 
-   const message = ref({
+   const message = reactive({
       name: '',
       email: '',
       phone: '',
@@ -13,10 +13,14 @@
    const successMessage = ref('')
 
    const disableButton = computed(() => {
-      for (let key in message.value) {
-         if (!message.value[key]) return true
+      // for (let key in message.value) {
+      //    if (!message.value[key]) return true
+      // }
+      // return false
+      if (message.message) {
+         return false
       }
-      return false
+      return true
    })
 
    const onSubmit = async () => {
@@ -45,41 +49,44 @@
 
 <template>
    <div class="mt-10">
-      <div class="flex w-[500px] justify-between">
+      <h1 class="text-3xl mb-4">Contact</h1>
+
+      <!-- <div class="flex flex-col w-[400px] justify-between">
          <input
             v-model="message.name"
             type="text"
-            class="border p-1"
+            class="pl-2 border p-1 mb-3"
             placeholder="Name"
          />
          <input
             v-model="message.email"
             type="text"
-            class="border p-1"
+            class="pl-2 border p-1 mb-3"
             placeholder="Email"
          />
          <input
             v-model="message.phone"
             type="text"
-            class="border p-1"
+            class="pl-2 border p-1"
             placeholder="Phone"
          />
-      </div>
+      </div> -->
       <div>
          <div class="fkex mt-4 w-[600px]">
             <textarea
                v-model="message.message"
-               class="border p-1 w-full"
+               class="pl-2 border p-1 w-full"
                placeholder="Message"
             ></textarea>
          </div>
-         <button
+         <UButton
             :disabled="disableButton"
             @click="onSubmit"
-            class="bg-blue-400 text-white px-10 py-3 rounded"
+            class="mt-3 bg-blue-400 text-white px-10 py-3 rounded"
          >
-            Submit
-         </button>
+            Send message
+         </UButton>
+
          <p
             v-if="successMessage"
             class="mt-3 text-green-400"

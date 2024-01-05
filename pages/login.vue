@@ -39,7 +39,7 @@
 </script>
 
 <template>
-   <div class="mt-10">
+   <div class="mt-8">
       <h1 class="text-5xl font-bold mb-7">Log in</h1>
       <button
          class="bg-red-400 p-3 rounded text-white font-bold"
@@ -49,26 +49,30 @@
       </button>
    </div>
 
-   <div class="flex flex-col mt-6">
-      <h1 class="text-xl mt-16 mb-3 font-bold">
+   <div class="flex flex-col mt-10">
+      <h1 class="text-xl mt-5 mb-1 text-cyan-500">OR</h1>
+   </div>
+
+   <div class="flex flex-col mt-3">
+      <h1 class="text-xl mt-4 mb-2 font-bold">
          Log in with email and password
       </h1>
    </div>
 
-   <div class="mt-3">
-      <label class="block text-cyan-500 mt-3 mb-3 text-xl">
+   <div class="mt-2">
+      <label class="block text-cyan-500 mt-2 mb-2 text-xl">
          Email*
       </label>
       <input
          type="text"
-         class="pl-3 block p-2 border w-100 w-4/5 md:w-1/2 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
+         class="pl-3 block text-white p-2 border w-100 w-4/5 md:w-1/3 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
          name="email"
          v-model="state.email"
       />
    </div>
 
-   <div class="mt-3">
-      <label class="text-cyan-500 mt-5 mb-3 text-xl">
+   <div class="mt-2">
+      <label class="text-cyan-500 mt-2 mb-2 text-xl">
          Password*
       </label>
 
@@ -78,7 +82,7 @@
    <div class="w-full text-left">
       <UButton
          size="lg"
-         class="px-6 mt-3"
+         class="px-6 mt-2"
          :disabled="submitDisabled"
          @click="handleSignin"
          >Login</UButton
@@ -93,7 +97,11 @@
       </div>
    </div>
 
-   <div class="text-blue-400">
-      <NuxtLink to="/signup">New user? Sign up!</NuxtLink>
+   <div class="md:w-1/3">
+      <div class="text-blue-400 font-bold text-center">
+         <NuxtLink to="/signup"
+            >New user? Sign up!</NuxtLink
+         >
+      </div>
    </div>
 </template>

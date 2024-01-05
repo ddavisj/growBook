@@ -4,7 +4,7 @@
       options: Array,
       name: String,
       default: String,
-      thin: Boolean,
+      width: Number,
    })
 
    const emits = defineEmits(['changeInput'])
@@ -22,17 +22,13 @@
 </script>
 
 <template>
-   <div
-      class="flex flex-col mt-2"
-      :class="props.thin ? 'w-24' : 'md:w-[48%]'"
-   >
+   <div class="flex flex-col mt-2">
       <label for="" class="text-cyan-500 mb-1 text-sm">
          {{ title }}
       </label>
       <select
-         name=""
-         id=""
-         class="p-2 border w-100 rounded cursor-pointer"
+         class="p-2 border rounded cursor-pointer"
+         :class="props.width ? `w-${props.width}` : 'w-1/2'"
          @change="onChange"
          v-model="state"
       >

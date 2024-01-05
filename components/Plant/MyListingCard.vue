@@ -6,24 +6,55 @@
    const emits = defineEmits(['deleteClick'])
    const config = useRuntimeConfig()
 
-   // const { toTitleCase } = useUtilities()
+   const isOpen = ref(false)
+
+   const commonNameHyph = props.listing.commonName
+      .replace(/\s+/g, '-')
+      .toLowerCase()
 </script>
 
 <template>
+   <UModal v-model="isOpen">
+      <div class="p-4 h-32">
+         <div class="text-center">
+            <span>Delete {{ listing.commonName }}?</span>
+         </div>
+         <div class="mt-6 flex justify-between">
+            <UButton
+               color="blue"
+               label="Cancel"
+               @click="isOpen = false"
+            />
+            <UButton
+               color="red"
+               label="Delete"
+               @click="emits('deleteClick', listing.id)"
+            />
+         </div>
+      </div>
+   </UModal>
    <div
       class="shadow rounded overflow-hidden flex justify-between mb-4"
    >
       <div class="flex">
          <div class="max-w-md">
-            <img
-               :src="`${config.public.supabase.url}/storage/v1/object/public/images/${listing.image}`"
-               alt=""
-               class="mr-3 h-50 w-auto"
-            />
+            <NuxtLink
+               :to="`/plant/${commonNameHyph}-${listing.id}`"
+            >
+               <img
+                  :src="`${config.public.supabase.url}/storage/v1/object/public/images/${listing.image}`"
+                  alt=""
+                  class="mr-3 h-50 w-auto"
+               />
+            </NuxtLink>
          </div>
          <div class="ml-4 p-3">
-            <h1 class="text-2xl">
-               {{ listing.commonName }}
+            <h1 class="text-2xl text-blue-400">
+               <NuxtLink
+                  :to="`/plant/${commonNameHyph}-${listing.id}`"
+               >
+                  {{ listing.commonName }}
+               </NuxtLink>
             </h1>
             <h1 class="text-sm">
                {{ listing.scientificName }}
@@ -37,37 +68,36 @@
          </div>
       </div>
       <div class="p-3 flex flex-col">
-         <div
-            class="flex flex-row items-center mt-2 text-blue-400"
+         <NuxtLink
+            class="mr-5"
+            :to="`/profile/listings/view/${listing.id}`"
          >
-            <UIcon
-               name="i-ic-outline-email"
-               size="1em"
-               class="mr-3"
-               dynamic
-            />
+            <div
+               class="flex items-center mt-2 text-blue-400"
+            >
+               <UIcon
+                  name="i-ic-outline-email"
+                  size="1.25em"
+                  class="mr-3"
+                  dynamic
+               />
+               <span class="hidden md:inline"
+                  >Messages</span
+               >
+            </div>
+         </NuxtLink>
 
-            <NuxtLink
-               class="mr-5"
-               :to="`/profile/listings/view/${listing.id}`"
-               >Messages</NuxtLink
-            >
-         </div>
          <div
-            class="flex flex-row items-center mt-2 text-red-400"
+            class="cursor-pointer flex flex-row items-center mt-2 text-red-400"
+            @click="isOpen = true"
          >
             <UIcon
-               name="i-material-symbols-delete"
-               size="1em"
+               name="i-ic-baseline-delete-outline"
+               size="1.4em"
                class="mr-3"
                dynamic
             />
-            <p
-               class="cursor-pointer"
-               @click="emits('deleteClick', listing.id)"
-            >
-               Delete
-            </p>
+            <span class="hidden md:inline">Delete</span>
          </div>
       </div>
    </div>

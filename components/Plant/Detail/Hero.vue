@@ -1,6 +1,6 @@
 <script setup>
    const props = defineProps({
-      car: Object,
+      plant: Object,
    })
    const config = useRuntimeConfig()
 </script>
@@ -8,22 +8,20 @@
 <template>
    <div class="mt-10">
       <NuxtImg
-         :src="`${config.public.supabase.url}/storage/v1/object/public/images/${car.image}`"
+         :src="`${config.public.supabase.url}/storage/v1/object/public/images/${plant.image}`"
          class="v-full"
       />
-      <h1 class="mt-10 text-4xl">{{ car.name }}</h1>
+      <h1 class="mt-10 text-4xl">{{ plant.commonName }}</h1>
       <div
          class="text-slate-500 flex text-lg mt-3 border-b pb-5 justify-between"
       >
          <div class="flex">
             <p class="mr-2">
-               {{ car.numberOfSeats }} seats
+               {{ plant.scientificName }}
             </p>
-            <p class="mr-2">|</p>
-            <p class="mr-2">{{ car.miles }} miles</p>
          </div>
          <div class="font-bold text-2xl">
-            ${{ car.price }}
+            {{ plant.age }} days
          </div>
       </div>
    </div>
