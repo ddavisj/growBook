@@ -23,13 +23,14 @@
    const imageInputRef = ref(null)
 
    // ** STATE
-   const state = reactive({})
+   // const state = reactive({})
    // - Used by onChangeInput.. all works!
 
    // ** INFO
    const info = useState('profile', () => {
       return {
          description: '',
+         image: '',
       }
    })
 
@@ -47,7 +48,7 @@
 
    const onChangeInput = (data, name) => {
       console.log(name)
-      state[name] = data
+      info.value[name] = data
 
       if (name === 'image') {
          showConfirm.value = true
@@ -55,13 +56,12 @@
       }
       if (name === 'description') {
          console.log('data:', data)
-         info.value.description = data
 
-         console.log('State desc', state.description)
+         console.log('State desc', info.value.description)
       }
       isDataDifferent.value
          ? (showConfirm.value = true)
-         : ''
+         : (showConfirm.value = false)
    }
 
    // Show confirm if data is new
@@ -90,7 +90,7 @@
 
       const { data, error } = await supabase.storage
          .from('images')
-         .upload('profile/' + fileName, state.image)
+         .upload('profile/' + fileName, info.value.image)
 
       console.log('Data..', data)
 
@@ -106,8 +106,8 @@
       }
 
       // If there's no new prop, don't update, delete it from the body
-      !state.image ? delete body.image : ''
-      !state.description ? delete body.description : ''
+      !info.value.image ? delete body.image : ''
+      !info.value.description ? delete body.description : ''
 
       console.log('U2: ', user.value.id)
 
@@ -119,7 +119,7 @@
          })
 
          // Don't load image if it's not being changed
-         !!state.image
+         !!info.value.image
             ? AuthStore.loadUploadedImage(res)
             : ''
 
