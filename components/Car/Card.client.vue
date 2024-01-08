@@ -30,7 +30,7 @@
             :alt="car.name"
             class="w-[300px] h-full"
          />
-         <div class="p-4 flex flex-col">
+         <!-- <div class="p-4 flex flex-col">
             <div>
                <h1 class="text-2xl text-blue-700">
                   {{ car.name }}
@@ -42,7 +42,7 @@
                   ${{ car.price }}
                </h1>
             </div>
-         </div>
+         </div> -->
       </div>
    </div>
 </template>

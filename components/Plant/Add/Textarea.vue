@@ -3,10 +3,22 @@
       title: String,
       name: String,
       placeholder: String,
+      text: String,
    })
 
    const emits = defineEmits(['changeInput'])
-   const state = ref('')
+
+   console.log('Props.text init: ', props.text)
+
+   const state = ref(props.text)
+
+   watch(
+      () => props.text,
+      () => {
+         console.log('Props.text updated: ', props.text)
+         state.value = props.text
+      }
+   )
    const onChange = () => {
       emits('changeInput', state.value, props.name)
    }
@@ -20,13 +32,13 @@
 </script>
 
 <template>
-   <div class="flex flex-col w-[100%] mt-2">
+   <div class="flex flex-col w-[100%] mt-10">
       <label for="" class="text-cyan-500 mb-1 text-sm">
          {{ title }}
       </label>
       <textarea
          type="text"
-         class="p-2 border w-100 rounded"
+         class="p-2 border w-100 rounded w-2/3 h-20 mt-3"
          :placeholder="placeholder"
          v-model="state"
          :name="name"

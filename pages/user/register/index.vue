@@ -5,6 +5,7 @@
    })
 
    const user = useSupabaseUser()
+   const supabase = useSupabaseClient()
 
    const AuthStore = useAuthStore()
 
@@ -35,6 +36,7 @@
          firstName: '',
          city: '',
          country: '',
+         image: null,
       }
    })
 
@@ -84,6 +86,18 @@
    }
 
    const handleSubmit = async () => {
+      const fileName = Math.floor(
+         Math.random() * 10000000000000000000
+      )
+
+      const { data, error } = await supabase.storage
+         .from('images')
+         .upload('public/' + fileName, info.value.image)
+
+      if (error) {
+         return (errorMessage.value = 'Cannot upload image')
+      }
+
       const body = {
          firstName: info.value.firstName,
          lastName: info.value.lastName,
@@ -91,6 +105,8 @@
          city: info.value.city,
          country: info.value.country,
          userId: user.value.id,
+         // id: user.value.id,
+         image: data.path,
       }
 
       try {
@@ -102,6 +118,10 @@
          AuthStore.username = info.value.username
       } catch (e) {
          message.value = 'There was an error: ' + e
+
+         await supabase.storage
+            .from('images')
+            .remove(data.path)
       }
    }
 </script>
@@ -181,6 +201,13 @@
          class="mt-4"
          :options="countryNames"
          name="country"
+         @change-input="onChangeInput"
+      />
+
+      <PlantAddImage
+         title="Profile picture"
+         class="mt-6"
+         ref="plantImageInputRef"
          @change-input="onChangeInput"
       />
 

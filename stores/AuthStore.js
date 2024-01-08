@@ -4,10 +4,23 @@ export const useAuthStore = defineStore('AuthStore', {
          loggedIn: undefined,
          user: undefined,
          username: null,
+         uploadedImage: null,
+         description: null,
       }
    },
    getters: {},
    actions: {
+      async checkUploaded() {
+         if (this.loggedIn) {
+            // DH Delete this?!@!!
+         }
+      },
+      async loadUploadedImage({ image }) {
+         // if (!this.uploadedImage) {
+         const config = useRuntimeConfig()
+         this.uploadedImage = `${config.public.supabase.url}/storage/v1/object/public/images/${image}`
+         // }
+      },
       async loadUserName() {
          if (this.loggedIn && !this.username) {
             await useFetch('/api/user/get-user', {
@@ -18,8 +31,22 @@ export const useAuthStore = defineStore('AuthStore', {
                   const AuthStore = useAuthStore()
 
                   if (response._data) {
+                     const config = useRuntimeConfig()
+
+                     console.log('D', response._data)
+
                      AuthStore.username =
                         response._data.user_name
+
+                     const image = response._data.image
+                     console.log('HERE: ', image)
+
+                     AuthStore.uploadedImage = `${config.public.supabase.url}/storage/v1/object/public/images/${image}`
+
+                     const description =
+                        response._data.description
+
+                     AuthStore.description = description
                   } else {
                      console.log('No data')
                   }
@@ -71,6 +98,7 @@ export const useAuthStore = defineStore('AuthStore', {
          this.loggedIn = false
          this.user = null
          this.username = null
+         this.uploadedImage = null
 
          const supabase = useSupabaseClient()
          const { error } = await supabase.auth.signOut()

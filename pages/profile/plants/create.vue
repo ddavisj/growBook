@@ -314,6 +314,8 @@
       </div>
 
       <PlantAddImage
+         showTitle="true"
+         title="Upload Image*"
          class="mt-6"
          ref="plantImageInputRef"
          @change-input="onChangeInput"

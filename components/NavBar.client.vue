@@ -21,13 +21,19 @@
          </NuxtLink>
 
          <NuxtLink
+            to="/users"
+            class="ml-4 md:ml-4 text-sm md:text-base"
+            >Users</NuxtLink
+         >
+
+         <NuxtLink
             to="/profile/plants"
-            class="ml-4 text-sm md:text-base mr-4 md:ml-4 md:mr-5"
+            class="ml-4 md:ml-4 text-sm md:text-base"
             >Profile</NuxtLink
          >
 
          <p
-            class="font-mono cursor-pointer text-sm md:text-base"
+            class="ml-8 font-mono cursor-pointer text-sm md:text-base"
             @click="AuthStore.logout"
          >
             Logout

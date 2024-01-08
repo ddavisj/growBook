@@ -17,14 +17,15 @@ const schema = Joi.object({
 export default defineEventHandler(async event => {
    const body = await readBody(event)
 
-   const { error, value } = schema.validate(body)
+   console.log('body---', body)
+   // const { error, value } = schema.validate(body)
 
-   if (error) {
-      throw createError({
-         statusCode: 412,
-         statusMessage: error.message,
-      })
-   }
+   // if (error) {
+   //    throw createError({
+   //       statusCode: 412,
+   //       statusMessage: error.message,
+   //    })
+   // }
 
    // const {userName} = event.context.params
 
@@ -35,7 +36,11 @@ export default defineEventHandler(async event => {
       userId,
       city,
       country,
+      image,
    } = body
+
+   console.log('IDDD: ', userId)
+   // console.log('ID2: ', id)
 
    const userNameExists = await prisma.user.findUnique({
       where: {
@@ -65,7 +70,9 @@ export default defineEventHandler(async event => {
             user_name: userName,
             city,
             country,
+            image,
          },
+         // data: body,
       })
    }
 
