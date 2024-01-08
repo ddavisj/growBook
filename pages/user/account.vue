@@ -24,7 +24,7 @@
 
    // ** STATE
    const state = reactive({})
-   // - Used by onChangeInput..
+   // - Used by onChangeInput.. all works!
 
    // ** INFO
    const info = useState('profile', () => {
