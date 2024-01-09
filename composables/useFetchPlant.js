@@ -3,13 +3,6 @@ export default async id => {
       `/api/plant/${id}`
    )
 
-   // if (error.value) {
-   //    throw createError({
-   //       statusCode: error.value.statusCode,
-   //       statusMessage: error.value.statusMessage,
-   //    })
-   // }
-
    if (error.value) {
       throw createError({
          ...error.value,

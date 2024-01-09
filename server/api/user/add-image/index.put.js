@@ -22,9 +22,6 @@ export default defineEventHandler(async event => {
 
    const { userId, description, image } = body
 
-   console.log('IMMMMAAAGE:', image)
-   console.log('IDDD: ', userId)
-
    // const userNameExists = await prisma.user.findUnique({
    //    where: {
    //       user_name: userName,
@@ -53,8 +50,6 @@ export default defineEventHandler(async event => {
          description: description || undefined,
       },
    })
-
-   console.log('WORRRRRRRKT')
 
    // // if (!userNameExists) {
    // await prisma.user.update({

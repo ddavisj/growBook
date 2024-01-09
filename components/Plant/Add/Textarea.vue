@@ -8,14 +8,11 @@
 
    const emits = defineEmits(['changeInput'])
 
-   console.log('Props.text init: ', props.text)
-
    const state = ref(props.text)
 
    watch(
       () => props.text,
       () => {
-         console.log('Props.text updated: ', props.text)
          state.value = props.text
       }
    )
@@ -38,7 +35,7 @@
       </label>
       <textarea
          type="text"
-         class="p-2 border w-100 rounded w-2/3 h-20 mt-3"
+         class="p-2 border w-100 rounded w-full md:w-2/3 h-20 mt-3"
          :placeholder="placeholder"
          v-model="state"
          :name="name"

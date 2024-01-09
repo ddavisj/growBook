@@ -41,19 +41,28 @@
 <template>
    <div class="mt-8">
       <h1 class="text-5xl font-bold mb-7">Log in</h1>
+
       <button
-         class="bg-red-400 p-3 rounded text-white font-bold"
+         class="bg-cyan-400 p-2 px-3 rounded text-black font-bold mb-6"
+      >
+         <NuxtLink to="/signup"
+            >Sign up with email</NuxtLink
+         >
+      </button>
+
+      <button
+         class="bg-red-400 p-2 px-3 rounded text-white font-bold"
          @click="AuthStore.login"
       >
          Login with Google
       </button>
    </div>
 
-   <div class="flex flex-col mt-10">
-      <h1 class="text-xl mt-5 mb-1 text-cyan-500">OR</h1>
+   <div class="flex flex-col mt-4 mb-4">
+      <h1 class="mt-2 mb-1 text-gray-500">or</h1>
    </div>
 
-   <div class="flex flex-col mt-3">
+   <div class="flex flex-col">
       <h1 class="text-xl mt-4 mb-2 font-bold">
          Log in with email and password
       </h1>
@@ -93,14 +102,6 @@
       <div class="mt-4 text-blue-400">
          <NuxtLink to="/password-reset"
             >Reset password</NuxtLink
-         >
-      </div>
-   </div>
-
-   <div class="md:w-1/3">
-      <div class="text-blue-400 font-bold text-center">
-         <NuxtLink to="/signup"
-            >New user? Sign up!</NuxtLink
          >
       </div>
    </div>

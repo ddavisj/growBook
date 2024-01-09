@@ -28,7 +28,9 @@
       </label>
       <select
          class="p-2 border rounded cursor-pointer"
-         :class="props.width ? `w-${props.width}` : 'w-1/2'"
+         :class="
+            props.width ? `w-${props.width}` : 'w-[48%]'
+         "
          @change="onChange"
          v-model="state"
       >

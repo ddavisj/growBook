@@ -3,6 +3,8 @@
       plant: Object,
    })
    const config = useRuntimeConfig()
+
+   const { getPlantAge } = useDate()
 </script>
 
 <template>
@@ -14,7 +16,7 @@
          {{ plant.commonName }}
       </h1>
       <div
-         class="text-slate-500 flex text-lg mt-3 border-b pb-5 justify-between mr-10"
+         class="text-slate-500 flex text-lg mt-3 border-b pb-5 justify-between"
       >
          <div class="flex">
             <p class="mr-2">
@@ -22,7 +24,7 @@
             </p>
          </div>
          <div class="font-bold text-2xl">
-            {{ plant.age }} days
+            {{ getPlantAge(plant.bday) }} old
          </div>
       </div>
    </div>

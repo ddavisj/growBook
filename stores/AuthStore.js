@@ -33,20 +33,15 @@ export const useAuthStore = defineStore('AuthStore', {
                   if (response._data) {
                      const config = useRuntimeConfig()
 
-                     console.log('D', response._data)
-
                      AuthStore.username =
                         response._data.user_name
 
                      const image = response._data.image
-                     console.log('HERE: ', image)
 
                      AuthStore.uploadedImage = `${config.public.supabase.url}/storage/v1/object/public/images/${image}`
 
-                     const description =
+                     AuthStore.description =
                         response._data.description
-
-                     AuthStore.description = description
                   } else {
                      console.log('No data')
                   }

@@ -3,13 +3,18 @@
       listing: Object,
    })
 
-   console.log('L: ', props.listing)
+   // console.log('L: ', props.listing)
    const emits = defineEmits(['deleteClick'])
    const config = useRuntimeConfig()
 
    const commonNameHyph = props.listing.commonName
       .replace(/\s+/g, '-')
       .toLowerCase()
+
+   const { getPlantAge } = useDate()
+
+   const { listing } = props
+   // console.log({ listing })
 </script>
 
 <template>
@@ -38,6 +43,9 @@
             </h1>
             <h3 class="text-l mt-1">
                {{ listing.scientificName }}
+            </h3>
+            <h3 class="text-l mt-1">
+               {{ getPlantAge(listing.bday) }}
             </h3>
          </div>
       </div>

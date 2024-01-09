@@ -20,7 +20,7 @@
 </script>
 
 <template>
-   <div class="flex flex-col md:w-[48%] mt-3">
+   <div class="flex flex-col md:w-[48%] mt-4">
       <label for="" class="text-cyan-500 mb-1 text-sm">
          {{ title }}
       </label>

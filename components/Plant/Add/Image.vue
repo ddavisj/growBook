@@ -3,9 +3,8 @@
       title: String,
       showTitle: Boolean,
       preview: Boolean,
+      icon: String,
    })
-
-   // const showTitle = ref(props.showTitle)
 
    const title = props.title ? props.title : 'Image*'
 
@@ -19,7 +18,6 @@
    const emits = defineEmits(['changeInput'])
 
    const onImageUpload = event => {
-      console.log('CHANGEDDDDD')
       const input = event.target
       if (input.files) {
          const reader = new FileReader()
@@ -33,10 +31,10 @@
    }
 
    const clearImage = () => {
-      console.log('Clearing image')
       image.value.image = null
       image.value.preview = null
    }
+
    defineExpose({
       clearImage,
    })
@@ -45,29 +43,27 @@
 </script>
 
 <template>
-   <div class="col=md-5 offset-md-1 mt-2 w-[100%]">
-      <div v-if="showTitle">
-         <label for="" class="text-cyan-500 mb-1 text-sm">
-            {{ title }}</label
-         >
-      </div>
-      <form class="mt-2">
+   <div class="w-[100%]" :key="props.key">
+      <form>
          <div class="form-group">
             <div class="relative">
-               <input
-                  required
-                  type="file"
-                  accept="image/*"
-                  class="h-[24px] text-[0px] opacity-0 absolute w-full cursor-pointer"
-                  @change="onImageUpload"
-                  ref="myInput"
-               />
-               <UButton
-                  icon="i-heroicons-pencil-square-solid"
-                  color="gray"
-                  @click="$refs.myInput.click()"
-                  dynamic
-               />
+               <UButton :icon="icon" color="gray" dynamic>
+                  <div v-if="showTitle">
+                     <label
+                        class="text-cyan-500 mb-1 ml-1 text-sm"
+                     >
+                        {{ title }}</label
+                     >
+                  </div>
+                  <input
+                     required
+                     type="file"
+                     accept="image/*"
+                     class="h-[24px] text-[0px] opacity-0 absolute w-full cursor-pointer"
+                     @change="onImageUpload"
+                     ref="myInput"
+                  />
+               </UButton>
             </div>
             <div v-if="!preview">
                <div

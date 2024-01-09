@@ -54,6 +54,12 @@
       }
    })
 
+   const clearInfo = () => {
+      for (let key in info.value) {
+         info.value[key] = null
+      }
+   }
+
    const onChangeInput = (data, name) => {
       info.value[name] = data
    }
@@ -82,14 +88,28 @@
    ]
 
    const isButtonDisabled = computed(() => {
-      // for (let key in info.value) {
-      // for (let key in { type, age, commonName }) {
-      //    if (!info.value[key]) {
-      //       return true
-      //    }
-      // }
+      for (let key of [
+         'type',
+         'age',
+         'commonName',
+         'image',
+      ]) {
+         if (!info.value[key]) {
+            return true
+         }
+      }
       return false
    })
+
+   const { findBDay } = useDate()
+   // const bdayPostgres = findBDay(-ageInDays.value, 0, 0) // YYYY-MM-DD
+
+   // DH HERE!! HOW TO STORE PLAMT BORNDAY?
+   // const test = () => {
+   //    console.log(ageInDays.value, 'days')
+   //    // console.log(bdayPostgres)
+   //    console.log('BD: ', findBDay(-ageInDays.value, 0, 0))
+   // }
 
    const handleSubmit = async () => {
       const fileName = Math.floor(
@@ -108,6 +128,8 @@
          // FIX!!!
 
          ...info.value,
+         created: new Date(),
+         bday: findBDay(-ageInDays.value, 0, 0), // FIXX!!!
          type: info.value.type,
          age: Math.floor(ageInDays.value),
          // Need to change age in days to plant-bday! Bc this will change as time goes on.. drrr!
@@ -122,6 +144,9 @@
       }
 
       delete body.ageUnits // Not needed (used for compute)
+
+      console.log('BD: ', findBDay(-ageInDays.value, 0, 0))
+      // console.log('bdayPostgres: ', bdayPostgres)
 
       console.log({ body })
 
@@ -139,12 +164,11 @@
          )
 
          clearForm()
+         clearInfo()
          showExtras.value = false
       } catch (err) {
          errorMessage.value = err.statusMessage
 
-         console.log('Removing image??')
-         // FIX~!~?
          await supabase.storage
             .from('images')
             .remove(data.path)
@@ -201,6 +225,8 @@
          <h1 class="text-6xl">Add a Plant</h1>
       </div>
 
+      <button @click="test">Test</button>
+
       <PlantAddInput
          name="commonName"
          ref="commonNameInputRef"
@@ -208,6 +234,7 @@
          placeholder="eg. Lucky bamboo"
          @change-input="onChangeInput"
       />
+
       <PlantAddInput
          name="scientificName"
          ref="scientificNameInputRef"
@@ -217,13 +244,14 @@
       />
 
       <PlantAddSelect
-         class="mt-5"
+         class="mt-4"
          name="type"
          ref="typeSelectRef"
          title="Plant type *"
          :options="filteredPlantTypes"
          @change-input="onChangeInput"
       />
+
       <div class="flex items-center">
          <PlantAddInput
             name="age"
@@ -233,15 +261,26 @@
             @change-input="onChangeInput"
          />
          <PlantAddSelect
-            class="ml-3 mt-8"
+            class="ml-3 mt-9"
             name="ageUnits"
             @change-input="onChangeInput"
             ref="childSelectComponentRef"
             :options="ageUnitsOptions"
             :default="ageUnitsOptions[0]"
-            width="32"
+            :width="24"
          />
       </div>
+
+      <PlantAddImage
+         key="create"
+         :showTitle="true"
+         icon="i-heroicons-photo"
+         title="Upload Image *"
+         class="mt-8"
+         ref="plantImageInputRef"
+         @change-input="onChangeInput"
+      />
+
       <UButton
          @click="showExtras = !showExtras"
          class="mt-10 mb-6"
@@ -272,7 +311,6 @@
             title="Indoors or out?"
             :options="['Indoor', 'Outdoor', 'Either']"
             @change-input="onChangeInput"
-            thin
          />
 
          <PlantAddInput
@@ -313,22 +351,14 @@
          />
       </div>
 
-      <PlantAddImage
-         showTitle="true"
-         title="Upload Image*"
-         class="mt-6"
-         ref="plantImageInputRef"
-         @change-input="onChangeInput"
-      />
-
       <div class="w-full text-center">
-         <button
+         <UButton
             :disabled="isButtonDisabled"
             @click="handleSubmit"
             class="bg-blue-400 text-white rounded py-2 px-7 mt-8"
          >
             Create
-         </button>
+         </UButton>
          <p v-if="errorMessage" class="mt-3 text-red-400">
             {{ errorMessage }}
          </p>

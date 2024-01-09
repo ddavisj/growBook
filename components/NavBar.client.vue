@@ -23,7 +23,7 @@
          <NuxtLink
             to="/users"
             class="ml-4 md:ml-4 text-sm md:text-base"
-            >Users</NuxtLink
+            >Growers</NuxtLink
          >
 
          <NuxtLink

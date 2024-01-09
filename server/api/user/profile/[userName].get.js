@@ -20,6 +20,7 @@ export default defineEventHandler(async event => {
          image: true,
          id: true,
          scientificName: true,
+         bday: true,
          // name: true,
          // price: true,
       },

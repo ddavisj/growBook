@@ -24,7 +24,7 @@
             :to="`/${user.user_name}`"
          >
             <img
-               class="rounded-full mr-4 h-20 w-20"
+               class="rounded-full mr-4 h-24 w-24"
                :src="image"
             />
          </NuxtLink>
@@ -38,6 +38,12 @@
          </NuxtLink>
          <div class="text-xl">
             {{ user.first_name }} {{ user.last_name }}
+         </div>
+         <div class="text-l text-gray-500">
+            {{ user.city }}, {{ user.country }}
+         </div>
+         <div class="text-l text-gray-500">
+            {{ user.description }}
          </div>
       </div>
    </div>
