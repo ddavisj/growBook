@@ -42,20 +42,24 @@
    <div class="mt-8">
       <h1 class="text-5xl font-bold mb-7">Log in</h1>
 
-      <button
-         class="bg-cyan-400 p-2 px-3 rounded text-black font-bold mb-6"
-      >
-         <NuxtLink to="/signup"
-            >Sign up with email</NuxtLink
+      <div>
+         <button
+            class="bg-cyan-400 p-2 px-3 rounded text-black font-bold mb-6"
          >
-      </button>
+            <NuxtLink to="/signup"
+               >Sign up with email</NuxtLink
+            >
+         </button>
+      </div>
 
-      <button
-         class="bg-red-400 p-2 px-3 rounded text-white font-bold"
-         @click="AuthStore.login"
-      >
-         Login with Google
-      </button>
+      <div>
+         <button
+            class="bg-red-400 p-2 px-3 rounded text-white font-bold"
+            @click="AuthStore.login"
+         >
+            Login with Google
+         </button>
+      </div>
    </div>
 
    <div class="flex flex-col mt-4 mb-4">

@@ -1,12 +1,15 @@
 <script setup>
    const props = defineProps({
       listing: Object,
+      index: Number,
    })
 
-   // console.log('L: ', props.listing)
    const emits = defineEmits(['deleteClick'])
    const config = useRuntimeConfig()
 
+   console.log('index', props.index)
+
+   // Hyphenate common name for plant details url
    const commonNameHyph = props.listing.commonName
       .replace(/\s+/g, '-')
       .toLowerCase()
@@ -14,14 +17,13 @@
    const { getPlantAge } = useDate()
 
    const { listing } = props
-   // console.log({ listing })
 </script>
 
 <template>
    <div
-      class="shadow rounded overflow-hidden flex justify-between mb-4"
+      class="shadow rounded overflow-hidden flex justify-between mb-6 mt-6"
    >
-      <div class="flex">
+      <div class="flex items-center">
          <NuxtLink
             class="text-blue-400"
             :to="`/plant/${commonNameHyph}-${listing.id}`"
@@ -29,10 +31,10 @@
             <NuxtImg
                :src="`${config.public.supabase.url}/storage/v1/object/public/images/${listing.image}`"
                alt=""
-               class="mr-3 h-50 w-auto"
+               class="mr-3 h-50 w-auto w-[90%]"
             />
          </NuxtLink>
-         <div class="p-3">
+         <div class="">
             <h1 class="text-2xl">
                <NuxtLink
                   class="text-blue-400"

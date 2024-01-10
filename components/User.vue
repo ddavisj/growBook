@@ -31,19 +31,21 @@
       </div>
       <div>
          <NuxtLink
-            class="text-cyan-400 text-xl"
+            class="text-cyan-500 text-xl"
             :to="`/${user.user_name}`"
          >
-            {{ user.user_name }}
+            <span class="text-xl">{{
+               user.user_name
+            }}</span>
          </NuxtLink>
-         <div class="text-xl">
+         <div class="text">
             {{ user.first_name }} {{ user.last_name }}
          </div>
          <div class="text-l text-gray-500">
-            {{ user.city }}, {{ user.country }}
+            {{ user.description }}
          </div>
          <div class="text-l text-gray-500">
-            {{ user.description }}
+            {{ user.city }}, {{ user.country }}
          </div>
       </div>
    </div>

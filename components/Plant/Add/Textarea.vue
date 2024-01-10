@@ -29,13 +29,13 @@
 </script>
 
 <template>
-   <div class="flex flex-col w-[100%] mt-10">
+   <div class="flex flex-col w-[100%]">
       <label for="" class="text-cyan-500 mb-1 text-sm">
          {{ title }}
       </label>
       <textarea
          type="text"
-         class="p-2 border w-100 rounded w-full md:w-2/3 h-20 mt-3"
+         class="p-2 border w-100 rounded w-full h-20 mt-3 bg-neutral-900 border-gray-600"
          :placeholder="placeholder"
          v-model="state"
          :name="name"

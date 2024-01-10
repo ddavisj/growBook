@@ -119,83 +119,116 @@
             .remove(data.path)
       }
    }
+
+   const cardUi = {
+            background: 'bg-white dark:bg-black',
+            ring: 'ring-2 ring-gray-200 dark:ring-gray-900',
+            divide: 'dark:divide-y-4 dark:divide-gray-900',
+            shadow: 'shadow',
+            rounded: 'rounded-3xl',
+         }
 </script>
 
 <template>
-   <div>
-      <h1 class="mt-24 text-6xl text-black-600 mb-4">
-         My account
-      </h1>
-
-      <div class="mt-10 flex items-center">
-         <div
-            v-if="
-               AuthStore.uploadedImage && showUploadedAvatar
-            "
-         >
-            <img
-               class="w-32 rounded-full"
-               :src="AuthStore.uploadedImage"
-               alt=""
-            />
+   <div class="w-full flex flex-col gap-y-4">
+      <UCard
+         :ui="cardUi"
+      >
+         <div class="space-y-4">
+            <h1 class="mt-24 text-6xl text-black-600 mb-4">
+               My account
+            </h1>
          </div>
-         <GoogleAvatar v-if="!AuthStore.uploadedImage" />
-         <div v-if="!!AuthStore.username">
-            <PlantAddImage
-               key="account"
-               :showTitle="false"
-               title=""
-               icon="i-heroicons-pencil-square"
-               ref="accountImageInputRef"
-               @change-input="onChangeInput"
-               :preview="false"
-            />
+      </UCard>
+
+      <UCard
+         :ui="cardUi"
+      >
+         <div v-if="!!AuthStore.username" class="mb-5 text-xl text-lime-400">
+            <p>
+               @{{ AuthStore.username }}
+            </p>
          </div>
 
-         <div class="text-xl ml-5 mb-3 mt-5">
-            <div v-if="AuthStore.username === undefined">
-               <p>Loading..</p>
+         <div class="flex items-center">
+            <div
+               v-if="
+                  AuthStore.uploadedImage &&
+                  showUploadedAvatar
+               "
+            >
+               <img
+                  class="w-32 rounded-full"
+                  :src="AuthStore.uploadedImage"
+                  alt=""
+               />
             </div>
-            <div v-if="!!AuthStore.username">
-               <p>
-                  {{ AuthStore.username }}
-               </p>
-               <p class="mt-1">
+            <GoogleAvatar v-if="!AuthStore.uploadedImage" />
+            <div v-if="!!AuthStore.username" class="ml-4">
+               <PlantAddImage
+                  key="account"
+                  :showTitle="false"
+                  title=""
+                  icon="i-heroicons-photo"
+                  ref="accountImageInputRef"
+                  @change-input="onChangeInput"
+                  :preview="false"
+               />
+            </div>
+
+            <div class="text-xl ml-5">
+               <div v-if="AuthStore.username === undefined">
+                  <p>Loading..</p>
+               </div>
+               <div v-if="!!AuthStore.username">
+
+                  <p class="mt-1">
+                     <NuxtLink
+                        class="text-blue-400"
+                        :to="`/${AuthStore.username}`"
+                        >My public profile</NuxtLink
+                     >
+                  </p>
+               </div>
+               <p v-if="AuthStore.username === null">
                   <NuxtLink
+                     to="/user/register"
                      class="text-blue-400"
-                     :to="`/${AuthStore.username}`"
-                     >My public profile</NuxtLink
+                     >Not yet registered.. Register
+                     now!</NuxtLink
                   >
                </p>
             </div>
-            <p v-if="AuthStore.username === null">
-               <NuxtLink
-                  to="/user/register"
-                  class="text-blue-400"
-                  >Not yet registered.. Register
-                  now!</NuxtLink
-               >
-            </p>
          </div>
-      </div>
-      <p v-if="AuthStore.user" class="text-xl mb-3 mt-5">
-         Email: {{ AuthStore.user.email }}
-      </p>
-      <PlantAddTextarea
-         :text="info.description"
-         ref="childTAComponentRef"
-         title="About you"
-         name="description"
-         placeholder="A sentence about your own self"
-         @change-input="onChangeInput"
-         v-model="info.description"
-      />
+         <p v-if="AuthStore.user" class="mb-3 mt-10">
+            <p class="text-cyan-500">Email</p>
+            <p class="mt-1">{{
+               AuthStore.user.email
+            }}</p>
+         </p>
+      </UCard>
 
-      <Confirm
-         :showConfirm="showConfirm"
-         :errorMessage="errorMessage"
-         @cancel="cancelImageUpload"
-         @save="handleSubmit"
-      />
+      <UCard
+         :ui="cardUi"
+      >
+         <div class="mb-8">
+            <PlantAddTextarea
+               :text="info.description"
+               ref="childTAComponentRef"
+               title="About you"
+               name="description"
+               placeholder="A sentence or two.."
+               @change-input="onChangeInput"
+               v-model="info.description"
+            />
+
+            <Confirm
+               :showConfirm="showConfirm"
+               :errorMessage="errorMessage"
+               @cancel="cancelImageUpload"
+               @save="handleSubmit"
+            />
+         </div>
+      </UCard>
    </div>
 </template>
