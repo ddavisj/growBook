@@ -1,13 +1,10 @@
 <script setup>
    const props = defineProps({
       listing: Object,
-      index: Number,
    })
 
    const emits = defineEmits(['deleteClick'])
    const config = useRuntimeConfig()
-
-   console.log('index', props.index)
 
    // Hyphenate common name for plant details url
    const commonNameHyph = props.listing.commonName
@@ -30,11 +27,12 @@
          >
             <NuxtImg
                :src="`${config.public.supabase.url}/storage/v1/object/public/images/${listing.image}`"
+               width="400"
                alt=""
-               class="mr-3 h-50 w-auto w-[90%]"
+               class="mr-3 h-50"
             />
          </NuxtLink>
-         <div class="">
+         <div class="ml-4">
             <h1 class="text-2xl">
                <NuxtLink
                   class="text-blue-400"

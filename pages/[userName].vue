@@ -51,14 +51,14 @@
          </div>
 
          <div>
-            <div class="text-xl">
+            <div class="text-2xl mb-1">
                {{ user.first_name }} {{ user.last_name }}
             </div>
             <div class="text-l text-white">
-               {{ user.city }}, {{ user.country }}
-            </div>
-            <div class="text-l text-white">
                {{ user.description }}
+            </div>
+            <div class="text-l text-gray-500">
+               {{ user.city }}, {{ user.country }}
             </div>
          </div>
       </div>
@@ -69,10 +69,9 @@
                v-for="(listing, index) in listings"
                class="shadow rounded"
             >
-               <PlantUserListingCard
+               <UserListingCard
                   :key="listing.id"
                   :listing="listing"
-                  :index="index"
                />
                <UDivider
                   v-if="index !== listings.length - 1"

@@ -1,4 +1,8 @@
 <script setup>
+   definePageMeta({
+      layout: 'custom',
+   })
+
    useHead({
       title: 'growBook',
    })
@@ -6,6 +10,8 @@
 
 <template>
    <div>
-      <PlantHero />
+      <!-- <PlantHero /> -->
+
+      <PlantRecentPosts />
    </div>
 </template>

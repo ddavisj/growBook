@@ -13,6 +13,7 @@
                Grow, gift and share plants
             </h1>
             <PlantSearchBar />
+            <!-- <PlantRecentPosts /> -->
          </div>
       </div>
       <div

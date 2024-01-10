@@ -13,6 +13,10 @@
       <h1 class="text-6xl">Growers</h1>
    </div>
    <div>
-      <User v-for="user in users" :user="user" />
+      <User
+         v-for="user in users"
+         :user="user"
+         imageSize="24"
+      />
    </div>
 </template>

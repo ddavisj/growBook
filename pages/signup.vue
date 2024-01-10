@@ -40,12 +40,12 @@
 </script>
 
 <template>
-   <div class="mt-10">
+   <div class="mt-24">
       <h1 class="text-5xl font-bold mb-7">Sign up</h1>
    </div>
 
    <div class="flex flex-col mt-3">
-      <h2 class="text-xl mt-24 mb-3 font-bold">
+      <h2 class="text-xl mt-10 mb-3 font-bold">
          Register with email and password
       </h2>
    </div>

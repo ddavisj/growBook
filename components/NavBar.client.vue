@@ -1,6 +1,14 @@
 <script setup>
    const AuthStore = useAuthStore()
+
    AuthStore.checkLogin()
+
+   watch(
+      () => AuthStore.username,
+      () => {
+         AuthStore.loadUserName()
+      }
+   )
    AuthStore.loadUserName()
 </script>
 
@@ -40,8 +48,15 @@
          </p>
       </div>
 
-      <NuxtLink v-else class="font-mono mr-5" to="/login"
-         >Login</NuxtLink
-      >
+      <div v-if="!AuthStore.loggedIn">
+         <NuxtLink
+            to="/users"
+            class="ml-4 mr-6 md:ml-4 text-sm md:text-base"
+            >Growers</NuxtLink
+         >
+         <NuxtLink class="font-mono mr-5" to="/login"
+            >Login</NuxtLink
+         >
+      </div>
    </header>
 </template>

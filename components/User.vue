@@ -1,6 +1,10 @@
 <script setup>
    const props = defineProps({
       user: Object,
+      hideFullName: Boolean,
+      hideDescription: Boolean,
+      hideLocation: Boolean,
+      imageSize: String,
    })
 
    if (props.user.image === 'NULL') {
@@ -24,7 +28,8 @@
             :to="`/${user.user_name}`"
          >
             <img
-               class="rounded-full mr-4 h-24 w-24"
+               :class="`h-${imageSize} w-${imageSize}`"
+               class="rounded-full mr-4"
                :src="image"
             />
          </NuxtLink>
@@ -38,13 +43,19 @@
                user.user_name
             }}</span>
          </NuxtLink>
-         <div class="text">
+         <div v-if="!hideFullName" class="text">
             {{ user.first_name }} {{ user.last_name }}
          </div>
-         <div class="text-l text-gray-500">
+         <div
+            v-if="!hideDescription"
+            class="text-l text-gray-500"
+         >
             {{ user.description }}
          </div>
-         <div class="text-l text-gray-500">
+         <div
+            v-if="!hideLocation"
+            class="text-l text-gray-500"
+         >
             {{ user.city }}, {{ user.country }}
          </div>
       </div>

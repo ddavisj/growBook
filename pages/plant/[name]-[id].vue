@@ -30,11 +30,23 @@
          message: `Plant with ID of ${route.params.id} does not exist`,
       })
    }
+
+   const { data: user } = await useFetch(
+      `/api/user/get-user-by-uuid/${plant.value.listerId}`
+   )
 </script>
 
 <template>
    <div v-if="plant">
       <PlantDetailHero :plant="plant" />
+      <div>
+         <User
+            :user="user"
+            imageSize="12"
+            hideFullName
+            hideDescription
+         />
+      </div>
       <PlantDetailAttributes
          :features="[
             plant.source,
