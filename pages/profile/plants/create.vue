@@ -222,10 +222,8 @@
             class="mr-3"
             dynamic
          />
-         <h1 class="text-6xl">Add a Plant</h1>
+         <h1 class="text-4xl md:text-6xl">Add a Plant</h1>
       </div>
-
-      <button @click="test">Test</button>
 
       <PlantAddInput
          name="commonName"
@@ -272,6 +270,8 @@
       </div>
 
       <PlantAddImage
+         label="Plant photo"
+         labelClass="text-sm"
          key="create"
          :showTitle="true"
          icon="i-heroicons-photo"

@@ -4,6 +4,8 @@
       showTitle: Boolean,
       preview: Boolean,
       icon: String,
+      label: String,
+      labelClass: String,
    })
 
    const title = props.title ? props.title : 'Image*'
@@ -44,6 +46,15 @@
 
 <template>
    <div class="w-[100%]" :key="props.key">
+      <div class="mb-3">
+         <label
+            for=""
+            class="text-cyan-500 mb-5"
+            :class="labelClass"
+         >
+            {{ label }}
+         </label>
+      </div>
       <form>
          <div class="form-group">
             <div class="relative">

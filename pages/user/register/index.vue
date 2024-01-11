@@ -44,17 +44,18 @@
       info.value[name] = data
    }
 
-   // const info.firstName ref('')
-   // const lastNameState = ref('')
-   // const usernameState = ref('')
-   // const cityState = ref('')
-   // const countryState = ref('')
-
    const usernameExists = reactive({
       checkComplete: false,
       value: false,
       message: '',
+      messageColor: 'text-green-500',
    })
+
+   const checkifEmpty = () => {
+      if (info.value.username === '') {
+         usernameExists.checkComplete = false
+      }
+   }
 
    const isCheckDisabled = computed(() => {
       if (!info.value.username) {
@@ -64,7 +65,11 @@
    })
 
    const isSubmitDisabled = computed(() => {
-      if (!info.value.firstName || !!usernameExists.value) {
+      if (
+         !info.value.firstName ||
+         !!usernameExists.value ||
+         !usernameExists.checkComplete
+      ) {
          return true
       }
       return false
@@ -73,16 +78,28 @@
    const message = ref('')
 
    const handleUsernameCheck = async () => {
-      const { data } = await useFetch(
-         `/api/user/check-username/${info.value.username}`
-      )
+      if (info.value.username !== '') {
+         info.value.username = info.value.username
+            .toLowerCase()
+            .trim()
 
-      usernameExists.checkComplete = true
-      usernameExists.value = !!data.value
+         const { data } = await useFetch(
+            `/api/user/check-username/${info.value.username}`
+         )
 
-      usernameExists.message = !!data.value
-         ? 'User name exists!'
-         : 'Username available'
+         usernameExists.checkComplete = true
+         usernameExists.value = !!data.value
+
+         if (data.value) {
+            usernameExists.messageColor = 'text-red-500'
+            usernameExists.message = 'Username unavailable'
+         } else {
+            usernameExists.messageColor = 'text-green-500'
+            usernameExists.message = 'Username available'
+         }
+      } else {
+         usernameExists.checkComplete = false
+      }
    }
 
    const handleSubmit = async () => {
@@ -101,11 +118,10 @@
       const body = {
          firstName: info.value.firstName,
          lastName: info.value.lastName,
-         userName: info.value.username,
+         userName: info.value.username.toLowerCase(),
          city: info.value.city,
          country: info.value.country,
          userId: user.value.id,
-         // id: user.value.id,
          image: data.path,
       }
 
@@ -135,34 +151,32 @@
             for=""
             class="text-cyan-500 mt-4 mb-3 text-xl"
          >
-            Enter a username*
+            Username *
          </label>
          <div class="flex mt-3 overflow-hidden mx-auto">
             <input
                type="text"
                class="p-2 border w-100 rounded"
                placeholder=""
+               @input="checkifEmpty"
                v-model="info.username"
             />
-            <button
-               class="bg-sky-500 px-10 text-white"
+            <UButton
+               class="bg-sky-500 px-10 text-white rounded-md ml-1"
                @click="handleUsernameCheck"
                :disabled="isCheckDisabled"
             >
                Check
-            </button>
+            </UButton>
          </div>
       </div>
 
       <div v-if="usernameExists.checkComplete">
          <p
-            v-if="usernameExists.value"
-            class="text-red-500 mt-2"
+            class="mt-2"
+            :class="usernameExists.messageColor"
          >
-            Username exists, try another
-         </p>
-         <p v-else class="text-green-500 mt-2">
-            Username available!
+            {{ usernameExists.message }}
          </p>
       </div>
 
@@ -191,6 +205,7 @@
          class="mt-4"
          ref="childInputComponentsRef"
          title="City"
+         labelClass="text-xl"
          name="city"
          placeholder=""
          @change-input="onChangeInput"
@@ -199,26 +214,31 @@
       <PlantAddSelect
          title="Country"
          class="mt-4"
+         labelClass="text-xl"
          :options="countryNames"
          name="country"
          @change-input="onChangeInput"
       />
 
       <PlantAddImage
-         title="Profile picture"
-         class="mt-6"
+         label="Profile picture"
+         labelClass="text-xl"
+         :showTitle="true"
+         title="Add image"
+         icon="i-heroicons-camera"
+         class="mt-8"
          ref="plantImageInputRef"
          @change-input="onChangeInput"
       />
 
       <div class="w-full text-left">
-         <button
+         <UButton
             :disabled="isSubmitDisabled"
             @click="handleSubmit"
             class="bg-blue-400 text-white rounded py-2 px-7 mt-8"
          >
-            Register
-         </button>
+            Update
+         </UButton>
          <p v-if="message" class="mt-3 text-orange-400">
             {{ message }}
          </p>

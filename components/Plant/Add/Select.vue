@@ -5,6 +5,7 @@
       name: String,
       default: String,
       width: Number,
+      labelClass: String,
    })
 
    const emits = defineEmits(['changeInput'])
@@ -23,7 +24,11 @@
 
 <template>
    <div class="flex flex-col mt-2">
-      <label for="" class="text-cyan-500 mb-1 text-sm">
+      <label
+         for=""
+         class="text-cyan-500 mb-1 text-sm mb-3"
+         :class="labelClass"
+      >
          {{ title }}
       </label>
       <select

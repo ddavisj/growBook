@@ -23,10 +23,11 @@
             message.value = error.message
          } else {
             message.value = 'Signing in..'
+            AuthStore.checkLogin()
+            AuthStore.loadUserName()
             setTimeout(() => {
                navigateTo('/')
-               AuthStore.loggedIn = true
-            }, 700)
+            }, 500)
          }
       } catch (error) {
          console.log('Error: ' + error)

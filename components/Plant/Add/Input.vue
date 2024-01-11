@@ -3,6 +3,7 @@
       title: String,
       name: String,
       placeholder: String,
+      labelClass: String,
    })
 
    const emits = defineEmits(['changeInput'])
@@ -21,7 +22,11 @@
 
 <template>
    <div class="flex flex-col md:w-[48%] mt-4">
-      <label for="" class="text-cyan-500 mb-1 text-sm">
+      <label
+         for=""
+         class="text-cyan-500 mb-1 text-sm mb-3"
+         :class="labelClass"
+      >
          {{ title }}
       </label>
       <input

@@ -27,9 +27,8 @@
          >
             <NuxtImg
                :src="`${config.public.supabase.url}/storage/v1/object/public/images/${listing.image}`"
-               width="400"
+               class="mr-3 h-50 sm:w-[250px] md:w-[400px]"
                alt=""
-               class="mr-3 h-50"
             />
          </NuxtLink>
          <div class="ml-4">

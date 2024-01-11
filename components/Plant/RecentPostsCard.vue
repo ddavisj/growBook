@@ -10,7 +10,7 @@
       .replace(/\s+/g, '-')
       .toLowerCase()
 
-   const { getPlantAge } = useDate()
+   const { getPlantAge, howLongAgoPosted } = useDate()
 
    const { listing } = props
 
@@ -20,8 +20,6 @@
 
    const { getUserImage } = useUser()
    const image = getUserImage(user)
-
-   // <div class="h-auto max-w-24">
 </script>
 
 <template>
@@ -36,8 +34,7 @@
             >
                <NuxtImg
                   :src="`${config.public.supabase.url}/storage/v1/object/public/images/${listing.image}`"
-                  width="400"
-                  class="mr-8"
+                  class="mr-8 w-[200px] md:w-[400px]"
                   alt=""
                />
             </NuxtLink>
@@ -56,9 +53,15 @@
                {{ listing.scientificName }}
             </h3>
 
-            <h3 class="text-l mt-1">
-               <UTooltip text="Estimated age">
+            <!-- <h3 class="text-l mt-1">
+               <UTooltip text="Estimated plant age">
                   {{ getPlantAge(listing.bday) }}
+               </UTooltip>
+            </h3> -->
+            <h3 class="text-l mt-1">
+               <UTooltip text="Estimated plant age">
+                  {{ howLongAgoPosted(listing.created) }}
+                  ago
                </UTooltip>
             </h3>
 
@@ -69,7 +72,7 @@
                >
                   <div>
                      <img
-                        class="rounded-full h-20 w-20 md:h-10 md:w-10 mr-2"
+                        class="rounded-full h-12 w-12 md:h-20 md:w-20 mr-2"
                         :src="image"
                      />
                   </div>

@@ -72,7 +72,7 @@
          />
       </div> -->
       <div>
-         <div class="fkex mt-4 w-[600px]">
+         <div class="fkex mt-4 w-full">
             <textarea
                v-model="message.message"
                class="pl-2 border p-1 w-full"

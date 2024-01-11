@@ -10,16 +10,9 @@ export const useAuthStore = defineStore('AuthStore', {
    },
    getters: {},
    actions: {
-      async checkUploaded() {
-         if (this.loggedIn) {
-            // DH Delete this?!@!!
-         }
-      },
       async loadUploadedImage({ image }) {
-         // if (!this.uploadedImage) {
          const config = useRuntimeConfig()
          this.uploadedImage = `${config.public.supabase.url}/storage/v1/object/public/images/${image}`
-         // }
       },
       async loadUserName() {
          if (this.loggedIn && !this.username) {

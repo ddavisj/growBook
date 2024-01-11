@@ -1,6 +1,7 @@
 <script setup>
    const props = defineProps({
       user: Object,
+      hideUserName: Boolean,
       hideFullName: Boolean,
       hideDescription: Boolean,
       hideLocation: Boolean,
@@ -22,20 +23,19 @@
 
 <template>
    <div class="flex items-center mb-4 mt-8">
+      <NuxtLink
+         class="min-w-max text-cyan-400 mr-4"
+         :to="`/${user.user_name}`"
+      >
+         <img
+            class="rounded-full mr-4 h-24 w-24"
+            :class="`h-${imageSize} w-${imageSize}`"
+            :src="image"
+         />
+      </NuxtLink>
       <div>
          <NuxtLink
-            class="text-cyan-400"
-            :to="`/${user.user_name}`"
-         >
-            <img
-               :class="`h-${imageSize} w-${imageSize}`"
-               class="rounded-full mr-4"
-               :src="image"
-            />
-         </NuxtLink>
-      </div>
-      <div>
-         <NuxtLink
+            v-if="!hideUserName"
             class="text-cyan-500 text-xl"
             :to="`/${user.user_name}`"
          >
@@ -43,12 +43,12 @@
                user.user_name
             }}</span>
          </NuxtLink>
-         <div v-if="!hideFullName" class="text">
+         <div v-if="!hideFullName" class="text-2xl mb-1">
             {{ user.first_name }} {{ user.last_name }}
          </div>
          <div
             v-if="!hideDescription"
-            class="text-l text-gray-500"
+            class="text-l dark:text-white"
          >
             {{ user.description }}
          </div>

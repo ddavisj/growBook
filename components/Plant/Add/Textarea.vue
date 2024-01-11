@@ -4,6 +4,7 @@
       name: String,
       placeholder: String,
       text: String,
+      maxLength: Number,
    })
 
    const emits = defineEmits(['changeInput'])
@@ -26,6 +27,8 @@
    defineExpose({
       clearState,
    })
+
+   console.log('ML:', props.maxLength)
 </script>
 
 <template>
@@ -40,6 +43,7 @@
          v-model="state"
          :name="name"
          @input="onChange"
+         :maxlength="props.maxLength || 200"
       ></textarea>
    </div>
 </template>

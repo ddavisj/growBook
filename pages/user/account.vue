@@ -5,8 +5,6 @@
       middleware: ['page-auth'],
    })
 
-   console.log('HEREEHERE')
-
    const supabase = useSupabaseClient()
    const user = useSupabaseUser()
 
@@ -26,12 +24,6 @@
          image: '',
       }
    })
-
-   // const clearInfo = () => {
-   //    for (let key in info.value) {
-   //       info.value[key] = null
-   //    }
-   // }
 
    // Load once
    info.value.description = AuthStore.description
@@ -69,7 +61,6 @@
       showConfirm.value = false
       showUploadedAvatar.value = true
       accountImageInputRef.value.clearImage()
-      // clearInfo()
    }
 
    const handleSubmit = async () => {
@@ -121,19 +112,23 @@
    }
 
    const cardUi = {
-            background: 'bg-white dark:bg-black',
-            ring: 'ring-2 ring-gray-200 dark:ring-gray-900',
-            divide: 'dark:divide-y-4 dark:divide-gray-900',
-            shadow: 'shadow',
-            rounded: 'rounded-3xl',
-         }
+      background: 'bg-white dark:bg-black',
+      ring: 'ring-2 ring-gray-200 dark:ring-gray-900',
+      divide: 'dark:divide-y-4 dark:divide-gray-900',
+      shadow: 'shadow',
+      rounded: 'rounded-3xl',
+   }
+
+   const colorMode = useColorMode()
+   const switchColor = () => {
+      colorMode.preference =
+         colorMode.value === 'dark' ? 'light' : 'dark'
+   }
 </script>
 
 <template>
    <div class="w-full flex flex-col gap-y-4">
-      <UCard
-         :ui="cardUi"
-      >
+      <UCard :ui="cardUi">
          <div class="space-y-4">
             <h1 class="mt-24 text-6xl text-black-600 mb-4">
                My account
@@ -141,13 +136,12 @@
          </div>
       </UCard>
 
-      <UCard
-         :ui="cardUi"
-      >
-         <div v-if="!!AuthStore.username" class="mb-5 text-xl text-lime-400">
-            <p>
-               @{{ AuthStore.username }}
-            </p>
+      <UCard :ui="cardUi">
+         <div
+            v-if="!!AuthStore.username"
+            class="mb-5 text-xl text-lime-400"
+         >
+            <p>@{{ AuthStore.username }}</p>
          </div>
 
          <div class="flex items-center">
@@ -181,7 +175,6 @@
                   <p>Loading..</p>
                </div>
                <div v-if="!!AuthStore.username">
-
                   <p class="mt-1">
                      <NuxtLink
                         class="text-blue-400"
@@ -200,17 +193,27 @@
                </p>
             </div>
          </div>
-         <p v-if="AuthStore.user" class="mb-3 mt-10">
+
+         <div class="mt-6">
+            <p class="text-cyan-500 mb-1">
+               Toggle dark mode
+            </p>
+            <!-- <UButton
+               color="white"
+               variant="solid"
+               @click="switchColor"
+            > -->
+            <ColorModeButton />
+            <!-- </UButton> -->
+         </div>
+
+         <div v-if="AuthStore.user" class="mb-3 mt-6">
             <p class="text-cyan-500">Email</p>
-            <p class="mt-1">{{
-               AuthStore.user.email
-            }}</p>
-         </p>
+            <p class="mt-1">{{ AuthStore.user.email }}</p>
+         </div>
       </UCard>
 
-      <UCard
-         :ui="cardUi"
-      >
+      <UCard :ui="cardUi">
          <div class="mb-8">
             <PlantAddTextarea
                :text="info.description"
@@ -220,6 +223,7 @@
                placeholder="A sentence or two.."
                @change-input="onChangeInput"
                v-model="info.description"
+               :maxLength="50"
             />
 
             <Confirm
