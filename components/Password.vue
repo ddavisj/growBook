@@ -1,10 +1,12 @@
 <script setup>
    defineProps({
       bgColor: String,
+      passwordType: String,
    })
+   // passwordType: new-password (signup) - or - current-password (login)
 
    const password = ref('')
-   const show = ref(true)
+   const showButton = ref(false)
 
    const emits = defineEmits(['update:modelValue'])
 </script>
@@ -12,10 +14,10 @@
 <template>
    <div class="w-4/5 md:w-1/3 mt-2">
       <UInput
-         :type="!!show ? 'text' : 'password'"
+         :type="showButton ? 'text' : 'password'"
          name="password"
          v-model="password"
-         autocomplete="on"
+         :autocomplete="passwordType"
          color="gray"
          :ui="{
             icon: { trailing: { pointer: '' } },
@@ -36,8 +38,8 @@
                v-show="password !== ''"
                variant="link"
                :padded="false"
-               @click="show = !show"
-               >{{ !!show ? 'Hide' : 'Show' }}</UButton
+               @click="showButton = !showButton"
+               >{{ showButton ? 'Hide' : 'Show' }}</UButton
             >
          </template>
       </UInput>

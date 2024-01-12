@@ -78,10 +78,10 @@
          Email*
       </label>
       <input
-         autocomplete="username"
-         type="text"
-         class="pl-3 block text-white p-2 border w-100 w-4/5 md:w-1/3 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
+         type="email"
+         autocomplete="on"
          name="email"
+         class="pl-3 block text-white p-2 border w-100 w-4/5 md:w-1/3 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
          v-model="state.email"
       />
    </div>
@@ -91,7 +91,11 @@
          Password*
       </label>
 
-      <Password v-model="state.password" name="password" />
+      <Password
+         v-model="state.password"
+         name="password"
+         passwordType="current-password"
+      />
    </div>
 
    <div class="w-full text-left">

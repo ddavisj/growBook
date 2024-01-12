@@ -55,7 +55,8 @@
          Email*
       </label>
       <input
-         type="text"
+         type="email"
+         autocomplete="on"
          class="text-white pl-3 block p-2 border w-100 w-4/5 md:w-1/3 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
          name="email"
          v-model="state.email"
@@ -67,7 +68,11 @@
          Password*
       </label>
 
-      <Password v-model="state.password" name="password" />
+      <Password
+         v-model="state.password"
+         name="password"
+         passwordType="new-password"
+      />
    </div>
 
    <div class="w-full text-left">
