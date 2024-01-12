@@ -24,12 +24,12 @@ logs
 !.env.example
 
 # DH Added
-.npmrc
-nuxt.config.ts
-package-lock.json
-package.json
-tailwind.config.js
-tsconfig.json
+# .npmrc
+# nuxt.config.ts
+# package-lock.json
+# package.json
+# tailwind.config.js
+# tsconfig.json
 settings.json
 schema.prisma
 
