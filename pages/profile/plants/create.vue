@@ -17,6 +17,8 @@
 
    const showExtras = ref(false)
 
+   const isLoading = ref(false)
+
    const ageUnitsOptions = [
       'days',
       'weeks',
@@ -103,14 +105,6 @@
    })
 
    const { findBDay } = useDate()
-   // const bdayPostgres = findBDay(-ageInDays.value, 0, 0) // YYYY-MM-DD
-
-   // DH HERE!! HOW TO STORE PLAMT BORNDAY?
-   // const test = () => {
-   //    console.log(ageInDays.value, 'days')
-   //    // console.log(bdayPostgres)
-   //    console.log('BD: ', findBDay(-ageInDays.value, 0, 0))
-   // }
 
    const handleSubmit = async () => {
       const fileName = Math.floor(
@@ -152,6 +146,7 @@
       console.log({ body })
 
       try {
+         isLoading.value = true
          const response = await $fetch(
             '/api/plant/listings',
             {
@@ -160,6 +155,7 @@
             }
          )
 
+         isLoading.value = false
          alert(
             `Great success. Your ${info.value.commonName} was listed!`
          )
@@ -168,6 +164,7 @@
          clearInfo()
          showExtras.value = false
       } catch (err) {
+         isLoading.value = false
          errorMessage.value = err.statusMessage
 
          await supabase.storage
@@ -356,6 +353,7 @@
          <UButton
             :disabled="isButtonDisabled"
             @click="handleSubmit"
+            :loading="isLoading"
             class="bg-blue-400 text-white rounded py-2 px-7 mt-8"
          >
             Create

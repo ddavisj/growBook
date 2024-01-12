@@ -48,7 +48,7 @@
       >
          <NuxtLink to="/user/register">
             <UButton class="text-lg">
-               Register here to add a plant!
+               Complete your registration to add plants!
             </UButton>
          </NuxtLink>
       </div>

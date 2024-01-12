@@ -206,8 +206,7 @@
                   <NuxtLink
                      to="/user/register"
                      class="text-blue-400"
-                     >Not yet registered.. Register
-                     now!</NuxtLink
+                     >Complete your registration</NuxtLink
                   >
                </p>
             </div>
