@@ -3,6 +3,7 @@
 
    definePageMeta({
       layout: 'custom',
+      middleware: ['page-auth'],
    })
 
    const user = useSupabaseUser()

@@ -1,11 +1,12 @@
 <script setup>
    definePageMeta({
       layout: 'custom',
+      middleware: ['page-auth'],
    })
 
    const route = useRoute()
 
-   const {data: messages} = useFetch(
+   const { data: messages } = useFetch(
       `/api/car/listings/${route.params.id}/message`
    )
 </script>

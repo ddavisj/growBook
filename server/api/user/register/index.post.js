@@ -61,8 +61,9 @@ export default defineEventHandler(async event => {
    //    })
    // }
 
+   let response
    if (!userNameExists) {
-      await prisma.user.create({
+      response = await prisma.user.create({
          data: {
             id: userId,
             first_name: firstName,
@@ -83,5 +84,6 @@ export default defineEventHandler(async event => {
       })
    }
 
+   return response
    return userNameExists
 })

@@ -1,12 +1,13 @@
 <script setup>
    definePageMeta({
       layout: 'custom',
+      middleware: ['page-auth'],
    })
 
    const user = useSupabaseUser()
    const supabase = useSupabaseClient()
 
-   const {makes} = useCars()
+   const { makes } = useCars()
    const filteredMakes = makes.filter(
       make => !['', 'Any'].includes(make)
    )
@@ -90,7 +91,7 @@
       const fileName = Math.floor(
          Math.random() * 10000000000000000000
       )
-      const {data, error} = await supabase.storage
+      const { data, error } = await supabase.storage
          .from('images')
          .upload('public/' + fileName, info.value.image)
 

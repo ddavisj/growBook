@@ -56,7 +56,12 @@
             v-if="!hideLocation"
             class="text-l text-gray-500"
          >
-            {{ user.city }}, {{ user.country }}
+            {{
+               user.city && user.country
+                  ? user.city + ','
+                  : user.city
+            }}
+            {{ user.country }}
          </div>
       </div>
    </div>

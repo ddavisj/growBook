@@ -3,16 +3,14 @@
       showTitle: Boolean,
    })
 
-   const AuthStore = useAuthStore()
-
    import defaultIcon from '@/assets/user.png'
-
+   const AuthStore = useAuthStore()
    const user = useSupabaseUser()
 
    const userPic = ref(null)
-   const renderedTitle = ref('View Account')
-
    const googlePic = user.value.user_metadata.picture
+
+   const renderedTitle = ref('View Account')
 
    const getUserPic = () => {
       if (AuthStore.uploadedImage) {

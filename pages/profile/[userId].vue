@@ -2,12 +2,13 @@
    // User listings - public page
    definePageMeta({
       layout: 'custom',
+      middleware: ['page-auth'],
    })
 
    const route = useRoute()
-   const {userId} = route.params
+   const { userId } = route.params
 
-   const {data: listings} = await useFetch(
+   const { data: listings } = await useFetch(
       `/api/car/listings/user/${userId}`
    )
 </script>

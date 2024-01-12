@@ -49,55 +49,52 @@
             </NuxtLink>
          </div>
          <div class="ml-4 p-3">
-            <h1 class="text-2xl text-blue-400">
+            <h1 class="text-2xl text-blue-400 mb-3">
                <NuxtLink
                   :to="`/plant/${commonNameHyph}-${listing.id}`"
                >
                   {{ listing.commonName }}
                </NuxtLink>
             </h1>
-            <h1 class="text-sm">
+            <h1 class="text-md text-gray-300">
                {{ listing.scientificName }}
             </h1>
-            <h3 class="text-l">
-               {{ listing.type }}
-            </h3>
-            <p class="text-blue-400">
+            <p class="text-blue-400 mb-10">
                {{ listing.price }}
             </p>
-         </div>
-      </div>
-      <div class="p-3 flex flex-col">
-         <NuxtLink
-            class="mr-5"
-            :to="`/profile/listings/view/${listing.id}`"
-         >
+
+            <div class="mb-2">
+               <NuxtLink
+                  :to="`/profile/listings/view/${listing.id}`"
+               >
+                  <div
+                     class="flex items-center text-blue-400"
+                  >
+                     <UIcon
+                        name="i-ic-outline-email"
+                        size="1.25em"
+                        class="mr-3"
+                        dynamic
+                     />
+                     <span class="hidden md:inline"
+                        >Messages</span
+                     >
+                  </div>
+               </NuxtLink>
+            </div>
+
             <div
-               class="flex items-center mt-2 text-blue-400"
+               class="cursor-pointer flex flex-row items-center text-red-400"
+               @click="isOpen = true"
             >
                <UIcon
-                  name="i-ic-outline-email"
-                  size="1.25em"
+                  name="i-ic-baseline-delete-outline"
+                  size="1.4em"
                   class="mr-3"
                   dynamic
                />
-               <span class="hidden md:inline"
-                  >Messages</span
-               >
+               <span class="hidden md:inline">Delete</span>
             </div>
-         </NuxtLink>
-
-         <div
-            class="cursor-pointer flex flex-row items-center mt-2 text-red-400"
-            @click="isOpen = true"
-         >
-            <UIcon
-               name="i-ic-baseline-delete-outline"
-               size="1.4em"
-               class="mr-3"
-               dynamic
-            />
-            <span class="hidden md:inline">Delete</span>
          </div>
       </div>
    </div>

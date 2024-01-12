@@ -5,6 +5,8 @@
       placeholder: String,
       text: String,
       maxLength: Number,
+      labelClass: String,
+      areaWidth: String,
    })
 
    const emits = defineEmits(['changeInput'])
@@ -27,18 +29,21 @@
    defineExpose({
       clearState,
    })
-
-   console.log('ML:', props.maxLength)
 </script>
 
 <template>
    <div class="flex flex-col w-[100%]">
-      <label for="" class="text-cyan-500 mb-1 text-sm">
+      <label
+         for=""
+         class="text-cyan-500 mb-1 text-sm"
+         :class="labelClass"
+      >
          {{ title }}
       </label>
       <textarea
          type="text"
-         class="p-2 border w-100 rounded w-full h-20 mt-3 bg-neutral-900 border-gray-600"
+         class="p-2 border rounded w-2/3 h-15 mt-3 bg-neutral-900 border-gray-600"
+         :class="areaWidth"
          :placeholder="placeholder"
          v-model="state"
          :name="name"

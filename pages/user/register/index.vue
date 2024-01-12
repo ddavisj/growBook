@@ -2,6 +2,7 @@
    // Register user page: /user/register
    definePageMeta({
       layout: 'custom',
+      middleware: ['page-auth'],
    })
 
    const user = useSupabaseUser()
@@ -22,22 +23,21 @@
             },
          }
       )
-      // if (data.value) {
-      //    navigateTo('/')
-      // }
+      if (data.value) {
+         navigateTo('/profile/plants/create')
+      }
    }
 
-   isFirstLogin()
+   // isFirstLogin()
 
-   const info = useState('userinfo', () => {
-      return {
-         username: '',
-         lastName: '',
-         firstName: '',
-         city: '',
-         country: '',
-         image: null,
-      }
+   const info = ref({
+      username: '',
+      lastName: '',
+      firstName: '',
+      city: '',
+      country: '',
+      image: null,
+      description: '',
    })
 
    const onChangeInput = (data, name) => {
@@ -109,7 +109,7 @@
 
       const { data, error } = await supabase.storage
          .from('images')
-         .upload('public/' + fileName, info.value.image)
+         .upload('profile/' + fileName, info.value.image)
 
       if (error) {
          return (errorMessage.value = 'Cannot upload image')
@@ -122,7 +122,8 @@
          city: info.value.city,
          country: info.value.country,
          userId: user.value.id,
-         image: data.path,
+         image: info.value.image ? data.path : null,
+         description: info.value.description,
       }
 
       try {
@@ -132,6 +133,16 @@
          })
          message.value = 'Registration complete'
          AuthStore.username = info.value.username
+
+         // console.log('res:', res)
+
+         info.value.image
+            ? AuthStore.loadUploadedImage(res)
+            : ''
+
+         setTimeout(() => {
+            navigateTo('/profile/plants')
+         }, 700)
       } catch (e) {
          message.value = 'There was an error: ' + e
 
@@ -156,7 +167,7 @@
          <div class="flex mt-3 overflow-hidden mx-auto">
             <input
                type="text"
-               class="p-2 border w-100 rounded"
+               class="p-2 border w-2/3 rounded"
                placeholder=""
                @input="checkifEmpty"
                v-model="info.username"
@@ -185,7 +196,7 @@
       </label>
       <input
          type="text"
-         class="p-2 border w-100 rounded w-1/2"
+         class="p-2 border w-100 rounded w-2/3"
          placeholder=""
          v-model="info.firstName"
          @focus="handleUsernameCheck"
@@ -196,13 +207,13 @@
       </label>
       <input
          type="text"
-         class="p-2 border w-100 rounded w-1/2"
+         class="p-2 border w-100 rounded w-2/3"
          placeholder=""
          v-model="info.lastName"
       />
 
       <PlantAddInput
-         class="mt-4"
+         class="mt-4 w-2/3"
          ref="childInputComponentsRef"
          title="City"
          labelClass="text-xl"
@@ -212,8 +223,8 @@
       />
 
       <PlantAddSelect
-         title="Country"
          class="mt-4"
+         title="Country"
          labelClass="text-xl"
          :options="countryNames"
          name="country"
@@ -229,6 +240,19 @@
          class="mt-8"
          ref="plantImageInputRef"
          @change-input="onChangeInput"
+      />
+
+      <PlantAddTextarea
+         class="mt-8"
+         areaWidth="w-full sm:w-2/3"
+         labelClass="text-xl"
+         ref="childTAComponentRef"
+         title="About you"
+         name="description"
+         placeholder="A sentence or two (max 50 chars).."
+         @change-input="onChangeInput"
+         v-model="info.description"
+         :maxLength="50"
       />
 
       <div class="w-full text-left">

@@ -3,9 +3,11 @@
 
    definePageMeta({
       layout: 'wide',
+      middleware: ['page-auth'],
    })
 
    const user = useSupabaseUser()
+   const AuthStore = useAuthStore()
 
    const { data: listings } = await useFetch(
       `/api/plant/listings/user/${user.value.id}`
@@ -30,7 +32,31 @@
       <h3 class="text-xl text-blue-400 mt-5">
          <NuxtLink to="/user/account">My account</NuxtLink>
       </h3>
-      <div class="shadow rounded pt-3 mt-5">
+      <div
+         class="shadow rounded pt-3 mt-5"
+         v-if="!listings.length && AuthStore.username"
+      >
+         <NuxtLink to="/profile/plants/create">
+            <UButton class="text-lg">
+               No plants added yet.. Add one now!
+            </UButton>
+         </NuxtLink>
+      </div>
+      <div
+         class="shadow rounded pt-3 mt-5"
+         v-if="!listings.length && !AuthStore.username"
+      >
+         <NuxtLink to="/user/register">
+            <UButton class="text-lg">
+               Register here to add a plant!
+            </UButton>
+         </NuxtLink>
+      </div>
+
+      <div
+         class="shadow rounded pt-3 mt-5"
+         v-if="listings.length"
+      >
          <PlantMyListingCard
             v-for="listing in listings"
             :key="listing.id"

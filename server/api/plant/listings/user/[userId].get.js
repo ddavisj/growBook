@@ -9,12 +9,8 @@ export default defineEventHandler(async event => {
       where: {
          listerId: userId,
       },
-      // select: {
-      //    city: true,
-      //    image: true,
-      //    id: true,
-      //    name: true,
-      //    price: true,
-      // },
+      orderBy: {
+         created: 'desc',
+      },
    })
 })

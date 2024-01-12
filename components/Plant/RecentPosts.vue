@@ -19,7 +19,7 @@
    >
       <template #header>
          <div class="flex flex-col items-center">
-            <NuxtImg
+            <img
                class="rounded-3xl"
                src="/banner-wide.jpg"
             />
@@ -28,7 +28,8 @@
             </h1>
 
             <h1 class="text-xl mt-2 mb-6 text-gray-400">
-               A place to grow, gift and share plants
+               The place to gift, share and show off your
+               plants
             </h1>
          </div>
       </template>
@@ -70,14 +71,16 @@
                   </li>
                </div>
                <div v-else>
-                  <li class="text-blue-400 text-xl">
+                  <li class="text-blue-400 mt-3 text-xl">
                      <NuxtLink to="/profile/plants/create">
-                        Start your collection - add a plant!
+                        Get started by adding a plant!
                      </NuxtLink>
                   </li>
                </div>
                <div>
-                  <li class="text-blue-400 text-xl mb-6">
+                  <li
+                     class="text-blue-400 text-xl mt-3 mb-6"
+                  >
                      <NuxtLink to="/users">
                         Check out our growers
                      </NuxtLink>

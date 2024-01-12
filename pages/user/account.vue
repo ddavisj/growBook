@@ -36,6 +36,25 @@
       }
    )
 
+   const googlePic = user.value.user_metadata.picture
+   const imageWarning = ref('')
+
+   const checkGoogleImage = () => {
+      imageWarning.value =
+         googlePic && !AuthStore.uploadedImage
+            ? 'Due to privacy reasons, the image from your Google account is not publicly available. Please register or upload a new image.'
+            : ''
+   }
+
+   watch(
+      () => AuthStore.uploadedImage,
+      () => {
+         checkGoogleImage()
+      }
+   )
+
+   checkGoogleImage()
+
    const onChangeInput = (data, name) => {
       info.value[name] = data
 
@@ -94,11 +113,14 @@
          })
 
          // Don't load image if not being changed
-         !!info.value.image
+         info.value.image
             ? AuthStore.loadUploadedImage(res)
             : ''
 
          AuthStore.description = info.value.description // sync store desc
+
+         // AuthStore.uploadedImage =
+         imageWarning.value = ''
 
          cancelImageUpload()
          message.value = 'Image uploaded'
@@ -117,12 +139,6 @@
       divide: 'dark:divide-y-4 dark:divide-gray-900',
       shadow: 'shadow',
       rounded: 'rounded-3xl',
-   }
-
-   const colorMode = useColorMode()
-   const switchColor = () => {
-      colorMode.preference =
-         colorMode.value === 'dark' ? 'light' : 'dark'
    }
 </script>
 
@@ -157,12 +173,15 @@
                   alt=""
                />
             </div>
-            <GoogleAvatar v-if="!AuthStore.uploadedImage" />
-            <div v-if="!!AuthStore.username" class="ml-4">
+            <GoogleAvatar
+               v-if="
+                  !AuthStore.uploadedImage &&
+                  !!showUploadedAvatar
+               "
+            />
+            <div v-if="AuthStore.username" class="ml-4">
                <PlantAddImage
-                  key="account"
                   :showTitle="false"
-                  title=""
                   icon="i-heroicons-photo"
                   ref="accountImageInputRef"
                   @change-input="onChangeInput"
@@ -174,7 +193,7 @@
                <div v-if="AuthStore.username === undefined">
                   <p>Loading..</p>
                </div>
-               <div v-if="!!AuthStore.username">
+               <div v-if="AuthStore.username">
                   <p class="mt-1">
                      <NuxtLink
                         class="text-blue-400"
@@ -195,16 +214,17 @@
          </div>
 
          <div class="mt-6">
+            <p
+               v-if="imageWarning"
+               class="text-orange-400 mb-4 mt-4"
+            >
+               {{ imageWarning }}
+            </p>
             <p class="text-cyan-500 mb-1">
                Toggle dark mode
             </p>
-            <!-- <UButton
-               color="white"
-               variant="solid"
-               @click="switchColor"
-            > -->
+
             <ColorModeButton />
-            <!-- </UButton> -->
          </div>
 
          <div v-if="AuthStore.user" class="mb-3 mt-6">
@@ -217,10 +237,11 @@
          <div class="mb-8">
             <PlantAddTextarea
                :text="info.description"
+               areaWidth="w-full"
                ref="childTAComponentRef"
                title="About you"
                name="description"
-               placeholder="A sentence or two.."
+               placeholder="A sentence or two (max 50 chars).."
                @change-input="onChangeInput"
                v-model="info.description"
                :maxLength="50"

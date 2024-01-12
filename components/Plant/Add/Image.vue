@@ -10,11 +10,9 @@
 
    const title = props.title ? props.title : 'Image*'
 
-   const image = useState('carImage', () => {
-      return {
-         preview: null,
-         image: null,
-      }
+   const image = ref({
+      preview: null,
+      image: null,
    })
 
    const emits = defineEmits(['changeInput'])
@@ -46,7 +44,7 @@
 
 <template>
    <div class="w-[100%]" :key="props.key">
-      <div class="mb-3">
+      <div v-if="label" class="mb-3">
          <label
             for=""
             class="text-cyan-500 mb-5"

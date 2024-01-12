@@ -30,8 +30,9 @@ export const useAuthStore = defineStore('AuthStore', {
                         response._data.user_name
 
                      const image = response._data.image
-
-                     AuthStore.uploadedImage = `${config.public.supabase.url}/storage/v1/object/public/images/${image}`
+                     image
+                        ? (AuthStore.uploadedImage = `${config.public.supabase.url}/storage/v1/object/public/images/${image}`)
+                        : ''
 
                      AuthStore.description =
                         response._data.description

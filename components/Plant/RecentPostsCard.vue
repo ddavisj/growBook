@@ -10,7 +10,8 @@
       .replace(/\s+/g, '-')
       .toLowerCase()
 
-   const { getPlantAge, howLongAgoPosted } = useDate()
+   const { howLongAgoPosted } = useDate()
+   const { getUserImage } = useUser()
 
    const { listing } = props
 
@@ -18,8 +19,11 @@
       `/api/user/get-user-by-uuid/${listing.listerId}`
    )
 
-   const { getUserImage } = useUser()
-   const image = getUserImage(user)
+   // If user deleted but plants remain! Plants may be orphaned.. (don't delete user w.o deleting plants!)
+   let image
+   if (user.value) {
+      image = getUserImage(user)
+   }
 </script>
 
 <template>
@@ -53,11 +57,6 @@
                {{ listing.scientificName }}
             </h3>
 
-            <!-- <h3 class="text-l mt-1">
-               <UTooltip text="Estimated plant age">
-                  {{ getPlantAge(listing.bday) }}
-               </UTooltip>
-            </h3> -->
             <h3 class="text-l mt-1">
                <UTooltip text="Estimated plant age">
                   {{ howLongAgoPosted(listing.created) }}
@@ -65,7 +64,7 @@
                </UTooltip>
             </h3>
 
-            <div class="mt-4">
+            <div class="mt-4" v-if="user">
                <NuxtLink
                   class="text-blue-400 flex items-center mb-4"
                   :to="`/${user.user_name}`"
