@@ -30,7 +30,7 @@ logs
 # package.json
 # tailwind.config.js
 # tsconfig.json
-settings.json
-schema.prisma
+# settings.json
+# schema.prisma
 
 scratch*
