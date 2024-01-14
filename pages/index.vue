@@ -13,7 +13,7 @@
    <div>
       <!-- <PlantHero /> -->
 
-      <PlantRecentPosts />
+      <!-- <PlantRecentPosts /> -->
       <NuxtLink
          target="_blank"
          to="https://eadigital.com.au"
