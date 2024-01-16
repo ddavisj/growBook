@@ -4,12 +4,12 @@ export default defineNuxtConfig({
    colorMode: {
       preference: 'dark',
    },
-   nitro: {
-      preset: 'vercel-edge',
-      vercel: {
-         regions: ['syd1'],
-      },
-   },
+   // nitro: {
+   //    preset: 'vercel-edge',
+   //    vercel: {
+   //       regions: ['syd1'],
+   //    },
+   // },
    modules: [
       '@nuxt/ui',
       '@nuxtjs/tailwindcss',
