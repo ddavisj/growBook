@@ -17,7 +17,7 @@
                state.value,
                {
                   redirectTo:
-                     'http://localhost:3000/password-update',
+                     'https://growbook.vercel.app/password-update',
                }
             )
 
