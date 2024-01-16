@@ -88,19 +88,4 @@
          {{ message }}
       </p>
    </div>
-
-   <!------->
-
-   <!-- <div class="w-full text-left">
-      <button
-         :disabled="!state.email || !state.password"
-         @click="handleSignup"
-         class="bg-blue-400 text-white rounded py-2 px-7 mt-3"
-      >
-         Sign uppp
-      </button>
-      <p v-if="message" class="mt-3 text-orange-400">
-         {{ message }}
-      </p>
-   </div> -->
 </template>
