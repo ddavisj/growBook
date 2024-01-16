@@ -3,7 +3,7 @@
    "private": true,
    "type": "module",
    "scripts": {
-      "build": "npx prisma generate && nuxt build --preset=vercel",
+      "build": "npx prisma generate && nuxt build --preset=vercel_edge",
       "dev": "nuxt dev",
       "generate": "nuxt generate",
       "preview": "nuxt preview",
