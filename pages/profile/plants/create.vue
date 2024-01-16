@@ -4,9 +4,6 @@
       middleware: ['page-auth'],
    })
 
-   // TODO:
-   // Remove inputs.. Not needed, better to be able to re-sort the inputs and have different types in different order
-
    const user = useSupabaseUser()
    const supabase = useSupabaseClient()
 
@@ -69,27 +66,6 @@
 
    const errorMessage = ref('')
 
-   const inputs = [
-      {
-         id: 1,
-         title: 'Common name *',
-         name: 'commonName',
-         placeholder: 'Lucky bamboo',
-      },
-      {
-         id: 2,
-         title: 'Scientific name *',
-         name: 'scientificName',
-         placeholder: 'Dracaena sanderiana',
-      },
-      {
-         id: 3,
-         title: 'Price *',
-         name: 'price',
-         placeholder: '10000',
-      },
-   ]
-
    const isButtonDisabled = computed(() => {
       for (let key of [
          'type',
@@ -120,28 +96,20 @@
       }
 
       const body = {
-         // FIX!!!
-
          ...info.value,
          created: new Date(),
          bday: findBDay(-ageInDays.value, 0, 0), // FIXX!!!
          type: info.value.type,
          age: Math.floor(ageInDays.value),
-         // Need to change age in days to plant-bday! Bc this will change as time goes on.. drrr!
          commonName: info.value.commonName,
          indoor: '', // FIX
          listerId: user.value.id,
          image: data.path,
-         // lengthOfCare: parseInt(info.value.lengthOfCare), ???
-         // lengthOfCare: parseInt(1), // FIX
          lengthOfCare: 0, // FIX
          availability: [], // FIX
       }
 
       delete body.ageUnits // Not needed (used for compute)
-
-      console.log('BD: ', findBDay(-ageInDays.value, 0, 0))
-      // console.log('bdayPostgres: ', bdayPostgres)
 
       console.log({ body })
 
@@ -296,7 +264,7 @@
             title="Where did you get it?"
             :options="[
                'Grew from seed',
-               'Cutting',
+               'Grew from cutting',
                'Purchased',
                'Gift',
             ]"
@@ -307,7 +275,11 @@
             name="indoor"
             ref="indoorSelectRef"
             title="Indoors or out?"
-            :options="['Indoor', 'Outdoor', 'Either']"
+            :options="[
+               'Indoor',
+               'Outdoor',
+               'Indoor or outdoor',
+            ]"
             @change-input="onChangeInput"
          />
 
@@ -322,12 +294,14 @@
          <PlantAddSelect
             name="ecotype"
             ref="ecotypeSelectRef"
-            title="Native habitat"
+            title="Native habitat type (biome)"
             :options="[
                'Forest',
                'Grassland',
+               'Tropical rainforest',
+               'Temperate rainforest',
                'Desert',
-               'Rainforest',
+               'Aquatic',
             ]"
             @change-input="onChangeInput"
             thin
