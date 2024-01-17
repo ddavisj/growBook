@@ -10,16 +10,14 @@ export const useUserstore = defineStore('UsersStore', {
    },
    actions: {
       async getUsers() {
-         const { data: growers } = await useFetch(
-            `/api/users`
-         )
+         const { data: growers } = await useFetch(`/api/users`)
          this.growers = growers.value
       },
    },
 })
 
 if (import.meta.hot) {
-   import.meta.hot.accept(
-      acceptHMRUpdate(useUserstore, import.meta.hot)
-   )
+   import.meta.hot.accept(acceptHMRUpdate(useUserstore, import.meta.hot))
 }
+
+// Test update to stage!
