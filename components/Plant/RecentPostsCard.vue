@@ -3,7 +3,7 @@
       listing: Object,
    })
 
-   const UsersStore = useUserstore()
+   const UserStore = useUserStore()
 
    const config = useRuntimeConfig()
 
@@ -21,7 +21,7 @@
    //    `/api/user/get-user-by-uuid/${listing.listerId}`
    // )
 
-   const user = UsersStore.getGrowerByID(listing.listerId)
+   const user = UserStore.getGrowerByID(listing.listerId)
 
    // console.log(user)
 
@@ -38,9 +38,7 @@
 </script>
 
 <template>
-   <div
-      class="shadow rounded overflow-hidden flex justify-between mb-6 mt-6"
-   >
+   <div class="shadow rounded overflow-hidden flex justify-between mb-6 mt-6">
       <div class="flex items-center">
          <div class="">
             <NuxtLink

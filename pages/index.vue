@@ -8,17 +8,14 @@
       title: 'growBook',
    })
 
-   const UsersStore = useUserstore()
-   UsersStore.getUsers()
+   const UserStore = useUserStore()
+   UserStore.getUsers()
 </script>
 
 <template>
    <div>
       <PlantRecentPosts />
-      <NuxtLink
-         target="_blank"
-         to="https://eadigital.com.au"
-      >
+      <NuxtLink target="_blank" to="https://eadigital.com.au">
          <div
             class="mt-10 w-full flex justify-center dark:text-lime-600 text-lg"
          >

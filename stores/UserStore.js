@@ -1,4 +1,4 @@
-export const useUserstore = defineStore('UsersStore', {
+export const useUserStore = defineStore('UserStore', {
    state: () => {
       return {
          growers: [], // delineate users, ie. growers vs browsers
@@ -17,7 +17,5 @@ export const useUserstore = defineStore('UsersStore', {
 })
 
 if (import.meta.hot) {
-   import.meta.hot.accept(acceptHMRUpdate(useUserstore, import.meta.hot))
+   import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
 }
-
-// Test update to stage!
