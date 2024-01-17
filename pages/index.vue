@@ -9,7 +9,7 @@
    })
 
    const UserStore = useUserStore()
-   UserStore.getUsers()
+   UserStore.loadGrowers()
 </script>
 
 <template>

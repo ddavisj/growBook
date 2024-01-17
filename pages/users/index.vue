@@ -10,7 +10,7 @@
    if (UserStore.growers.length) {
       // Do nothing
    } else {
-      await UserStore.getUsers()
+      await UserStore.loadGrowers()
    }
 </script>
 
