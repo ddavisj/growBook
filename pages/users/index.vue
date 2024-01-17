@@ -10,12 +10,8 @@
    if (UserStore.growers.length) {
       // Do nothing
    } else {
-      await UserStore.getUsers()
+      await UserStore.loadGrowers()
    }
-
-   // const { data: users, error } = await useFetch(
-   //    '/api/users'
-   // )
 </script>
 
 <template>

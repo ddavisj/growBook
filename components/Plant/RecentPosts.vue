@@ -1,9 +1,8 @@
 <script setup>
-   const { data: plants } = await useFetch(
-      `/api/plant/listings/get-latest`
-   )
-
    const AuthStore = useAuthStore()
+
+   const PostStore = usePostStore()
+   PostStore.loadLatestPosts()
 </script>
 
 <template>
@@ -19,35 +18,24 @@
    >
       <template #header>
          <div class="flex flex-col items-center">
-            <img
-               class="rounded-3xl"
-               src="/banner-wide.jpg"
-            />
-            <h1 class="mt-8 md:mt-8 text-4xl mb-3">
-               Welcome to growBook!
-            </h1>
+            <img class="rounded-3xl" src="/banner-wide.jpg" />
+            <h1 class="mt-8 md:mt-8 text-4xl mb-3">Welcome to growBook!</h1>
 
             <h1 class="text-xl mt-2 mb-6 text-gray-400">
-               The place to gift, share and show off your
-               plants
+               The place to gift, share and show off your plants
             </h1>
          </div>
       </template>
 
       <div>
          <div class="mb-3 mt-4 flex items-center">
-            <UIcon
-               name="i-ph-plant-bold"
-               size="3em"
-               class="mr-3"
-               dynamic
-            />
+            <UIcon name="i-ph-plant-bold" size="3em" class="mr-3" dynamic />
             <h1 class="text-4xl">Recently Added</h1>
          </div>
          <div class="flex justify-items-center">
             <div class="">
                <PlantRecentPostsCard
-                  v-for="plant in plants"
+                  v-for="plant in PostStore.posts"
                   :key="plant.id"
                   :listing="plant"
                />
@@ -62,9 +50,7 @@
             </div>
             <div>
                <div v-if="!AuthStore.loggedIn">
-                  <li
-                     class="mt-3 mb-3 text-blue-400 text-xl"
-                  >
+                  <li class="mt-3 mb-3 text-blue-400 text-xl">
                      <NuxtLink to="/signup">
                         Join us and start sharing!
                      </NuxtLink>
@@ -78,12 +64,8 @@
                   </li>
                </div>
                <div>
-                  <li
-                     class="text-blue-400 text-xl mt-3 mb-6"
-                  >
-                     <NuxtLink to="/users">
-                        Check out our growers
-                     </NuxtLink>
+                  <li class="text-blue-400 text-xl mt-3 mb-6">
+                     <NuxtLink to="/users"> Check out our growers </NuxtLink>
                   </li>
                </div>
             </div>

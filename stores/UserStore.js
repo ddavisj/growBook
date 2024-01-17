@@ -9,9 +9,11 @@ export const useUserStore = defineStore('UserStore', {
          state.growers.find(grower => grower.id === userId),
    },
    actions: {
-      async getUsers() {
-         const { data: growers } = await useFetch(`/api/users`)
-         this.growers = growers.value
+      async loadGrowers() {
+         if (!this.growers.length) {
+            const { data: growers } = await useFetch(`/api/users`)
+            this.growers = growers.value
+         }
       },
    },
 })
