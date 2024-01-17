@@ -5,19 +5,19 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const schema = Joi.object({
-   userName: Joi.string().required(),
-   firstName: Joi.string().required(),
-   lastName: Joi.string().required(),
-   userId: Joi.string().required(),
-   city: Joi.string().required(),
-   country: Joi.string().required(),
-})
+// const schema = Joi.object({
+//    userName: Joi.string().required(),
+//    firstName: Joi.string().required(),
+//    lastName: Joi.string().required(),
+//    userId: Joi.string().required(),
+//    city: Joi.string().required(),
+//    country: Joi.string().required(),
+// })
 
 export default defineEventHandler(async event => {
    const body = await readBody(event)
 
-   console.log('body---', body)
+   // console.log('body---', body)
    // const { error, value } = schema.validate(body)
 
    // if (error) {
@@ -37,10 +37,10 @@ export default defineEventHandler(async event => {
       city,
       country,
       image,
+      description,
    } = body
 
-   console.log('IDDD: ', userId)
-   // console.log('ID2: ', id)
+   // console.log('IDDD: ', userId)
 
    const userNameExists = await prisma.user.findUnique({
       where: {
@@ -72,6 +72,7 @@ export default defineEventHandler(async event => {
             city,
             country,
             image,
+            description,
          },
          // data: body,
       })
@@ -85,5 +86,5 @@ export default defineEventHandler(async event => {
    }
 
    return response
-   return userNameExists
+   // return userNameExists
 })

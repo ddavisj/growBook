@@ -132,9 +132,9 @@
             body,
          })
          message.value = 'Registration complete'
-         AuthStore.username = info.value.username
 
-         // console.log('res:', res)
+         AuthStore.username = info.value.username
+         AuthStore.description = info.value.description
 
          info.value.image
             ? AuthStore.loadUploadedImage(res)
