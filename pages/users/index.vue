@@ -5,9 +5,17 @@
       layout: 'thin',
    })
 
-   const { data: users, error } = await useFetch(
-      '/api/users'
-   )
+   const UsersStore = useUserstore()
+
+   if (UsersStore.growers.length) {
+      // Do nothing
+   } else {
+      await UsersStore.getUsers()
+   }
+
+   // const { data: users, error } = await useFetch(
+   //    '/api/users'
+   // )
 </script>
 
 <template>
@@ -17,7 +25,7 @@
       </div>
       <div>
          <User
-            v-for="user in users"
+            v-for="user in UsersStore.growers"
             :user="user"
             imageSize="24"
             hideFullName

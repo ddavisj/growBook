@@ -3,6 +3,8 @@
       listing: Object,
    })
 
+   const UsersStore = useUserstore()
+
    const config = useRuntimeConfig()
 
    // Hyphenate common name for plant details url
@@ -11,18 +13,27 @@
       .toLowerCase()
 
    const { howLongAgoPosted } = useDate()
-   const { getUserImage } = useUser()
+   // const { getUserImage } = useUser()
 
    const { listing } = props
 
-   const { data: user } = await useFetch(
-      `/api/user/get-user-by-uuid/${listing.listerId}`
-   )
+   // const { data: user } = await useFetch(
+   //    `/api/user/get-user-by-uuid/${listing.listerId}`
+   // )
+
+   const user = UsersStore.getGrowerByID(listing.listerId)
+
+   // console.log(user)
 
    // If user deleted but plants remain! Plants may be orphaned.. (don't delete user w.o deleting plants!)
+
+   import userIcon from '@/assets/user.png'
    let image
-   if (user.value) {
-      image = getUserImage(user)
+   if (user) {
+      image = user.image
+         ? `${config.public.supabase.url}/storage/v1/object/public/images/${user.image}`
+         : userIcon
+      // image = getUserImage(user)
    }
 </script>
 

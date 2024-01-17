@@ -3,5 +3,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default defineEventHandler(async event => {
-   return prisma.user.findMany()
+   return prisma.user.findMany({
+      take: 30,
+   })
 })

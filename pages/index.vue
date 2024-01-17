@@ -7,12 +7,13 @@
    useHead({
       title: 'growBook',
    })
+
+   const UsersStore = useUserstore()
+   UsersStore.getUsers()
 </script>
 
 <template>
    <div>
-      <!-- <PlantHero /> -->
-
       <PlantRecentPosts />
       <NuxtLink
          target="_blank"
