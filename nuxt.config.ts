@@ -5,7 +5,7 @@ export default defineNuxtConfig({
       preference: 'dark',
    },
    nitro: {
-      preset: 'vercel',
+      preset: 'vercel-edge',
       vercel: {
          regions: ['syd1'],
       },
