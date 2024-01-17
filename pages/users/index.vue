@@ -12,10 +12,6 @@
    } else {
       await UserStore.getUsers()
    }
-
-   // const { data: users, error } = await useFetch(
-   //    '/api/users'
-   // )
 </script>
 
 <template>
