@@ -6,6 +6,9 @@ export const usePostStore = defineStore('PostStore', {
    },
    getters: {},
    actions: {
+      addRecentPost(post) {
+         this.posts.unshift(post)
+      },
       async loadLatestPosts() {
          if (!this.posts.length) {
             const { data: posts } = await useFetch(

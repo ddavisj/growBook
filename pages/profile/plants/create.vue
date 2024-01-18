@@ -7,6 +7,8 @@
    const user = useSupabaseUser()
    const supabase = useSupabaseClient()
 
+   const PostStore = usePostStore()
+
    const { plantTypes } = usePlants()
    const filteredPlantTypes = plantTypes.filter(
       make => !['', 'Any'].includes(make)
@@ -16,12 +18,7 @@
 
    const isLoading = ref(false)
 
-   const ageUnitsOptions = [
-      'days',
-      'weeks',
-      'months',
-      'years',
-   ]
+   const ageUnitsOptions = ['days', 'weeks', 'months', 'years']
 
    const ageInDays = computed(() => {
       const ageNum = parseInt(info.value.age)
@@ -67,12 +64,7 @@
    const errorMessage = ref('')
 
    const isButtonDisabled = computed(() => {
-      for (let key of [
-         'type',
-         'age',
-         'commonName',
-         'image',
-      ]) {
+      for (let key of ['type', 'age', 'commonName', 'image']) {
          if (!info.value[key]) {
             return true
          }
@@ -83,9 +75,7 @@
    const { findBDay } = useDate()
 
    const handleSubmit = async () => {
-      const fileName = Math.floor(
-         Math.random() * 10000000000000000000
-      )
+      const fileName = Math.floor(Math.random() * 10000000000000000000)
 
       const { data, error } = await supabase.storage
          .from('images')
@@ -115,18 +105,14 @@
 
       try {
          isLoading.value = true
-         const response = await $fetch(
-            '/api/plant/listings',
-            {
-               method: 'post',
-               body,
-            }
-         )
+         const response = await $fetch('/api/plant/listings', {
+            method: 'post',
+            body,
+         })
 
          isLoading.value = false
-         alert(
-            `Great success. Your ${info.value.commonName} was listed!`
-         )
+         PostStore.addRecentPost(body)
+         alert(`Great success. Your ${info.value.commonName} was listed!`)
 
          clearForm()
          clearInfo()
@@ -135,9 +121,7 @@
          isLoading.value = false
          errorMessage.value = err.statusMessage
 
-         await supabase.storage
-            .from('images')
-            .remove(data.path)
+         await supabase.storage.from('images').remove(data.path)
       }
    }
 
@@ -182,12 +166,7 @@
 <template>
    <div>
       <div class="mt-24 flex items-center">
-         <UIcon
-            name="i-ph-plant-bold"
-            size="3em"
-            class="mr-3"
-            dynamic
-         />
+         <UIcon name="i-ph-plant-bold" size="3em" class="mr-3" dynamic />
          <h1 class="text-4xl md:text-6xl">Add a Plant</h1>
       </div>
 
@@ -250,11 +229,7 @@
       <UButton
          @click="showExtras = !showExtras"
          class="mt-10 mb-6"
-         :label="
-            showExtras
-               ? '- Hide extra fields'
-               : '+ Show extra fields'
-         "
+         :label="showExtras ? '- Hide extra fields' : '+ Show extra fields'"
       ></UButton>
 
       <div v-if="showExtras">
@@ -275,11 +250,7 @@
             name="indoor"
             ref="indoorSelectRef"
             title="Indoors or out?"
-            :options="[
-               'Indoor',
-               'Outdoor',
-               'Indoor or outdoor',
-            ]"
+            :options="['Indoor', 'Outdoor', 'Indoor or outdoor']"
             @change-input="onChangeInput"
          />
 

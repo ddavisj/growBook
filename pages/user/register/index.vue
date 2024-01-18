@@ -15,14 +15,11 @@
 
    // Check if user has regd - DH to fix
    const isFirstLogin = async () => {
-      const { data } = await useFetch(
-         '/api/user/get-user',
-         {
-            params: {
-               userId: user.value.id,
-            },
-         }
-      )
+      const { data } = await useFetch('/api/user/get-user', {
+         params: {
+            userId: user.value.id,
+         },
+      })
       if (data.value) {
          navigateTo('/profile/plants/create')
       }
@@ -79,9 +76,7 @@
 
    const handleUsernameCheck = async () => {
       if (info.value.username !== '') {
-         info.value.username = info.value.username
-            .toLowerCase()
-            .trim()
+         info.value.username = info.value.username.toLowerCase().trim()
 
          const { data } = await useFetch(
             `/api/user/check-username/${info.value.username}`
@@ -103,9 +98,7 @@
    }
 
    const handleSubmit = async () => {
-      const fileName = Math.floor(
-         Math.random() * 10000000000000000000
-      )
+      const fileName = Math.floor(Math.random() * 10000000000000000000)
 
       const { data, error } = await supabase.storage
          .from('images')
@@ -133,12 +126,13 @@
          })
          message.value = 'Registration complete'
 
+         const UserStore = useUserStore()
+         UserStore.addGrower(body)
+
          AuthStore.username = info.value.username
          AuthStore.description = info.value.description
 
-         info.value.image
-            ? AuthStore.loadUploadedImage(res)
-            : ''
+         info.value.image ? AuthStore.loadUploadedImage(res) : ''
 
          setTimeout(() => {
             navigateTo('/profile/plants')
@@ -146,9 +140,7 @@
       } catch (e) {
          message.value = 'There was an error: ' + e
 
-         await supabase.storage
-            .from('images')
-            .remove(data.path)
+         await supabase.storage.from('images').remove(data.path)
       }
    }
 </script>
@@ -158,10 +150,7 @@
       <h1 class="text-6xl mt-24 mb-3">User Registration</h1>
 
       <div class="mt-6">
-         <label
-            for=""
-            class="text-cyan-500 mt-4 mb-3 text-xl"
-         >
+         <label for="" class="text-cyan-500 mt-4 mb-3 text-xl">
             Username *
          </label>
          <div class="flex mt-3 overflow-hidden mx-auto">
@@ -183,10 +172,7 @@
       </div>
 
       <div v-if="usernameExists.checkComplete">
-         <p
-            class="mt-2"
-            :class="usernameExists.messageColor"
-         >
+         <p class="mt-2" :class="usernameExists.messageColor">
             {{ usernameExists.message }}
          </p>
       </div>
@@ -202,9 +188,7 @@
          @focus="handleUsernameCheck"
       />
 
-      <label for="" class="text-cyan-500 mt-5 mb-3 text-xl">
-         Last name
-      </label>
+      <label for="" class="text-cyan-500 mt-5 mb-3 text-xl"> Last name </label>
       <input
          type="text"
          class="p-2 border w-100 rounded w-2/3"

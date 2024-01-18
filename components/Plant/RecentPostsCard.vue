@@ -67,10 +67,8 @@
             </h3>
 
             <h3 class="text-l mt-1">
-               <UTooltip text="Estimated plant age">
-                  {{ howLongAgoPosted(listing.created) }}
-                  ago
-               </UTooltip>
+               {{ howLongAgoPosted(listing.created) }}
+               ago
             </h3>
 
             <div class="mt-4" v-if="user">

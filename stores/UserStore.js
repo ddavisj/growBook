@@ -9,6 +9,9 @@ export const useUserStore = defineStore('UserStore', {
          state.growers.find(grower => grower.id === userId),
    },
    actions: {
+      addGrower(user) {
+         this.growers.unshift(user)
+      },
       async loadGrowers() {
          if (!this.growers.length) {
             const { data: growers } = await useFetch(`/api/users`)
