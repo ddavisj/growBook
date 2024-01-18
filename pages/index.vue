@@ -4,6 +4,17 @@
       layout: 'extra-wide',
    })
 
+   // defineOgImageComponent('NuxtSeo', {
+   //    headline: "growers 'n friends",
+   //    title: 'Welcome to growBook 🌿',
+   //    description: 'The place to share, gift and show your plants',
+   // })
+
+   defineOgImageComponent('BlogPost', {
+      title: 'The place to gift, share and show off your plants',
+      borderColor: 'green-600',
+   })
+
    useHead({
       title: 'growBook',
    })
