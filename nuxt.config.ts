@@ -11,7 +11,6 @@ export default defineNuxtConfig({
       },
    },
    modules: [
-      'nuxt-og-image',
       '@nuxt/ui',
       '@nuxtjs/tailwindcss',
       '@nuxt/image',
@@ -26,8 +25,5 @@ export default defineNuxtConfig({
    ],
    supabase: {
       redirect: false,
-   },
-   site: {
-      url: 'https://growbook.vercel.app',
    },
 })
