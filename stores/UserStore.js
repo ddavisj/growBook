@@ -1,7 +1,7 @@
 export const useUserStore = defineStore('UserStore', {
    state: () => {
       return {
-         growers: [], // delineate users, ie. growers vs browsers
+         growers: [], // differentiate users, ie. growers vs browsers
       }
    },
    getters: {

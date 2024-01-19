@@ -1,4 +1,7 @@
 <script setup>
+   // Note - Plant table in DB uses camelCase.. User table uses snake_case.. Hence different cases below..
+   // TODO: Make consistent?
+
    const props = defineProps({
       listing: Object,
    })
@@ -13,27 +16,20 @@
       .toLowerCase()
 
    const { howLongAgoPosted } = useDate()
-   // const { getUserImage } = useUser()
 
    const { listing } = props
 
-   // const { data: user } = await useFetch(
-   //    `/api/user/get-user-by-uuid/${listing.listerId}`
-   // )
-
    const user = UserStore.getGrowerByID(listing.listerId)
 
-   // console.log(user)
-
-   // If user deleted but plants remain! Plants may be orphaned.. (don't delete user w.o deleting plants!)
-
+   // If user deleted but plants remain! Plants may be orphaned..
+   // .. Delete user's plants when deleting user!
    import userIcon from '@/assets/user.png'
    let image
    if (user) {
+      // ie. if user exists
       image = user.image
          ? `${config.public.supabase.url}/storage/v1/object/public/images/${user.image}`
          : userIcon
-      // image = getUserImage(user)
    }
 </script>
 

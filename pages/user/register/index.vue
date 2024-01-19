@@ -9,6 +9,7 @@
    const supabase = useSupabaseClient()
 
    const AuthStore = useAuthStore()
+   const UserStore = useUserStore()
 
    const { countries } = useCountries()
    const countryNames = countries.map(a => a.name)
@@ -126,13 +127,24 @@
          })
          message.value = 'Registration complete'
 
-         const UserStore = useUserStore()
-         UserStore.addGrower(body)
+         info.value.image ? AuthStore.loadUploadedImage(res) : ''
 
          AuthStore.username = info.value.username
          AuthStore.description = info.value.description
 
-         info.value.image ? AuthStore.loadUploadedImage(res) : ''
+         // Before adding to P state, convert object keys to snake case
+         const bodySnakeCase = {
+            first_name: info.value.firstName,
+            last_name: info.value.lastName,
+            user_name: info.value.username.toLowerCase(),
+            city: info.value.city,
+            country: info.value.country,
+            user_id: user.value.id,
+            image: info.value.image ? data.path : null,
+            description: info.value.description,
+         }
+
+         UserStore.addGrower(bodySnakeCase)
 
          setTimeout(() => {
             navigateTo('/profile/plants')
