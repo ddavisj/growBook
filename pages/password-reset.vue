@@ -1,5 +1,5 @@
 <script setup>
-   definePageMeta({ layout: 'custom' })
+   definePageMeta({ layout: 'logins' })
 
    const state = ref('')
 
@@ -50,7 +50,7 @@
       </label>
       <input
          type="text"
-         class="pl-3 block p-2 border w-100 w-4/5 md:w-1/3 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
+         class="pl-3 block p-2 border w-100 w-4/5 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
          name="email"
          v-model="state"
       />

@@ -12,7 +12,7 @@
 </script>
 
 <template>
-   <div class="w-4/5 md:w-1/3 mt-2">
+   <div class="w-4/5 mt-2">
       <UInput
          :type="showButton ? 'text' : 'password'"
          name="password"

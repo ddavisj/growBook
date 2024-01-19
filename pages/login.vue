@@ -1,5 +1,5 @@
 <script setup>
-   definePageMeta({ layout: 'custom' })
+   definePageMeta({ layout: 'logins' })
 
    const AuthStore = useAuthStore()
 
@@ -81,7 +81,7 @@
          type="email"
          autocomplete="on"
          name="email"
-         class="pl-3 block text-white p-2 border w-100 w-4/5 md:w-1/3 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
+         class="pl-3 block text-white p-2 border w-100 w-4/5 bg-black border-slate-700 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-400 rounded-md"
          v-model="state.email"
       />
    </div>

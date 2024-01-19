@@ -1,6 +1,8 @@
 <script setup>
    // My listings - viewable by user only
 
+   const PostStore = usePostStore()
+
    definePageMeta({
       layout: 'wide',
       middleware: ['page-auth'],
@@ -17,8 +19,13 @@
       await $fetch(`/api/plant/listings/${id}`, {
          method: 'delete',
       })
+      // Remove listing from this page
       listings.value = listings.value.filter(
          listing => listing.id !== id
+      )
+      // Remove listing from P state
+      PostStore.posts = PostStore.posts.filter(
+         post => post.id !== id
       )
    }
 </script>

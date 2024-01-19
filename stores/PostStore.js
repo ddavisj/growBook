@@ -10,7 +10,8 @@ export const usePostStore = defineStore('PostStore', {
          this.posts.unshift(post)
       },
       async loadLatestPosts() {
-         if (!this.posts.length) {
+         if (this.posts.length <= 1) {
+            // ie. if just one or no posts loaded (user adds before visiting home page)
             const { data: posts } = await useFetch(
                '/api/plant/listings/get-latest'
             )
@@ -21,5 +22,7 @@ export const usePostStore = defineStore('PostStore', {
 })
 
 if (import.meta.hot) {
-   import.meta.hot.accept(acceptHMRUpdate(usePostStore, import.meta.hot))
+   import.meta.hot.accept(
+      acceptHMRUpdate(usePostStore, import.meta.hot)
+   )
 }
