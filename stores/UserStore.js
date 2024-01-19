@@ -13,7 +13,7 @@ export const useUserStore = defineStore('UserStore', {
          this.growers.unshift(user)
       },
       async loadGrowers() {
-         if (!this.growers.length) {
+         if (this.growers.length <= 1) {
             const { data: growers } = await useFetch(`/api/users`)
             this.growers = growers.value
          }
