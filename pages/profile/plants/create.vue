@@ -1,6 +1,6 @@
 <script setup>
    definePageMeta({
-      layout: 'custom',
+      layout: 'forms',
       middleware: ['page-auth'],
    })
 
@@ -182,161 +182,169 @@
 </script>
 
 <template>
-   <div>
-      <div class="mt-24 flex items-center">
-         <UIcon
-            name="i-ph-plant-bold"
-            size="3em"
-            class="mr-3"
-            dynamic
-         />
-         <h1 class="text-4xl md:text-6xl">Add a Plant</h1>
-      </div>
+   <div class="flex flex-col justify-items-center">
+      <div class="lg:ml-[25%]">
+         <div class="mt-24 flex items-center">
+            <UIcon
+               name="i-ph-plant-bold"
+               size="3em"
+               class="mr-3"
+               dynamic
+            />
+            <h1 class="text-4xl md:text-6xl">
+               Add a Plant
+            </h1>
+         </div>
 
-      <PlantAddInput
-         name="commonName"
-         ref="commonNameInputRef"
-         title="Common name *"
-         placeholder="eg. Lucky bamboo"
-         @change-input="onChangeInput"
-      />
-
-      <PlantAddInput
-         name="scientificName"
-         ref="scientificNameInputRef"
-         title="Scientific name"
-         placeholder="eg. Dracaena sanderiana"
-         @change-input="onChangeInput"
-      />
-
-      <PlantAddSelect
-         class="mt-4"
-         name="type"
-         ref="typeSelectRef"
-         title="Plant type *"
-         :options="filteredPlantTypes"
-         @change-input="onChangeInput"
-      />
-
-      <div class="flex items-center">
          <PlantAddInput
-            name="age"
-            ref="ageInputRef"
-            title="Age *"
-            placeholder="eg. 30"
-            @change-input="onChangeInput"
-         />
-         <PlantAddSelect
-            class="ml-3 mt-9"
-            name="ageUnits"
-            @change-input="onChangeInput"
-            ref="childSelectComponentRef"
-            :options="ageUnitsOptions"
-            :default="ageUnitsOptions[0]"
-            :width="24"
-         />
-      </div>
-
-      <PlantAddImage
-         label="Plant photo"
-         labelClass="text-sm"
-         key="create"
-         :showTitle="true"
-         icon="i-heroicons-photo"
-         title="Upload Image *"
-         class="mt-8"
-         ref="plantImageInputRef"
-         @change-input="onChangeInput"
-      />
-
-      <UButton
-         @click="showExtras = !showExtras"
-         class="mt-10 mb-6"
-         :label="
-            showExtras
-               ? '- Hide extra fields'
-               : '+ Show extra fields'
-         "
-      ></UButton>
-
-      <div v-if="showExtras">
-         <PlantAddSelect
-            name="source"
-            ref="sourceSelectRef"
-            title="Where did you get it?"
-            :options="[
-               'Grew from seed',
-               'Grew from cutting',
-               'Purchased',
-               'Gift',
-            ]"
-            @change-input="onChangeInput"
-            thin
-         />
-         <PlantAddSelect
-            name="indoor"
-            ref="indoorSelectRef"
-            title="Indoors or out?"
-            :options="[
-               'Indoor',
-               'Outdoor',
-               'Indoor or outdoor',
-            ]"
+            name="commonName"
+            ref="commonNameInputRef"
+            title="Common name *"
+            placeholder="eg. Lucky bamboo"
             @change-input="onChangeInput"
          />
 
          <PlantAddInput
-            name="nativeTo"
-            ref="nativeToInputRef"
-            title="Native country"
-            placeholder="eg. South Africa"
+            name="scientificName"
+            ref="scientificNameInputRef"
+            title="Scientific name"
+            placeholder="eg. Dracaena sanderiana"
             @change-input="onChangeInput"
          />
 
          <PlantAddSelect
-            name="ecotype"
-            ref="ecotypeSelectRef"
-            title="Native habitat type (biome)"
-            :options="[
-               'Forest',
-               'Grassland',
-               'Tropical rainforest',
-               'Temperate rainforest',
-               'Desert',
-               'Aquatic',
-            ]"
+            class="mt-4"
+            name="type"
+            ref="typeSelectRef"
+            title="Plant type *"
+            :options="filteredPlantTypes"
             @change-input="onChangeInput"
-            thin
          />
-         <PlantAddSelect
-            name="availability"
-            ref="availabilitySelectRef"
-            title="Availability"
-            :options="[
-               'Not available',
-               'For sale',
-               'Will trade',
-               'Free to good home',
-               'Seeds',
-               'Cuttings',
-            ]"
-            @change-input="onChangeInput"
-            thin
-         />
-      </div>
 
-      <div class="w-full text-center">
+         <div class="flex items-center">
+            <PlantAddInput
+               name="age"
+               ref="ageInputRef"
+               title="Age *"
+               placeholder="eg. 30"
+               @change-input="onChangeInput"
+            />
+            <PlantAddSelect
+               class="ml-3 mt-9"
+               name="ageUnits"
+               @change-input="onChangeInput"
+               ref="childSelectComponentRef"
+               :options="ageUnitsOptions"
+               :default="ageUnitsOptions[0]"
+               :width="24"
+            />
+         </div>
+
+         <PlantAddImage
+            label="Plant photo"
+            labelClass="text-sm"
+            key="create"
+            :showTitle="true"
+            icon="i-heroicons-photo"
+            title="Upload Image *"
+            class="mt-8"
+            ref="plantImageInputRef"
+            @change-input="onChangeInput"
+         />
+
          <UButton
-            :disabled="isButtonDisabled"
-            @click="handleSubmit"
-            :loading="isLoading"
-            class="bg-blue-400 text-white rounded py-2 px-7 mt-8"
-         >
-            Create
-         </UButton>
-         <p v-if="errorMessage" class="mt-3 text-red-400">
-            {{ errorMessage }}
-         </p>
+            @click="showExtras = !showExtras"
+            class="mt-10 mb-6"
+            color="cyan"
+            :label="
+               showExtras
+                  ? '- Hide extra fields'
+                  : '+ Show extra fields'
+            "
+         ></UButton>
+
+         <div v-if="showExtras">
+            <PlantAddSelect
+               name="source"
+               ref="sourceSelectRef"
+               title="Where did you get it?"
+               :options="[
+                  'Grew from seed',
+                  'Grew from cutting',
+                  'Purchased',
+                  'Gift',
+               ]"
+               @change-input="onChangeInput"
+               thin
+            />
+            <PlantAddSelect
+               name="indoor"
+               ref="indoorSelectRef"
+               title="Indoors or out?"
+               :options="[
+                  'Indoor',
+                  'Outdoor',
+                  'Indoor or outdoor',
+               ]"
+               @change-input="onChangeInput"
+            />
+
+            <PlantAddInput
+               name="nativeTo"
+               ref="nativeToInputRef"
+               title="Native country"
+               placeholder="eg. South Africa"
+               @change-input="onChangeInput"
+            />
+
+            <PlantAddSelect
+               name="ecotype"
+               ref="ecotypeSelectRef"
+               title="Native habitat type (biome)"
+               :options="[
+                  'Forest',
+                  'Grassland',
+                  'Tropical rainforest',
+                  'Temperate rainforest',
+                  'Desert',
+                  'Aquatic',
+               ]"
+               @change-input="onChangeInput"
+               thin
+            />
+            <PlantAddSelect
+               name="availability"
+               ref="availabilitySelectRef"
+               title="Availability"
+               :options="[
+                  'Not available',
+                  'For sale',
+                  'Will trade',
+                  'Free to good home',
+                  'Seeds',
+                  'Cuttings',
+               ]"
+               @change-input="onChangeInput"
+               thin
+            />
+         </div>
+
+         <div class="w-full">
+            <UButton
+               :disabled="isButtonDisabled"
+               @click="handleSubmit"
+               :loading="isLoading"
+               class="bg-blue-400 text-white rounded py-2 px-7 mt-8"
+            >
+               Create
+            </UButton>
+            <p
+               v-if="errorMessage"
+               class="mt-3 text-red-400"
+            >
+               {{ errorMessage }}
+            </p>
+         </div>
       </div>
    </div>
 </template>

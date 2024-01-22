@@ -6,6 +6,7 @@ export const useAuthStore = defineStore('AuthStore', {
          username: null,
          uploadedImage: null,
          description: null,
+         firstName: null,
       }
    },
    getters: {},
@@ -36,6 +37,8 @@ export const useAuthStore = defineStore('AuthStore', {
 
                      AuthStore.description =
                         response._data.description
+                     AuthStore.firstName =
+                        response._data.first_name
                   } else {
                      console.log('No data')
                   }

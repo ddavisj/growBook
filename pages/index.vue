@@ -1,14 +1,16 @@
 <script setup>
    // Home page
    definePageMeta({
-      layout: 'extra-wide',
+      layout: 'home',
    })
 
    useSeoMeta({
       title: 'growBook',
       ogTitle: 'growBook',
-      description: 'The place to share, gift and show your plants',
-      ogDescription: 'The place to share, gift and show your plants',
+      description:
+         'The place to share, gift and show your plants',
+      ogDescription:
+         'The place to share, gift and show your plants',
       ogImage: 'https://growbook.vercel.app/opengraph4.jpg',
    })
 
@@ -23,7 +25,10 @@
 <template>
    <div>
       <PlantRecentPosts />
-      <NuxtLink target="_blank" to="https://eadigital.com.au">
+      <NuxtLink
+         target="_blank"
+         to="https://eadigital.com.au"
+      >
          <div
             class="mt-10 w-full flex justify-center dark:text-lime-600 text-lg"
          >
