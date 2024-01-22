@@ -1,6 +1,6 @@
 # About
 
-growBook lets users create a personal portfolio of all their plants. It's built with Vue JS, Nuxt, Supabase, Prisma and Tailwind CSS.
+growBook lets users create a personal portfolio of all their plants. It's built with Vue, Nuxt, Supabase, Prisma and Tailwind CSS.
 
 Supabase is a Backend-as-a-Service app development platform that provides hosted services including a Postgres database, user authentication and file storage.
 
