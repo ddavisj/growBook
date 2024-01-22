@@ -37,7 +37,7 @@
             </div>
             <li
                v-else
-               class="text-blue-400 mt-8 text-4xl mb-3"
+               class="text-blue-400 mt-8 text-3xl mb-3"
             >
                <NuxtLink
                   v-if="AuthStore.firstName"
@@ -46,8 +46,8 @@
                   Hey {{ AuthStore.firstName }}, add a
                   plant!
                </NuxtLink>
-               <NuxtLink v-else to="/profile/plants/create">
-                  Add a plant!
+               <NuxtLink v-else to="/user/register">
+                  Update registration to add plants!
                </NuxtLink>
             </li>
          </div>
@@ -99,9 +99,17 @@
                   </li>
                </div>
                <div v-else>
-                  <li class="text-blue-400 mt-3 text-xl">
+                  <li
+                     v-if="AuthStore.username"
+                     class="text-blue-400 mt-3 text-xl"
+                  >
                      <NuxtLink to="/profile/plants/create">
                         Add a plant!
+                     </NuxtLink>
+                  </li>
+                  <li v-else>
+                     <NuxtLink to="/user/register">
+                        Update registration to add plants!
                      </NuxtLink>
                   </li>
                </div>
