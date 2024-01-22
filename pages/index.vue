@@ -8,9 +8,9 @@
       title: 'growBook',
       ogTitle: 'growBook',
       description:
-         'The place to share, gift and show your plants',
+         'A place to share, gift and show your plants',
       ogDescription:
-         'The place to share, gift and show your plants',
+         'A place to share, gift and show your plants',
       ogImage: 'https://growbook.vercel.app/opengraph4.jpg',
    })
 
