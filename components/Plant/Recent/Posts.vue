@@ -17,30 +17,28 @@
       }"
    >
       <template #header>
-         <div
-            v-if="!AuthStore.loggedIn"
-            class="flex flex-col items-center"
-         >
-            <img
-               class="rounded-3xl"
-               src="/banner-wide.jpg"
-            />
-            <h1 class="mt-8 md:mt-8 text-4xl mb-3">
-               Welcome to growBook!
-            </h1>
-
-            <h1 class="text-xl mt-2 mb-6 text-gray-400">
-               The place to gift, share and show off your
-               plants
-            </h1>
-         </div>
-         <div v-else class="flex flex-col items-center">
+         <div class="flex flex-col items-center">
             <img
                class="rounded-3xl"
                src="/banner-wide.jpg"
             />
 
-            <li class="text-blue-400 mt-8 text-4xl mb-3">
+            <div v-if="!AuthStore.loggedIn">
+               <h1 class="mt-8 md:mt-8 text-4xl mb-3">
+                  Welcome to growBook!
+               </h1>
+
+               <h1
+                  class="text-center text-lg sm:text-xl mt-2 mb-6 text-gray-400 cen"
+               >
+                  A place to gift, share and show off your
+                  plants
+               </h1>
+            </div>
+            <li
+               v-else
+               class="text-blue-400 mt-8 text-4xl mb-3"
+            >
                <NuxtLink
                   v-if="AuthStore.firstName"
                   to="/profile/plants/create"
@@ -56,7 +54,9 @@
       </template>
 
       <div>
-         <div class="mb-3 mt-4 w-full">
+         <div
+            class="mb-3 mt-4 w-full flex flex-row items-center justify-center"
+         >
             <div
                class="flex items-center justify-center sm:justify-start"
             >
@@ -101,7 +101,7 @@
                <div v-else>
                   <li class="text-blue-400 mt-3 text-xl">
                      <NuxtLink to="/profile/plants/create">
-                        Get started by adding a plant!
+                        Add a plant!
                      </NuxtLink>
                   </li>
                </div>
