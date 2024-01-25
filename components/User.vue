@@ -28,7 +28,7 @@
          :to="`/${user.user_name}`"
       >
          <img
-            class="rounded-full mr-4 h-24 w-24"
+            class="rounded-full h-24 w-24"
             :class="`h-${imageSize} w-${imageSize}`"
             :src="image"
          />

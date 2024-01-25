@@ -17,7 +17,7 @@
 <template>
    <div
       v-if="validatedFeatures.length"
-      class="mr-10 mt-5 border-b pb-5"
+      class="mr-10 mt-5 pb-5"
    >
       <div
          class="flex text-lg mt-2"

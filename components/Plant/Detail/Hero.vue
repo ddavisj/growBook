@@ -19,19 +19,21 @@
             </h1>
          </div>
          <h2 class="mt-10 text-xl">
-            Posted {{ howLongAgoPosted(plant.created) }} ago
+            {{ howLongAgoPosted(plant.created) }} ago
          </h2>
       </div>
 
       <div
          class="text-slate-500 flex text-lg mt-3 border-b pb-5 justify-between"
       >
-         <div class="flex">
+         <div class="">
             <p class="mr-2">
                {{ plant.scientificName }}
             </p>
+            <p class="">
+               {{ getPlantAge(plant.bday) }} old
+            </p>
          </div>
-         <div class="font-bold text-2xl">{{ getPlantAge(plant.bday) }} old</div>
       </div>
    </div>
 </template>

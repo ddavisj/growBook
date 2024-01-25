@@ -14,7 +14,9 @@
    // Get ID from route - check hyphenation
    const { name, id: routeId } = route.params
 
-   const term = !name.includes('-') ? name + '-' + routeId : name + routeId
+   const term = !name.includes('-')
+      ? name + '-' + routeId
+      : name + routeId
 
    const split = term.split('-')
    const id = split[split.length - 1]
@@ -32,18 +34,40 @@
    const { data: user } = await useFetch(
       `/api/user/get-user-by-uuid/${plant.value.listerId}`
    )
+
+   const config = useRuntimeConfig()
+
+   useSeoMeta({
+      title: `${plant.commonName} - growBook`,
+      ogTitle: `${plant.commonName} - growBook`,
+      description: `A page about ${plant.commonName}`,
+      ogDescription: `A page about ${plant.commonName}`,
+      ogImage: `${config.public.supabase.url}/storage/v1/object/public/images/${plant.image}`,
+   })
 </script>
 
 <template>
    <div v-if="plant">
       <PlantDetailHero :plant="plant" />
       <div>
-         <User :user="user" imageSize="12" hideFullName hideDescription />
+         <User
+            :user="user"
+            imageSize="12"
+            hideFullName
+            hideDescription
+         />
       </div>
       <PlantDetailAttributes
-         :features="[plant.source, plant.nativeTo, plant.indoor, plant.ecotype]"
+         :features="[
+            plant.source,
+            plant.nativeTo,
+            plant.indoor,
+            plant.ecotype,
+         ]"
       />
-      <PlantDetailDescription :description="plant.description" />
+      <PlantDetailDescription
+         :description="plant.description"
+      />
       <PlantDetailContact />
    </div>
 </template>
