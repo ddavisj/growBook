@@ -36,20 +36,29 @@
    )
 
    const config = useRuntimeConfig()
-
-   useSeoMeta({
-      title: `${plant.commonName} - growBook`,
-      ogTitle: `${plant.commonName} - growBook`,
-      description: `A page about ${plant.commonName}`,
-      ogDescription: `A page about ${plant.commonName}`,
-      ogImage: `${config.public.supabase.url}/storage/v1/object/public/images/${plant.image}`,
-   })
+   const ogImage = `${config.public.supabase.url}/storage/v1/object/public/images/${plant.image}`
 </script>
 
 <template>
    <div v-if="plant">
+      <Head>
+         <Title>{{ plant.commonName }} - growBook</Title>
+         <meta
+            property="description"
+            content="{{ plant.commonName }} - growBook"
+         />
+         <meta
+            property="og:title"
+            content="{{ plant.commonName }} - growBook"
+         />
+         <meta
+            property="og:description"
+            content="{{ plant.commonName }} - growBook"
+         />
+         <meta property="og:image" content="{{ogImage}}" />
+      </Head>
       <PlantDetailHero :plant="plant" />
-      <div>
+      <div class="pb-3 border-b">
          <User
             :user="user"
             imageSize="12"
