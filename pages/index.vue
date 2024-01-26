@@ -5,8 +5,8 @@
    })
 
    useSeoMeta({
-      title: 'growBook',
-      ogTitle: 'growBook',
+      title: 'growBook - Share some plant',
+      ogTitle: 'growBook - Share some plant',
       description:
          'A place to share, gift and show your plants',
       ogDescription:

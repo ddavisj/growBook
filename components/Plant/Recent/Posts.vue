@@ -86,7 +86,7 @@
       <template #footer>
          <div class="flex w-full flex-col items-center">
             <div class="mt-4 mb-2 flex items-center">
-               <h1 class="text-4xl">Get involved</h1>
+               <h1 class="text-4xl">What next?</h1>
             </div>
             <div>
                <div v-if="!AuthStore.loggedIn">

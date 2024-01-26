@@ -64,7 +64,9 @@ export const useDate = () => {
       const numMinutes =
          (new Date() - new Date(createdDate)) / (60 * 1000)
 
-      if (numHours < 1) {
+      if (numMinutes <= 1) {
+         return 'Just now'
+      } else if (numHours < 1) {
          return Math.round(numMinutes) + ' mins'
       } else if (exactNumDays < 1) {
          return Math.round(numHours) + ' hours'
