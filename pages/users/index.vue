@@ -12,6 +12,14 @@
    } else {
       await UserStore.loadGrowers()
    }
+
+   useSeoMeta({
+      title: 'Growers - growBook',
+      ogTitle: 'Growers - growBook',
+      description: 'A list of all our growers',
+      ogDescription: 'A list of all our growers',
+      ogImage: 'https://growbook.vercel.app/opengraph4.jpg',
+   })
 </script>
 
 <template>

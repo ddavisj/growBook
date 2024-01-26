@@ -24,5 +24,8 @@ export default defineEventHandler(async event => {
          // name: true,
          // price: true,
       },
+      orderBy: {
+         created: 'desc',
+      },
    })
 })

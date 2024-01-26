@@ -14,10 +14,6 @@
       ogImage: 'https://growbook.vercel.app/opengraph4.jpg',
    })
 
-   useHead({
-      title: 'growBook',
-   })
-
    const UserStore = useUserStore()
    UserStore.loadGrowers()
 </script>

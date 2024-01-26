@@ -7,6 +7,8 @@
    const route = useRoute()
    const { userName } = route.params
 
+   const { toTitleCase } = useUtilities()
+
    const { data: listings } = await useFetch(
       `/api/user/profile/${userName}`
    )
@@ -14,6 +16,30 @@
    const { data: user } = await useFetch(
       `/api/user/get-user-by-username/${userName}`
    )
+
+   const config = useRuntimeConfig()
+
+   import userIcon from '@/assets/user.png'
+
+   const userImage = user.value.image
+      ? `${config.public.supabase.url}/storage/v1/object/public/images/${user.value.image}`
+      : userIcon
+
+   useSeoMeta({
+      title: `${toTitleCase(
+         user.value.user_name
+      )} - growBook`,
+      ogTitle: `${toTitleCase(
+         user.value.user_name
+      )} - growBook`,
+      description: `${toTitleCase(
+         user.value.user_name
+      )}'s plants `,
+      ogDescription: `${toTitleCase(
+         user.value.user_name
+      )}'s plants `,
+      ogImage: userImage,
+   })
 </script>
 
 <template>
@@ -30,7 +56,7 @@
       <template #header>
          <div>
             <h1 class="text-6xl mb-3 mt-24">
-               @{{ userName }}
+               {{ userName }}
             </h1>
          </div>
       </template>

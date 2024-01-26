@@ -7,10 +7,6 @@
 
    const { toTitleCase } = useUtilities()
 
-   useHead({
-      title: toTitleCase(route.params.name),
-   })
-
    // Get ID from route - check hyphenation
    const { name, id: routeId } = route.params
 
@@ -36,27 +32,22 @@
    )
 
    const config = useRuntimeConfig()
-   const ogImage = `${config.public.supabase.url}/storage/v1/object/public/images/${plant.image}`
+
+   useSeoMeta({
+      title: `${plant.value.commonName} - growBook`,
+      ogTitle: `${plant.value.commonName} - growBook`,
+      description: `${toTitleCase(
+         user.value.user_name
+      )}'s ${plant.value.commonName}`,
+      ogDescription: `${toTitleCase(
+         user.value.user_name
+      )}'s ${plant.value.commonName}`,
+      ogImage: `${config.public.supabase.url}/storage/v1/object/public/images/${plant.value.image}`,
+   })
 </script>
 
 <template>
    <div v-if="plant">
-      <Head>
-         <Title>{{ plant.commonName }} - growBook</Title>
-         <meta
-            property="description"
-            content="{{ plant.commonName }} - growBook"
-         />
-         <meta
-            property="og:title"
-            content="{{ plant.commonName }} - growBook"
-         />
-         <meta
-            property="og:description"
-            content="{{ plant.commonName }} - growBook"
-         />
-         <meta property="og:image" content="{{ogImage}}" />
-      </Head>
       <PlantDetailHero :plant="plant" />
       <div class="pb-3 border-b">
          <User

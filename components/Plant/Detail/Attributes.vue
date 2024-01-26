@@ -3,12 +3,9 @@
       features: Array,
    })
 
-   console.log('Features:', props.features)
-
    const validatedFeatures = []
    for (let feature of props.features) {
       if (feature.length) {
-         console.log(feature)
          validatedFeatures.push(feature)
       }
    }

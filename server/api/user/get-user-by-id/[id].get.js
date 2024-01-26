@@ -8,7 +8,5 @@ export default defineEventHandler(async event => {
    const { data, error } =
       await serverSupabaseClient.auth.admin.getUserById(id)
 
-   console.log(data)
-
    return data
 })
