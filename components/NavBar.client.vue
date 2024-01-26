@@ -29,7 +29,7 @@
          </NuxtLink>
 
          <NuxtLink
-            to="/users"
+            to="/growers"
             class="hidden sm:inline ml-4 md:ml-4 text-sm md:text-base"
             >Growers</NuxtLink
          >
@@ -54,7 +54,7 @@
          class="flex items-center"
       >
          <NuxtLink
-            to="/users"
+            to="/growers"
             class="ml-4 mr-6 md:ml-4 font-mono"
             >Growers</NuxtLink
          >

@@ -6,7 +6,7 @@ Supabase is a Backend-as-a-Service app development platform that provides hosted
 
 growBook makes use of Supabase's Postgres database, we also uses its authentication capabilities to enable login via Google OAuth as well as signup via email and password. Plant-image storage is also provided via Supabase's integration with AWS. The growBook app connects to Supabase's Postgres database via Prisma ORM. growBook also makes use of Vue's official state library, Pinia, to store user and other relevant data in a global store.
 
-The site is hosted on Vercel and uses Vercel's Edge Network to cache and speedily serve content to users.
+The site is hosted on Vercel and uses Vercel's Edge Network to cache and quickly serve content to users.
 
 Feel free to create an account via Google or email and add your plants to our collection.
 

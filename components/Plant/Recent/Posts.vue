@@ -117,7 +117,7 @@
                   <li
                      class="text-blue-400 text-xl mt-3 mb-6"
                   >
-                     <NuxtLink to="/users">
+                     <NuxtLink to="/growers">
                         Check out our growers
                      </NuxtLink>
                   </li>
