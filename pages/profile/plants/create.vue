@@ -133,6 +133,7 @@
          clearForm()
          clearInfo()
          showExtras.value = false
+         navigateTo('/')
       } catch (err) {
          isLoading.value = false
          errorMessage.value = err.statusMessage

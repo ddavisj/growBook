@@ -181,7 +181,7 @@
             />
             <div v-if="AuthStore.username" class="ml-4">
                <PlantAddImage
-                  :showTitle="false"
+                  title="Update image"
                   icon="i-heroicons-photo"
                   ref="accountImageInputRef"
                   @change-input="onChangeInput"

@@ -3,6 +3,10 @@
 
    const PostStore = usePostStore()
    PostStore.loadLatestPosts()
+
+   AuthStore.loggedIn && !AuthStore.username
+      ? navigateTo('/user/register')
+      : ''
 </script>
 
 <template>
@@ -29,11 +33,18 @@
                </h1>
 
                <h1
-                  class="text-center text-lg sm:text-xl mt-2 mb-6 text-gray-400 cen"
+                  class="text-center text-lg sm:text-xl mt-2 mb-6 text-gray-400"
                >
                   A place to gift, share and show off your
                   plants
                </h1>
+               <div class="text-center">
+                  <NuxtLink to="/signup">
+                     <UButton class="text-lg"
+                        >Register now</UButton
+                     >
+                  </NuxtLink>
+               </div>
             </div>
             <li
                v-else
