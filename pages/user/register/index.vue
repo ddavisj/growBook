@@ -171,11 +171,11 @@
 <template>
    <div class="flex flex-col mt-2">
       <h1 class="text-6xl mt-24 mb-3">Welcome</h1>
-      <h2 class="text-4xl mt-24 mb-3">
+      <h2 class="text-4xl mt-10 mb-3">
          Please complete your registration
       </h2>
-      <p class="text-xl mt-24 mb-3">
-         Fields with * are required
+      <p class="text-2xl mb-3 text-gray-500">
+         * Indicates a required field
       </p>
 
       <div class="mt-6">

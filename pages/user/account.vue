@@ -2,7 +2,7 @@
    // My user details: /user/account
    definePageMeta({
       layout: 'wide',
-      middleware: ['page-auth'],
+      middleware: ['page-auth', 'check-first-login'],
    })
 
    const supabase = useSupabaseClient()

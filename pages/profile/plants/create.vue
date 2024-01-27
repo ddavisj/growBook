@@ -1,7 +1,7 @@
 <script setup>
    definePageMeta({
       layout: 'forms',
-      middleware: ['page-auth'],
+      middleware: ['page-auth', 'check-first-login'],
    })
 
    const user = useSupabaseUser()

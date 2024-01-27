@@ -4,9 +4,9 @@
    const PostStore = usePostStore()
    PostStore.loadLatestPosts()
 
-   AuthStore.loggedIn && !AuthStore.username
-      ? navigateTo('/user/register')
-      : ''
+   // AuthStore.loggedIn && !AuthStore.username
+   //    ? navigateTo('/user/register')
+   //    : ''
 </script>
 
 <template>

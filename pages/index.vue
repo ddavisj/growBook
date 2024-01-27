@@ -2,6 +2,7 @@
    // Home page
    definePageMeta({
       layout: 'home',
+      middleware: ['check-first-login'],
    })
 
    useSeoMeta({
@@ -19,11 +20,6 @@
    // Redirect to login if query code exists / new regn
    const route = useRoute()
    route.query.code ? navigateTo('/login') : ''
-
-   // Redirect to regn on 1st login
-   AuthStore.loggedIn && !AuthStore.username
-      ? navigateTo('/user/register')
-      : ''
 
    const UserStore = useUserStore()
    UserStore.loadGrowers()
