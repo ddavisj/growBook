@@ -1,6 +1,10 @@
 <script setup>
    definePageMeta({ layout: 'logins' })
 
+   useSeoMeta({
+      title: 'growBook - Login',
+   })
+
    const AuthStore = useAuthStore()
 
    const state = reactive({

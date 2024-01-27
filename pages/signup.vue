@@ -1,6 +1,10 @@
 <script setup>
    definePageMeta({ layout: 'logins' })
 
+   useSeoMeta({
+      title: 'growBook - Sign up',
+   })
+
    const supabase = useSupabaseClient()
 
    const errorMsg = ref('')

@@ -1,6 +1,10 @@
 <script setup>
    definePageMeta({ layout: 'logins' })
 
+   useSeoMeta({
+      title: 'growBook - Password update',
+   })
+
    const state = ref('')
 
    const message = ref('')
