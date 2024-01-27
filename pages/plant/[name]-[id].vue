@@ -7,6 +7,8 @@
 
    const { toTitleCase } = useUtilities()
 
+   const PostStore = usePostStore()
+
    // Get ID from route - check hyphenation
    const { name, id: routeId } = route.params
 
@@ -18,7 +20,12 @@
    const id = split[split.length - 1]
 
    // Fetch plant data
-   const plant = await useFetchPlant(id)
+
+   const plant = getAllLoadedPostByID(id)
+   if (!plant) {
+      PostStore.loadPost(id)
+   }
+   // const plant = await useFetchPlant(id)
 
    if (!plant.value) {
       throw createError({

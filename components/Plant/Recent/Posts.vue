@@ -72,11 +72,14 @@
          <div class="flex justify-items-center">
             <div class="">
                <PlantRecentPostsCard
-                  v-for="(plant, index) in PostStore.posts"
+                  v-for="(
+                     plant, index
+                  ) in PostStore.recentPosts"
                   :key="plant.id"
                   :listing="plant"
                   :showDivider="
-                     index !== PostStore.posts.length - 1
+                     index !==
+                     PostStore.recentPosts.length - 1
                   "
                />
             </div>

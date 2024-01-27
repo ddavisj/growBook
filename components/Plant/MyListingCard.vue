@@ -65,6 +65,26 @@
 
             <div class="mb-2">
                <NuxtLink
+                  :to="`/profile/plants/edit/${listing.id}`"
+               >
+                  <div
+                     class="flex items-center text-blue-400"
+                  >
+                     <UIcon
+                        name="i-heroicons-pencil"
+                        size="1.25em"
+                        class="mr-3"
+                        dynamic
+                     />
+                     <span class="hidden md:inline"
+                        >Edit</span
+                     >
+                  </div>
+               </NuxtLink>
+            </div>
+
+            <!-- <div class="mb-2">
+               <NuxtLink
                   :to="`/profile/listings/view/${listing.id}`"
                >
                   <div
@@ -81,7 +101,7 @@
                      >
                   </div>
                </NuxtLink>
-            </div>
+            </div> -->
 
             <div
                class="cursor-pointer flex flex-row items-center text-red-400"

@@ -1,8 +1,6 @@
 <script setup>
    // My listings - viewable by user only
 
-   const PostStore = usePostStore()
-
    definePageMeta({
       layout: 'wide',
       middleware: ['page-auth'],
@@ -10,21 +8,21 @@
 
    const user = useSupabaseUser()
    const AuthStore = useAuthStore()
+   const PostStore = usePostStore()
 
-   const { data: listings } = await useFetch(
-      `/api/plant/listings/user/${user.value.id}`
-   )
+   PostStore.loadMyPosts(user.value.id)
 
    const handleDelete = async id => {
       await $fetch(`/api/plant/listings/${id}`, {
          method: 'delete',
       })
       // Remove listing from this page
-      listings.value = listings.value.filter(
-         listing => listing.id !== id
-      )
+      PostStore.myPosts.value =
+         PostStore.myPosts.value.filter(
+            listing => listing.id !== id
+         )
       // Remove listing from P state
-      PostStore.posts = PostStore.posts.filter(
+      PostStore.recentPosts = PostStore.recentPosts.filter(
          post => post.id !== id
       )
    }
@@ -41,7 +39,9 @@
       </h3>
       <div
          class="shadow rounded pt-3 mt-5"
-         v-if="!listings.length && AuthStore.username"
+         v-if="
+            !PostStore.myPosts.length && AuthStore.username
+         "
       >
          <NuxtLink to="/profile/plants/create">
             <UButton class="text-lg">
@@ -51,7 +51,9 @@
       </div>
       <div
          class="shadow rounded pt-3 mt-5"
-         v-if="!listings.length && !AuthStore.username"
+         v-if="
+            !PostStore.myPosts.length && !AuthStore.username
+         "
       >
          <NuxtLink to="/user/register">
             <UButton class="text-lg">
@@ -62,10 +64,10 @@
 
       <div
          class="shadow rounded pt-3 mt-5"
-         v-if="listings.length"
+         v-if="PostStore.myPosts.length"
       >
          <PlantMyListingCard
-            v-for="listing in listings"
+            v-for="listing in PostStore.myPosts"
             :key="listing.id"
             :listing="listing"
             @delete-click="handleDelete"
