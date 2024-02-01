@@ -74,12 +74,12 @@
                <PlantRecentPostsCard
                   v-for="(
                      plant, index
-                  ) in PostStore.recentPosts"
+                  ) in PostStore.loadedPosts"
                   :key="plant.id"
                   :listing="plant"
                   :showDivider="
                      index !==
-                     PostStore.recentPosts.length - 1
+                     PostStore.loadedPosts.length - 1
                   "
                />
             </div>

@@ -1,13 +1,13 @@
 export const usePostStore = defineStore('PostStore', {
    state: () => {
       return {
-         recentPosts: [],
-         myPosts: [],
-         allLoadedPosts: [],
+         // recentPosts: [],
+         // myPosts: [],
+         loadedPosts: [],
       }
    },
    getters: {
-      getMyPostByID: state => plantId =>
+      getMyPosts: state => userId =>
          state.myPosts.find(post => post.id === +plantId),
       getRecentPostByID: state => plantId =>
          state.recentPosts.find(
@@ -19,6 +19,19 @@ export const usePostStore = defineStore('PostStore', {
          ),
    },
    actions: {
+      async loadLatestPosts() {
+         console.log('HEYA')
+         if (this.loadedPosts.length <= 1) {
+            // ie. if just one or no posts loaded (user adds before visiting home page)
+            console.log('HEYA2')
+            const { data: posts } = await useFetch(
+               '/api/plant/listings/get-latest'
+            )
+            console.log(posts)
+            console.log('HEYA3')
+            this.loadedPosts = posts.value
+         }
+      },
       async loadPost(id) {
          // Check if post already loaded
          // const plant = this.allLoadedPosts.find(
@@ -39,15 +52,7 @@ export const usePostStore = defineStore('PostStore', {
       addRecentPost(post) {
          this.recentPosts.unshift(post)
       },
-      async loadLatestPosts() {
-         if (this.recentPosts.length <= 1) {
-            // ie. if just one or no posts loaded (user adds before visiting home page)
-            const { data: posts } = await useFetch(
-               '/api/plant/listings/get-latest'
-            )
-            this.recentPosts = posts.value
-         }
-      },
+
       async loadMyPosts(userId) {
          if (this.myPosts.length <= 1) {
             const { data: listings } = await useFetch(

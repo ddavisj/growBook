@@ -31,6 +31,8 @@
          ? `${config.public.supabase.url}/storage/v1/object/public/images/${user.image}`
          : userIcon
    }
+
+   const { howLongAgoPosted } = useDate()
 </script>
 
 <template>
@@ -38,13 +40,59 @@
       class="shadow rounded overflow-hidden flex justify-between mb-6 mt-6"
    >
       <div class="flex items-center flex-col sm:flex-row">
+         <!-- MOB -->
          <div class="sm:hidden w-full">
-            <PlantRecentPostsCardMob
-               :listing="listing"
-               :commonNameHyph="commonNameHyph"
-               :user="user"
-               :userImage="userImage"
-            />
+            <div
+               class="flex flex-row justify-between w-full align-top mt-2"
+            >
+               <NuxtLink
+                  class="text-blue-400 flex items-center mb-4"
+                  :to="`/${user.user_name}`"
+               >
+                  <div>
+                     <img
+                        class="rounded-full h-12 w-12 md:h-20 md:w-20 mr-2"
+                        :src="userImage"
+                     />
+                  </div>
+
+                  <div class="flex flex-col align-middle">
+                     <div>{{ user.user_name }}</div>
+                     <div class="" v-if="user">
+                        <h3 class="text-l mt-1">
+                           {{
+                              howLongAgoPosted(
+                                 listing.created
+                              )
+                           }}
+                        </h3>
+                     </div>
+                  </div>
+               </NuxtLink>
+            </div>
+
+            <div class="flex justify-end w-full">
+               <PlantRecentPostsCardImage
+                  :listing="listing"
+                  :commonNameHyph="commonNameHyph"
+               />
+            </div>
+
+            <div>
+               <div>
+                  <h1 class="text-2xl mt-3">
+                     <NuxtLink
+                        class="text-blue-400"
+                        :to="`/plant/${commonNameHyph}-${listing.id}`"
+                     >
+                        {{ listing.commonName }}
+                     </NuxtLink>
+                  </h1>
+                  <h3 class="text-l mt-1">
+                     {{ listing.scientificName }}
+                  </h3>
+               </div>
+            </div>
 
             <div
                v-if="showDivider"
@@ -62,14 +110,65 @@
                />
             </div>
          </div>
+         <!-- END MOB -->
 
+         <!-- WIDE -->
          <div class="hidden sm:block">
-            <PlantRecentPostsCardWide
-               :listing="listing"
-               :commonNameHyph="commonNameHyph"
-               :user="user"
-               :userImage="userImage"
-            />
+            <div class="flex flex-row">
+               <div class="flex justify-start w-full mr-4">
+                  <PlantRecentPostsCardImage
+                     :listing="listing"
+                     :commonNameHyph="commonNameHyph"
+                  />
+               </div>
+
+               <div
+                  class="flex flex-col w-1/3 justify-center align-top mt-2"
+               >
+                  <div>
+                     <h1 class="text-2xl mt-3">
+                        <NuxtLink
+                           class="text-blue-400"
+                           :to="`/plant/${commonNameHyph}-${listing.id}`"
+                        >
+                           {{ listing.commonName }}
+                        </NuxtLink>
+                     </h1>
+                     <h3 class="text-l mt-1">
+                        {{ listing.scientificName }}
+                     </h3>
+                  </div>
+                  <div>
+                     <NuxtLink
+                        class="text-blue-400 flex items-center mb-4 mt-4"
+                        :to="`/${user.user_name}`"
+                     >
+                        <div>
+                           <img
+                              class="rounded-full h-12 w-12 md:h-12 md:w-12 mr-2"
+                              :src="userImage"
+                           />
+                        </div>
+
+                        <div
+                           class="flex flex-col align-middle"
+                        >
+                           <div>{{ user.user_name }}</div>
+                           <div class="" v-if="user">
+                              <h3 class="text-l mt-1">
+                                 {{
+                                    howLongAgoPosted(
+                                       listing.created
+                                    )
+                                 }}
+                              </h3>
+                           </div>
+                        </div>
+                     </NuxtLink>
+                  </div>
+               </div>
+            </div>
+            <!-- END WIDE -->
          </div>
       </div>
    </div>
