@@ -19,7 +19,9 @@
    const { listing } = props
 
    // User details
-   const user = UserStore.getGrowerByID(listing.listerId)
+   const user = UserStore.getLoadedGrowerByID(
+      listing.listerId
+   )
 
    // If user deleted but plants remain! Plants may be orphaned..
    // .. Delete user's plants when deleting user!
