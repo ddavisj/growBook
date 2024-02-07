@@ -2,7 +2,7 @@
    // My user details: /user/account
    definePageMeta({
       layout: 'wide',
-      middleware: ['page-auth'],
+      middleware: ['page-auth', 'check-first-login'],
    })
 
    const supabase = useSupabaseClient()
@@ -181,7 +181,7 @@
             />
             <div v-if="AuthStore.username" class="ml-4">
                <PlantAddImage
-                  :showTitle="false"
+                  title="Update image"
                   icon="i-heroicons-photo"
                   ref="accountImageInputRef"
                   @change-input="onChangeInput"

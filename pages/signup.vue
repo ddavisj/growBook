@@ -1,9 +1,15 @@
 <script setup>
    definePageMeta({ layout: 'logins' })
 
+   useSeoMeta({
+      title: 'growBook - Sign up',
+   })
+
    const supabase = useSupabaseClient()
 
-   const message = ref('')
+   const errorMsg = ref('')
+   const successMsg = ref('')
+
    const loadingReset = ref(false)
 
    const state = reactive({})
@@ -11,25 +17,24 @@
    const handleSignup = async () => {
       try {
          loadingReset.value = true
-         const { data, error } = await supabase.auth.signUp(
-            {
-               email: state.email,
-               password: state.password,
-               options: {
-                  emailRedirectTo: '/',
-               },
-            }
-         )
+         const { error } = await supabase.auth.signUp({
+            email: state.email,
+            password: state.password,
+            options: {
+               emailRedirectTo: '/', // Does nothing?
+            },
+         })
 
          if (error) {
             console.log('E in SU try:', error)
+            errorMsg.value = error
          } else {
             loadingReset.value = false
-            message.value =
+            successMsg.value =
                'To complete registration - please check your email and confirm'
          }
       } catch (error) {
-         message.value =
+         errorMsg.value =
             'There was an error: ' + error.message
       }
    }
@@ -84,8 +89,11 @@
          @click="handleSignup"
          >Sign up</UButton
       >
-      <p v-if="message" class="mt-5 text-orange-400">
-         {{ message }}
+      <p v-if="successMsg" class="mt-5 text-lime-500">
+         {{ successMsg }}
+      </p>
+      <p v-if="errorMsg" class="mt-5 text-orange-400">
+         {{ errorMsg }}
       </p>
    </div>
 </template>

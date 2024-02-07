@@ -1,6 +1,10 @@
 <script setup>
    definePageMeta({ layout: 'logins' })
 
+   useSeoMeta({
+      title: 'growBook - Login',
+   })
+
    const AuthStore = useAuthStore()
 
    const state = reactive({
@@ -42,29 +46,6 @@
 <template>
    <div class="mt-8">
       <h1 class="text-5xl font-bold mb-7">Log in</h1>
-
-      <div>
-         <button
-            class="bg-cyan-400 p-2 px-3 rounded text-black font-bold mb-6"
-         >
-            <NuxtLink to="/signup"
-               >Sign up with email</NuxtLink
-            >
-         </button>
-      </div>
-
-      <div>
-         <button
-            class="bg-red-400 p-2 px-3 rounded text-white font-bold"
-            @click="AuthStore.login"
-         >
-            Login with Google
-         </button>
-      </div>
-   </div>
-
-   <div class="flex flex-col mt-4 mb-4">
-      <h1 class="mt-2 mb-1 text-gray-500">or</h1>
    </div>
 
    <div class="flex flex-col">
@@ -114,5 +95,17 @@
             >Reset password</NuxtLink
          >
       </div>
+   </div>
+
+   <div class="flex flex-col mt-4 mb-4">
+      <h1 class="mt-2 mb-1 text-gray-500">or</h1>
+   </div>
+
+   <div>
+      <button
+         class="bg-cyan-400 p-2 px-3 rounded text-black font-bold mb-6"
+      >
+         <NuxtLink to="/signup">Register here</NuxtLink>
+      </button>
    </div>
 </template>

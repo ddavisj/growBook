@@ -2,6 +2,7 @@
    // Home page
    definePageMeta({
       layout: 'home',
+      middleware: ['check-first-login'],
    })
 
    useSeoMeta({
@@ -13,6 +14,12 @@
          'A place to share, gift and show your plants',
       ogImage: 'https://growbook.vercel.app/opengraph4.jpg',
    })
+
+   const AuthStore = useAuthStore()
+
+   // Redirect to login if query code exists / new regn
+   const route = useRoute()
+   route.query.code ? navigateTo('/login') : ''
 
    const UserStore = useUserStore()
    UserStore.loadGrowers()

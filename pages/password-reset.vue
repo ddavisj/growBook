@@ -1,6 +1,10 @@
 <script setup>
    definePageMeta({ layout: 'logins' })
 
+   useSeoMeta({
+      title: 'growBook - Password reset',
+   })
+
    const state = ref('')
 
    const loadingReset = ref(false)

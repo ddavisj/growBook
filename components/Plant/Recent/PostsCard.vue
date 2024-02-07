@@ -7,6 +7,8 @@
       showDivider: Boolean,
    })
 
+   const { howLongAgoPosted } = useDate()
+
    const UserStore = useUserStore()
 
    const config = useRuntimeConfig()
@@ -33,8 +35,6 @@
          ? `${config.public.supabase.url}/storage/v1/object/public/images/${user.image}`
          : userIcon
    }
-
-   const { howLongAgoPosted } = useDate()
 </script>
 
 <template>
@@ -42,7 +42,7 @@
       class="shadow rounded overflow-hidden flex justify-between mb-6 mt-6"
    >
       <div class="flex items-center flex-col sm:flex-row">
-         <!-- MOB -->
+         <!-- MOBILE -->
          <div class="sm:hidden w-full">
             <div
                class="flex flex-row justify-between w-full align-top mt-2"
@@ -112,7 +112,7 @@
                />
             </div>
          </div>
-         <!-- END MOB -->
+         <!-- // END MOBILE -->
 
          <!-- WIDE -->
          <div class="hidden sm:block">
@@ -170,8 +170,8 @@
                   </div>
                </div>
             </div>
-            <!-- END WIDE -->
          </div>
+         <!-- // END WIDE -->
       </div>
    </div>
 </template>

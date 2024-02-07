@@ -1,7 +1,7 @@
 <script setup>
    definePageMeta({
       layout: 'forms',
-      middleware: ['page-auth'],
+      middleware: ['page-auth', 'check-first-login'],
    })
 
    const user = useSupabaseUser()
@@ -133,6 +133,7 @@
          clearForm()
          clearInfo()
          showExtras.value = false
+         navigateTo('/')
       } catch (err) {
          isLoading.value = false
          errorMessage.value = err.statusMessage
