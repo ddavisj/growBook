@@ -15,6 +15,7 @@
 
    // Hyphenate common name for plant details url
    const commonNameHyph = props.listing.commonName
+      .trim()
       .replace(/\s+/g, '-')
       .toLowerCase()
 
