@@ -5,55 +5,56 @@
 
    const route = useRoute()
 
-   const { toTitleCase } = useUtilities()
-
    const PostStore = usePostStore()
    const UserStore = useUserStore()
 
-   // Get ID from route - check hyphenation
+   // const { toTitleCase } = useUtilities()
+
+   // Get ID from route - check hyphenation (name may include extra -)
    const { name, id: routeId } = route.params
 
    const term = !name.includes('-')
       ? name + '-' + routeId
       : name + routeId
 
-   const split = term.split('-')
-   const id = split[split.length - 1]
+   const termArr = term.split('-')
+   const plantId = termArr[termArr.length - 1]
 
    // Fetch plant data
 
-   // const plant = getAllLoadedPostByID(id)
-   // if (!plant) {
-   PostStore.loadPost(id)
-   // }
-   // const plant = await useFetchPlant(id)
+   // const grower = UserStore.loadGrower(
+   //    '9731032b-6801-44de-80c0-686991d5ffe4'
+   // )
 
-   // let post
-   // const waitForPost = async () => {
-   const post = PostStore.getLoadedPostByID(id)
-   // }
+   // console.log({ grower })
 
-   console.log('A')
+   // ---
+
+   PostStore.loadPost(plantId, true) // Just commented
+
+   const post = PostStore.getLoadedPostByID(plantId) // Just commented
+
+   console.log('---A---')
    console.log({ post })
 
-   let grower
-   if (post) {
-      console.log(post.age)
+   // let grower
+   // if (post) {
+   //    console.log('age', post.age)
 
-      // UserStore.loadGrower(post.listerId)
+   //    // UserStore.loadGrower(post.listerId)
 
-      grower = UserStore.loadGrower(post.listerId)
+   //    grower = UserStore.loadGrower(post.listerId)
 
-      // UserStore.getLoadedGrowerByID(post.listerId)
+   //    // UserStore.getLoadedGrowerByID(post.listerId)
 
-      // console.log('grower', grower)
+   //    console.log('grower', grower)
 
-      const { data: loaded } = await useFetch(
-         `/api/user/get-user-by-uuid/${post.listerId}`
-      )
+   //    const { data: loaded } = await useFetch(
+   //       `/api/user/get-user-by-uuid/${post.listerId}`
+   //    )
 
-      console.log('loaded', loaded.value)
-   }
+   //    console.log('loaded', loaded.value)
+   // }
 
    // if (!post) {
    //    throw createError({
@@ -78,7 +79,7 @@
 </script>
 
 <template>
-   <!-- <div v-if="post">
+   <div v-if="post">
       <PlantDetailHero :plant="post" />
 
       <div class="pb-3 border-b">
@@ -102,5 +103,5 @@
          :description="post.description"
       />
       <PlantDetailContact />
-   </div> -->
+   </div>
 </template>

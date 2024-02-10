@@ -25,17 +25,17 @@ export const useUserStore = defineStore('UserStore', {
 
          if (!grower) {
             console.log('No grower.. loading')
-            const loadedGrower = await useFetchUser(userId)
+            // const loadedGrower = await useFetchUser(userId)
 
-            // const { data: loadedGrower } = await useFetch(
-            //    `/api/user/get-user-by-uuid/${userId}`
-            // )
+            const { data: loadedGrower } = await useFetch(
+               `/api/user/get-user-by-uuid/${userId}`
+            )
             console.log('loadedGrower', loadedGrower)
             console.log(
                'loadedGrower.value',
                loadedGrower.value
             )
-            // this.growers.push(loadedGrower)
+            this.growers.push(loadedGrower.value)
          }
 
          //    this.growers.push(loadedGrower.value)

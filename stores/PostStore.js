@@ -28,18 +28,44 @@ export const usePostStore = defineStore('PostStore', {
             this.loadedPosts = posts.value // CHANGE LATER?! arr.push..
          }
       },
-      async loadPost(id) {
+      async loadPost(id, andGrower) {
+         const UserStore = useUserStore()
+
          // Check if post already loaded
-         console.log('gLPBI', this.getLoadedPostByID(id))
+         console.log(
+            'getLoadedPostByID',
+            this.getLoadedPostByID(id)
+         )
 
          const post = this.getLoadedPostByID(id)
+
+         console.log('A1')
 
          if (!post) {
             console.log('No plant.. loading')
             const loadedPlant = await useFetchPlant(id)
+
             console.log('loadedPlant', loadedPlant.value)
 
+            console.log(
+               'loadedPlant lId',
+               loadedPlant.value.listerId
+            )
+
             this.loadedPosts.push(loadedPlant.value)
+
+            // const { data: grower } = await useFetch(
+            //    `/api/user/get-user-by-uuid/${loadedPlant.value.listerId}`
+            // )
+
+            // console.log({ grower })
+
+            // if (andGrower) {
+            //    console.log('---------c-------')
+            //    UserStore.loadGrower(
+            //       loadedPlant.value.listerId
+            //    )
+            // }
          }
       },
       // addRecentPost(post) {
