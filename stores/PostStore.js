@@ -43,16 +43,23 @@ export const usePostStore = defineStore('PostStore', {
 
          // if (!post) {
          console.log('No plant.. loading')
-         const loadedPlant = await useFetchPlant(id)
+         // const loadedPlant = await useFetchPlant(id)
 
-         console.log('loadedPlant', loadedPlant.value)
+         const { data } = await useFetch(`/api/plant/${id}`)
 
-         console.log(
-            'loadedPlant lId',
-            loadedPlant.value.listerId
-         )
+         // console.log('Plant data from DB:', data)
 
-         this.loadedPosts.push(loadedPlant.value)
+         // plant = data.value // plant.value exists!
+         // console.log({ plant })
+
+         // console.log('loadedPlant', loadedPlant.value)
+
+         // console.log(
+         //    'loadedPlant lId',
+         //    loadedPlant.value.listerId
+         // )
+
+         this.loadedPosts.push(data.value)
 
          // const { data: grower } = await useFetch(
          //    `/api/user/get-user-by-uuid/${loadedPlant.value.listerId}`

@@ -24,10 +24,16 @@
 
    // PostStore.loadPost(plantId, true) // Just commented
 
-   const post = PostStore.getLoadedPostByID(plantId) // Just commented
+   let post = PostStore.getLoadedPostByID(plantId) // Just commented
 
+   if (!post) {
+      await PostStore.loadPost(plantId)
+      post = PostStore.getLoadedPostByID(plantId)
+   }
+
+   console.log('--A--')
+   console.log(post.commonName)
    console.log({ post })
-   console.log(post.bday)
 
    // let grower
    // if (post) {
