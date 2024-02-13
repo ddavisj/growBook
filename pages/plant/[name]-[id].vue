@@ -7,6 +7,8 @@
 
    const { toTitleCase } = useUtilities()
 
+   const config = useRuntimeConfig()
+
    // Get ID from route - check hyphenation
    const { name, id: routeId } = route.params
 
@@ -30,8 +32,6 @@
    const { data: user } = await useFetch(
       `/api/user/get-user-by-uuid/${plant.value.listerId}`
    )
-
-   const config = useRuntimeConfig()
 
    useSeoMeta({
       title: `${plant.value.commonName} - growBook`,
