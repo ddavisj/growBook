@@ -22,20 +22,12 @@
 
    // Fetch plant data
 
-   // const grower = UserStore.loadGrower(
-   //    '9731032b-6801-44de-80c0-686991d5ffe4'
-   // )
-
-   // console.log({ grower })
-
-   // ---
-
-   PostStore.loadPost(plantId, true) // Just commented
+   // PostStore.loadPost(plantId, true) // Just commented
 
    const post = PostStore.getLoadedPostByID(plantId) // Just commented
 
-   console.log('---A---')
    console.log({ post })
+   console.log(post.bday)
 
    // let grower
    // if (post) {
@@ -79,7 +71,7 @@
 </script>
 
 <template>
-   <div v-if="post">
+   <!-- <div v-if="post">
       <PlantDetailHero :plant="post" />
 
       <div class="pb-3 border-b">
@@ -103,5 +95,5 @@
          :description="post.description"
       />
       <PlantDetailContact />
-   </div>
+   </div> -->
 </template>

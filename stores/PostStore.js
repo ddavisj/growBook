@@ -29,44 +29,44 @@ export const usePostStore = defineStore('PostStore', {
          }
       },
       async loadPost(id, andGrower) {
-         const UserStore = useUserStore()
+         // const UserStore = useUserStore()
 
-         // Check if post already loaded
+         // // Check if post already loaded
+         // console.log(
+         //    'getLoadedPostByID',
+         //    this.getLoadedPostByID(id)
+         // )
+
+         // const post = this.getLoadedPostByID(id)
+
+         // console.log('A1')
+
+         // if (!post) {
+         console.log('No plant.. loading')
+         const loadedPlant = await useFetchPlant(id)
+
+         console.log('loadedPlant', loadedPlant.value)
+
          console.log(
-            'getLoadedPostByID',
-            this.getLoadedPostByID(id)
+            'loadedPlant lId',
+            loadedPlant.value.listerId
          )
 
-         const post = this.getLoadedPostByID(id)
+         this.loadedPosts.push(loadedPlant.value)
 
-         console.log('A1')
+         // const { data: grower } = await useFetch(
+         //    `/api/user/get-user-by-uuid/${loadedPlant.value.listerId}`
+         // )
 
-         if (!post) {
-            console.log('No plant.. loading')
-            const loadedPlant = await useFetchPlant(id)
+         // console.log({ grower })
 
-            console.log('loadedPlant', loadedPlant.value)
-
-            console.log(
-               'loadedPlant lId',
-               loadedPlant.value.listerId
-            )
-
-            this.loadedPosts.push(loadedPlant.value)
-
-            // const { data: grower } = await useFetch(
-            //    `/api/user/get-user-by-uuid/${loadedPlant.value.listerId}`
-            // )
-
-            // console.log({ grower })
-
-            // if (andGrower) {
-            //    console.log('---------c-------')
-            //    UserStore.loadGrower(
-            //       loadedPlant.value.listerId
-            //    )
-            // }
-         }
+         // if (andGrower) {
+         //    console.log('---------c-------')
+         //    UserStore.loadGrower(
+         //       loadedPlant.value.listerId
+         //    )
+         // }
+         // }
       },
       // addRecentPost(post) {
       //    this.recentPosts.unshift(post)
