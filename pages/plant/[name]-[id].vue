@@ -8,6 +8,8 @@
    const PostStore = usePostStore()
    const UserStore = useUserStore()
 
+   const config = useRuntimeConfig()
+
    // const { toTitleCase } = useUtilities()
 
    // Get ID from route - check hyphenation (name may include extra -)
@@ -60,8 +62,6 @@
    //       message: `Plant with ID of ${route.params.id} does not exist`,
    //    })
    // }
-
-   const config = useRuntimeConfig()
 
    // useSeoMeta({
    //    title: `${post.value.commonName} - growBook`,
