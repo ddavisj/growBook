@@ -24,18 +24,17 @@
 
    // Fetch plant data
 
-   // PostStore.loadPost(plantId, true) // Just commented
-
-   let post = PostStore.getLoadedPostByID(plantId) // Just commented
+   let post = PostStore.getPostByID(plantId)
 
    if (!post) {
       await PostStore.loadPost(plantId)
-      post = PostStore.getLoadedPostByID(plantId)
+      post = PostStore.getPostByID(plantId)
    }
 
-   console.log('--A--')
    console.log(post.commonName)
    console.log({ post })
+
+   // Fetch grower data
 
    // let grower
    // if (post) {
