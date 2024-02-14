@@ -1,5 +1,5 @@
 <script setup>
-   // My listings - viewable by user only
+   // My posts - viewable by user only
 
    definePageMeta({
       layout: 'wide',
@@ -22,7 +22,7 @@
             listing => listing.id !== id
          )
       // Remove listing from P state
-      PostStore.recentPosts = PostStore.recentPosts.filter(
+      PostStore.posts = PostStore.posts.filter(
          post => post.id !== id
       )
    }

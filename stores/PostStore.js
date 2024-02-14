@@ -1,16 +1,13 @@
 export const usePostStore = defineStore('PostStore', {
    state: () => {
       return {
-         posts: [],
+         posts: [], // recent posts
+         myPosts: [],
       }
    },
    getters: {
-      // getMyPosts: state => userId =>
-      //    state.myPosts.find(post => post.id === +plantId),
-      // getAllLoadedPostByID: state => plantId =>
-      //    state.allLoadedPosts.find(
-      //       post => post.id === +plantId
-      //    ),
+      getMyPosts: state => userId =>
+         state.myPosts.find(post => post.id === +plantId),
       getPostByID: state => plantId =>
          state.posts.find(post => post.id === +plantId),
    },
@@ -29,18 +26,18 @@ export const usePostStore = defineStore('PostStore', {
             this.posts = posts.value
          }
       },
-      // addRecentPost(post) {
-      //    this.recentPosts.unshift(post)
-      // },
+      addRecentPost(post) {
+         this.posts.unshift(post)
+      },
 
-      // async loadMyPosts(userId) {
-      //    if (this.myPosts.length <= 1) {
-      //       const { data: listings } = await useFetch(
-      //          `/api/plant/listings/user/${userId}`
-      //       )
-      //       this.myPosts = listings.value
-      //    }
-      // },
+      async loadMyPosts(userId) {
+         if (this.myPosts.length <= 1) {
+            const { data } = await useFetch(
+               `/api/plant/listings/user/${userId}`
+            )
+            this.myPosts = data.value
+         }
+      },
    },
 })
 
