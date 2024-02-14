@@ -2,7 +2,7 @@
    const AuthStore = useAuthStore()
 
    const PostStore = usePostStore()
-   PostStore.loadLatestPosts()
+   await PostStore.loadLatestPosts()
 
    // AuthStore.loggedIn && !AuthStore.username
    //    ? navigateTo('/user/register')
@@ -83,14 +83,11 @@
          <div class="flex justify-items-center">
             <div class="">
                <PlantRecentPostsCard
-                  v-for="(
-                     plant, index
-                  ) in PostStore.loadedPosts"
+                  v-for="(plant, index) in PostStore.posts"
                   :key="plant.id"
                   :listing="plant"
                   :showDivider="
-                     index !==
-                     PostStore.loadedPosts.length - 1
+                     index !== PostStore.posts.length - 1
                   "
                />
             </div>

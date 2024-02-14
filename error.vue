@@ -16,7 +16,7 @@
 
       <button
          @click="handleError"
-         class="round mt-7 text-2xl bg-blue-400 px-7 py-4 text-white"
+         class="round mt-10 text-2xl bg-blue-400 px-7 py-4 text-white"
       >
          Go back
       </button>

@@ -10,7 +10,7 @@
 
    const config = useRuntimeConfig()
 
-   // const { toTitleCase } = useUtilities()
+   const { toTitleCase } = useUtilities()
 
    // Get ID from route - check hyphenation (name may include extra -)
    const { name, id: routeId } = route.params
@@ -23,60 +23,44 @@
    const plantId = termArr[termArr.length - 1]
 
    // Fetch plant data
-
    let post = PostStore.getPostByID(plantId)
 
    if (!post) {
-      await PostStore.loadPost(plantId)
-      post = PostStore.getPostByID(plantId)
+      post = await PostStore.loadPost(plantId)
+
+      if (!post) {
+         throw createError({
+            statusCode: '404',
+            message: `Plant with ID of ${route.params.id} does not exist`,
+         })
+      }
    }
 
-   console.log(post.commonName)
-   console.log({ post })
-
    // Fetch grower data
+   let grower = UserStore.getGrowerByID(post.listerId)
 
-   // let grower
-   // if (post) {
-   //    console.log('age', post.age)
+   if (!grower) {
+      grower = await UserStore.loadGrower(post.listerId)
+   }
 
-   //    // UserStore.loadGrower(post.listerId)
+   const { commonName, image } = post
+   const { user_name } = grower
 
-   //    grower = UserStore.loadGrower(post.listerId)
-
-   //    // UserStore.getLoadedGrowerByID(post.listerId)
-
-   //    console.log('grower', grower)
-
-   //    const { data: loaded } = await useFetch(
-   //       `/api/user/get-user-by-uuid/${post.listerId}`
-   //    )
-
-   //    console.log('loaded', loaded.value)
-   // }
-
-   // if (!post) {
-   //    throw createError({
-   //       statusCode: '404',
-   //       message: `Plant with ID of ${route.params.id} does not exist`,
-   //    })
-   // }
-
-   // useSeoMeta({
-   //    title: `${post.value.commonName} - growBook`,
-   //    ogTitle: `${post.value.commonName} - growBook`,
-   //    description: `${toTitleCase(
-   //       user.value.user_name
-   //    )}'s ${post.value.commonName}`,
-   //    ogDescription: `${toTitleCase(
-   //       user.value.user_name
-   //    )}'s ${post.value.commonName}`,
-   //    ogImage: `${config.public.supabase.url}/storage/v1/object/public/images/${post.value.image}`,
-   // })
+   useSeoMeta({
+      title: `${commonName} - growBook`,
+      ogTitle: `${commonName} - growBook`,
+      description: `${toTitleCase(
+         user_name
+      )}'s ${commonName}`,
+      ogDescription: `${toTitleCase(
+         user_name
+      )}'s ${commonName}`,
+      ogImage: `${config.public.supabase.url}/storage/v1/object/public/images/${image}`,
+   })
 </script>
 
 <template>
-   <!-- <div v-if="post">
+   <div v-if="post">
       <PlantDetailHero :plant="post" />
 
       <div class="pb-3 border-b">
@@ -100,5 +84,5 @@
          :description="post.description"
       />
       <PlantDetailContact />
-   </div> -->
+   </div>
 </template>
