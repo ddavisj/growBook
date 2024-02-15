@@ -51,7 +51,7 @@
                class="text-blue-400 mt-8 text-3xl mb-3"
             >
                <NuxtLink
-                  v-if="AuthStore.firstName"
+                  v-if="AuthStore.username"
                   to="/profile/plants/create"
                >
                   Hey {{ AuthStore.firstName }}, add a

@@ -139,6 +139,7 @@
             : ''
 
          AuthStore.username = info.value.username
+         AuthStore.firstName = info.value.firstName
          AuthStore.description = info.value.description
 
          // Before adding to P state, convert object keys to snake case
