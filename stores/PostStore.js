@@ -1,7 +1,7 @@
 export const usePostStore = defineStore('PostStore', {
    state: () => {
       return {
-         recentPosts: [], // recent posts
+         recentPosts: [],
          myPosts: [],
       }
    },
