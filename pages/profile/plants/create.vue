@@ -129,6 +129,7 @@
 
          isLoading.value = false
          PostStore.addRecentPost(response)
+         PostStore.addMyPost(response)
 
          clearForm()
          clearInfo()

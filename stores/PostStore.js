@@ -1,7 +1,7 @@
 export const usePostStore = defineStore('PostStore', {
    state: () => {
       return {
-         posts: [], // recent posts
+         recentPosts: [], // recent posts
          myPosts: [],
       }
    },
@@ -9,27 +9,31 @@ export const usePostStore = defineStore('PostStore', {
       getMyPosts: state => userId =>
          state.myPosts.find(post => post.id === +plantId),
       getPostByID: state => plantId =>
-         state.posts.find(post => post.id === +plantId),
+         state.recentPosts.find(
+            post => post.id === +plantId
+         ),
    },
    actions: {
       async loadPost(id) {
          const { data } = await useFetch(`/api/plant/${id}`)
-         this.posts.push(data.value)
+         this.recentPosts.push(data.value)
          return data.value
       },
-      async loadLatestPosts() {
-         if (this.posts.length <= 1) {
+      async loadRecentPosts() {
+         if (this.recentPosts.length <= 1) {
             // ie. if just one or no posts loaded (user adds before visiting home page)
             const { data: posts } = await useFetch(
                '/api/plant/listings/get-latest'
             )
-            this.posts = posts.value
+            this.recentPosts = posts.value
          }
       },
       addRecentPost(post) {
-         this.posts.unshift(post)
+         this.recentPosts.unshift(post)
       },
-
+      addMyPost(post) {
+         this.myPosts.unshift(post)
+      },
       async loadMyPosts(userId) {
          if (this.myPosts.length <= 1) {
             const { data } = await useFetch(

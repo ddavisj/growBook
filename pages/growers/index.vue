@@ -8,9 +8,9 @@
    const UserStore = useUserStore()
 
    if (UserStore.growers.length <= 1) {
-      // Do nothing
-   } else {
       await UserStore.loadGrowers()
+   } else {
+      // Do nothing
    }
 
    useSeoMeta({

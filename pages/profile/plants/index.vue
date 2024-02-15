@@ -21,7 +21,7 @@
          listing => listing.id !== id
       )
       // Remove listing from P state
-      PostStore.posts = PostStore.posts.filter(
+      PostStore.recentPosts = PostStore.recentPosts.filter(
          post => post.id !== id
       )
    }
