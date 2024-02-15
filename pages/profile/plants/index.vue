@@ -17,10 +17,9 @@
          method: 'delete',
       })
       // Remove listing from this page
-      PostStore.myPosts.value =
-         PostStore.myPosts.value.filter(
-            listing => listing.id !== id
-         )
+      PostStore.myPosts = PostStore.myPosts.filter(
+         listing => listing.id !== id
+      )
       // Remove listing from P state
       PostStore.posts = PostStore.posts.filter(
          post => post.id !== id

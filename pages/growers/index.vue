@@ -7,7 +7,7 @@
 
    const UserStore = useUserStore()
 
-   if (UserStore.growers.length) {
+   if (UserStore.growers.length <= 1) {
       // Do nothing
    } else {
       await UserStore.loadGrowers()
