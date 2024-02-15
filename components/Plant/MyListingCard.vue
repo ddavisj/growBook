@@ -56,14 +56,14 @@
                   {{ listing.commonName }}
                </NuxtLink>
             </h1>
-            <h1 class="text-md text-gray-300">
+            <!-- <h1 class="text-md text-gray-300">
                {{ listing.scientificName }}
-            </h1>
+            </h1> -->
             <p class="text-blue-400 mb-10">
                {{ listing.price }}
             </p>
 
-            <div class="mb-2">
+            <!-- <div class="mb-2">
                <NuxtLink
                   :to="`/profile/plants/edit/${listing.id}`"
                >
@@ -81,7 +81,7 @@
                      >
                   </div>
                </NuxtLink>
-            </div>
+            </div> -->
 
             <!-- <div class="mb-2">
                <NuxtLink
@@ -109,7 +109,7 @@
             >
                <UIcon
                   name="i-ic-baseline-delete-outline"
-                  size="1.4em"
+                  size="1.8em"
                   class="mr-3"
                   dynamic
                />
